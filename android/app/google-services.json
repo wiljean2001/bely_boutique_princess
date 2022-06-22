@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "394573783744",
+    "project_id": "belyapp-87679",
+    "storage_bucket": "belyapp-87679.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:394573783744:android:466470e1899fbe4dec4325",
+        "android_client_info": {
+          "package_name": "com.belyboutique.bely_boutique_princess"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "394573783744-sv5sarvst7konsd5a6g7n8ot825kvbeb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3ZOzSwd4Bu5Mdq4faAB2FpzgIiymL4MI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "394573783744-sv5sarvst7konsd5a6g7n8ot825kvbeb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
