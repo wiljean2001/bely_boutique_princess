@@ -46,7 +46,6 @@ Future<void> main() async {
               DeviceOrientation.portraitDown,
             ],
           ).then(
-            
             (_) => const MyApp(),
           ),
         ),

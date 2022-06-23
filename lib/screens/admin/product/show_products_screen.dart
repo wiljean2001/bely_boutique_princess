@@ -20,7 +20,6 @@ class _ShowProductsScreenState extends State<ShowProductsScreen> {
     return Scaffold(
       // backgroundColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(.2),
       body: CustomScrollView(
-        physics: const BouncingScrollPhysics(),
         slivers: <Widget>[
           CustomSliverAppBar(
             title: S.of(context).title_show_products_screen,
@@ -180,8 +179,7 @@ class CustomSearchProduct extends StatelessWidget {
         leading: const Icon(Icons.search),
         title: TextFormField(
           decoration: const InputDecoration(
-              hintText: 'Search',
-              border: InputBorder.none),
+              hintText: 'Search', border: InputBorder.none),
           onChanged: (value) {
             // setState(() {
             //   _searchResult = value;

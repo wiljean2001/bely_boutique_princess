@@ -41,15 +41,17 @@ class _RegisterUserFormState extends State<RegisterUserForm> {
               // (2101)
             );
             // Date ->
-            picked != null
-                ? context.read<OnboardingBloc>().add(
-                      UpdateUser(
-                        user: state.user.copyWith(
-                          dateOfBirth: Timestamp.fromDate(picked!),
-                        ),
+            try {
+              if (picked != null) {
+                context.read<OnboardingBloc>().add(UpdateUser(
+                      user: state.user.copyWith(
+                        dateOfBirth: Timestamp.fromDate(picked!),
                       ),
-                    )
-                : null;
+                    ));
+              }
+            } catch (e) {
+              print(e);
+            }
           }
 
           return Center(

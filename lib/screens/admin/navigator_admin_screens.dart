@@ -1,3 +1,4 @@
+import 'package:bely_boutique_princess/config/responsive.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -70,7 +71,9 @@ class _HomeScreenState extends State<MenuAdminScreen> {
                       // Future.delayed(Duration.zero, () async {
                       return DrawerUserController(
                         drawerIsOpen: ((value) => false),
-                        drawerWidth: MediaQuery.of(context).size.width * 0.65,
+                        drawerWidth: Responsive.isMobile(context)
+                            ? MediaQuery.of(context).size.width * 0.65
+                            : MediaQuery.of(context).size.width * 0.4,
                         screenIndex: drawerIndex,
                         onDrawerCall: (DrawerIndex drawerIndexdata) {
                           changeIndex(drawerIndexdata);
