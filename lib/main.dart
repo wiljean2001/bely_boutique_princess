@@ -4,8 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'config/responsive.dart';
+import 'blocs/language/language_bloc.dart';
 import 'generated/l10n.dart';
+import 'repositories/language/preferences_repository_impl.dart';
 import 'repositories/repositories.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -23,6 +24,7 @@ import 'package:bely_boutique_princess/screens/screens.dart';
 /// Metodo main de la aplicacion flutter
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // web controller
   // FirebaseOptions firebaseConfig = FirebaseOptions(
   //   apiKey: "AIzaSyBkzutMzpfzvVZaOnmCfenchdn9LwI-BMg",
   //   authDomain: "belyapp-87679.firebaseapp.com",
@@ -33,21 +35,30 @@ Future<void> main() async {
   //   measurementId: "G-ZHGRNBD7H7",
   // );
   await Firebase.initializeApp(); //options: firebaseConfig
+
+  final preferencesRepository = PreferencesRepositoryImpl();
+
+  final preferencesBloc = LanguageBloc(
+    preferencesRepository: preferencesRepository,
+    initialLocale: await preferencesRepository.locale,
+  );
   // simple bloc observer
   BlocOverrides.runZoned(
     () async => {
       runApp(
+        // notifier provider, change the app theme
         ChangeNotifierProvider(
           create: (_) => ThemeChanger(themeDefault()),
-          // child: const MyApp(),
+          // app only DeviceOrientation portraitUp and portraitDown
           child: await SystemChrome.setPreferredOrientations(
             <DeviceOrientation>[
               DeviceOrientation.portraitUp,
               DeviceOrientation.portraitDown,
             ],
-          ).then(
-            (_) => const MyApp(),
-          ),
+          ).then((_) => BlocProvider(
+                create: (context) => preferencesBloc,
+                child: const MyApp(),
+              )),
         ),
       ),
     },
@@ -144,7 +155,7 @@ class MyApp extends StatelessWidget {
               storageRepository: context.read<StorageRepository>(),
               productRepository: ProductRepository(),
             )..add(LoadProducts()),
-          )
+          ),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

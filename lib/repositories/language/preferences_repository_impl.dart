@@ -8,7 +8,7 @@ class PreferencesRepositoryImpl implements PreferencesRepository {
   static const String _localeCountryCodeKey = 'localeCountryCode';
 
   @override
-  Future<void> saveLocale(Locale locale) async {
+  Future<void> saveLocale(Locale? locale) async {
     final prefs = await SharedPreferences.getInstance();
 
     await prefs.setString(_localeLanguageCodeKey, locale?.languageCode);
@@ -31,7 +31,25 @@ class PreferencesRepositoryImpl implements PreferencesRepository {
         countryCode: countryCode,
       );
     }
-
-    //return null;
+    return const Locale('es', '');
   }
+
+  // @override
+  // Future<Locale> get locale async {
+  //   final prefs = await SharedPreferences.getInstance();
+
+  //   final languageCode = prefs.getString(_localeLanguageCodeKey);
+  //   final scriptCode = prefs.getString(_localeScriptCodeKey);
+  //   final countryCode = prefs.getString(_localeCountryCodeKey);
+
+  //   if (languageCode != null) {
+  //     return Locale.fromSubtags(
+  //       languageCode: languageCode,
+  //       scriptCode: scriptCode,
+  //       countryCode: countryCode,
+  //     );
+  //   }
+
+  //   //return null;
+  // }
 }
