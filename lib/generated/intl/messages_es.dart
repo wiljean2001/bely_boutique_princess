@@ -40,7 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "description_app": MessageLookupByLibrary.simpleMessage(
             "Esta es una tienda que se dedica a vender vestidos para las princesas de casa."),
         "description_login": MessageLookupByLibrary.simpleMessage(
-            "Iniciar sesión con una cuenta existente de Bely Boutique Princess."),
+            "Inicia sesión con una cuenta existente de Bely Boutique Princess."),
         "email": MessageLookupByLibrary.simpleMessage("Correo electrónico"),
         "error_desc": MessageLookupByLibrary.simpleMessage("Algo salió mal"),
         "error_title": MessageLookupByLibrary.simpleMessage("Error"),

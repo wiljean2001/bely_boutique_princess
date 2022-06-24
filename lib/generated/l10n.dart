@@ -210,10 +210,10 @@ class S {
     );
   }
 
-  /// `Iniciar sesión con una cuenta existente de Bely Boutique Princess.`
+  /// `Inicia sesión con una cuenta existente de Bely Boutique Princess.`
   String get description_login {
     return Intl.message(
-      'Iniciar sesión con una cuenta existente de Bely Boutique Princess.',
+      'Inicia sesión con una cuenta existente de Bely Boutique Princess.',
       name: 'description_login',
       desc: '',
       args: [],

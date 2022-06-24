@@ -15,7 +15,7 @@
   "COMMENT2": " // ONBOARDING SCREENS ",
   "title_app": "Bienvenido",
   "description_app": "Esta es una tienda que se dedica a vender vestidos para las princesas de casa.",
-  "description_login": "Iniciar sesión con una cuenta existente de Bely Boutique Princess.",
+  "description_login": "Inicia sesión con una cuenta existente de Bely Boutique Princess.",
   "bttn_start": "Empezar",
   "validator_user_existent": "Correo electrónico o contraseña incorrecta.",
   "title_sign_in": "INICIAR SESIÓN",

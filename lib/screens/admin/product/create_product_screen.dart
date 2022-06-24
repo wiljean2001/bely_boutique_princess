@@ -49,7 +49,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
   String? description;
   String? price;
 
-  List<String> listItems = ['XXS', 'XS', 'S', 'M', 'L', 'XL'];
+  List<String> listItems = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '1W', '2W', '3W'];
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
@@ -302,7 +302,27 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
-              labelText: 'Costo',
+              labelText: 'Precio Max',
+              suffixText: 'Soles',
+              prefixText: 'S/',
+            ),
+            validator: (value) => Validators.isValidateOnlyTextMinMax(
+              text: value!,
+              minCaracter: 1,
+              maxCarater: 6,
+              messageError: 'Costo no valido.',
+            ),
+            onSaved: (value) => setState(() {
+              price = value;
+            }),
+          ),
+          const SizedBox(height: 10),
+          TextFormField(
+            textInputAction: TextInputAction.next,
+            keyboardType: TextInputType.number,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Precio Min',
               suffixText: 'Soles',
               prefixText: 'S/',
             ),
