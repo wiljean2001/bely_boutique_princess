@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:bely_boutique_princess/models/models.dart';
 import 'package:bely_boutique_princess/repositories/repositories.dart';
 import 'package:bely_boutique_princess/screens/onboarding_auth/onboarding_screen.dart';
@@ -47,7 +49,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
   List? sizesProduct = [];
   String? title;
   String? description;
-  String? price;
+  List<double>? price = [];
 
   List<String> listItems = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '1W', '2W', '3W'];
 
@@ -192,17 +194,10 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                             _formKey.currentState!.save();
                             ShowAlert.showSuccessSnackBar(context,
                                 message: 'Registrando...');
-                            print(title!);
-                            print(description!);
-                            print(double.parse(price!));
-                            print(sizesProduct!);
-                            print(categoriesProduct!);
-                            print(itemsImages!);
-
                             Product product = Product(
                               title: title!,
                               descript: description!,
-                              price: double.parse(price!),
+                              prices: price!,
                               imageUrls: const [], //downloadURLProduct
                               sizes: sizesProduct!,
                               categories: categoriesProduct!,
@@ -313,7 +308,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
               messageError: 'Costo no valido.',
             ),
             onSaved: (value) => setState(() {
-              price = value;
+              price!.add(double.parse(value!));
             }),
           ),
           const SizedBox(height: 10),
@@ -333,7 +328,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
               messageError: 'Costo no valido.',
             ),
             onSaved: (value) => setState(() {
-              price = value;
+              price!.add(double.parse(value!));
             }),
           ),
         ],

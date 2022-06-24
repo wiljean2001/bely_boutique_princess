@@ -223,7 +223,7 @@ class CustomInfoProduct extends StatelessWidget {
           const Divider(height: 10),
           // Text(product.title, style: const TextStyle(fontSize: 22)),
           Text(product.descript, style: const TextStyle(fontSize: 18)),
-          Text('S/ ${product.price}', style: const TextStyle(fontSize: 18)),
+          Text('S/ ${product.prices}', style: const TextStyle(fontSize: 18)),
           Text(
             'Tallas: ${product.sizes.map((e) => e)}',
             style: const TextStyle(fontSize: 18),

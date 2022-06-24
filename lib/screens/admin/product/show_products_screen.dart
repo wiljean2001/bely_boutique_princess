@@ -112,7 +112,7 @@ class _ShowProductsScreenState extends State<ShowProductsScreen> {
                                               DataCell(Text(e.title)),
                                               DataCell(Text(e.descript)),
                                               DataCell(Text(
-                                                  'S/ ${e.price.toString()}')),
+                                                  'S/ ${e.prices.toString()}')),
                                               DataCell(
                                                 Wrap(
                                                   children: e.categories

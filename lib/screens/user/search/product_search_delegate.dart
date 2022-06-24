@@ -59,7 +59,7 @@ class ProductSearchDelegate extends SearchDelegate {
                             : 'https://api.lorem.space/image/shoes?w=150&h=150',
                         // isFavorite: false,
                         name: product.title,
-                        price: 'S/ ${product.price.toString()}',
+                        price: 'S/ ${product.prices.toString()}',
                         onTap: () => Navigator.of(context).pushNamed(
                             ProductScreen.routeName,
                             arguments: product),
