@@ -170,7 +170,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => SizeProductBloc(
               sizeProductRepository: SizeProductRepository(),
-            )..add(LoadSizeProducts()),
+            )..add(const LoadSizeProducts()),
           )
         ],
         child: MaterialApp(

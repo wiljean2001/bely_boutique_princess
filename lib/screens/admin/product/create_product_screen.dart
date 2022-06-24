@@ -152,9 +152,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                       onTap: () async {
                         ImagePicker _picker = ImagePicker();
                         final List<XFile>? imagesXfile =
-                            await _picker.pickMultiImage(
-                          imageQuality: 100,
-                        );
+                            await _picker.pickMultiImage(imageQuality: 100);
 
                         if (imagesXfile == null) {
                           ScaffoldMessenger.of(context).showSnackBar(

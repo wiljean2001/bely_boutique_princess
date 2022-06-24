@@ -7,7 +7,18 @@ abstract class SizeProductEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class LoadSizeProducts extends SizeProductEvent {}
+class LoadSizeProducts extends SizeProductEvent {
+  final String? typeProductId;
+
+  const LoadSizeProducts({
+    this.typeProductId = '',
+  });
+  // required this.userId,
+
+  @override
+  List<Object> get props => [typeProductId!];
+  // typroduct id from SizeProduct and typeproduct
+}
 
 class UpdateSizeProducts extends SizeProductEvent {
   final List<SizeProduct> sizeProducts;
@@ -31,11 +42,13 @@ class AddSizeProduct extends SizeProductEvent {
 
 class UpdateSizeProduct extends SizeProductEvent {
   final SizeProduct sizeProduct;
+  final String typeProductId;
 
   const UpdateSizeProduct({
     required this.sizeProduct,
+    required this.typeProductId,
   });
 
   @override
-  List<Object> get props => [sizeProduct];
+  List<Object> get props => [sizeProduct, typeProductId];
 }

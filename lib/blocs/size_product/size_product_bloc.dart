@@ -28,7 +28,7 @@ class SizeProductBloc extends Bloc<SizeProductEvent, SizeProductState> {
   ) {
     _sizeProductSubscription?.cancel();
     _sizeProductSubscription =
-        _sizeProductRepository.getAllSizeProducts().listen(
+        _sizeProductRepository.getSizeProducts(event.typeProductId!).listen(
               (typProducts) => add(
                 UpdateSizeProducts(typProducts),
               ),
@@ -58,8 +58,8 @@ class SizeProductBloc extends Bloc<SizeProductEvent, SizeProductState> {
   ) async {
     final state = this.state;
     if (state is SizeProductsLoaded) {
-      await _sizeProductRepository.updateSizeProduct(event.sizeProduct, '');
-      add(LoadSizeProducts());
+      // await _sizeProductRepository.updateSizeProduct(event.sizeProduct, '');
+      // add(LoadSizeProducts(typeProductId: event.typeProductId));
     }
   }
 

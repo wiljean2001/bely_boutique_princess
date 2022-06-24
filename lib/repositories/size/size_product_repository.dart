@@ -18,6 +18,17 @@ class SizeProductRepository extends BaseSizeProductRepository {
   }
 
   @override
+  Stream<List<SizeProduct>> getSizeProducts(String typeProductId) {
+    return _firebaseFirestore
+        .collection('sizeProducts')
+        .where('typeProductId', isEqualTo: typeProductId)
+        .snapshots()
+        .map((snap) {
+      return snap.docs.map((doc) => SizeProduct.fromSnapshot(doc)).toList();
+    });
+  }
+
+  @override
   Stream<SizeProduct> getSizeProduct(String sizeProductId) {
     return _firebaseFirestore
         .collection('sizeProducts')

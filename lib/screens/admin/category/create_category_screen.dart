@@ -148,27 +148,30 @@ class _FormCreateCategoryState extends State<FormCreateCategory> {
               splashColor: Theme.of(context).primaryColorLight,
               elevation: 10,
               onPressed: () async {
-                if (!_keyForm.currentState!.validate()) return;
-
-                if (xfile != null && typeProduct != null) {
-                  print(xfile!.name);
-                  _keyForm.currentState!.save();
-                  Category categoria = Category(
-                      name: nameCategory!,
-                      imageUrl: '',
-                      typeProductId: typeProduct!.id!);
-                  BlocProvider.of<CategoryBloc>(context).add(
-                    AddCategory(category: categoria, image: xfile!),
+                if (!_keyForm.currentState!.validate() ||
+                    xfile == null ||
+                    typeProduct == null) {
+                  ShowAlert.showErrorSnackBar(
+                    context,
+                    message: 'Por favor no dejar los campos vacíos!.',
                   );
-                  ShowAlert.showSuccessSnackBar(context,
-                      message: 'Categoría registrada correctacmente!.');
-                  xfile = null;
-                  typeProduct = null;
-                  _keyForm.currentState!.reset();
-                } else {
-                  ShowAlert.showErrorSnackBar(context,
-                      message: 'Por favor no dejar los campos vacíos!.');
+                  return;
                 }
+                _keyForm.currentState!.save();
+                Category categoria = Category(
+                    name: nameCategory!,
+                    imageUrl: '',
+                    typeProductId: typeProduct!.id!);
+                BlocProvider.of<CategoryBloc>(context).add(
+                  AddCategory(category: categoria, image: xfile!),
+                );
+                ShowAlert.showSuccessSnackBar(
+                  context,
+                  message: 'Categoría registrada correctacmente!.',
+                );
+                xfile = null;
+                typeProduct = null;
+                _keyForm.currentState!.reset();
               },
               child: const Text('Guardar'),
             ),
