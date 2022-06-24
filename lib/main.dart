@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'blocs/language/language_bloc.dart';
 import 'generated/l10n.dart';
-import 'repositories/language/preferences_repository_impl.dart';
-import 'repositories/repositories.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'dart:io';
+import 'repositories/repositories.dart';
 import 'blocs/blocs.dart';
 import 'cubit/cubits.dart';
 
@@ -56,6 +54,7 @@ Future<void> main() async {
               DeviceOrientation.portraitDown,
             ],
           ).then((_) => BlocProvider(
+                // bloc languaje
                 create: (context) => preferencesBloc,
                 child: const MyApp(),
               )),
@@ -135,14 +134,13 @@ class MyApp extends StatelessWidget {
               ),
           ),
           BlocProvider(
-            create: (context) => HomePageBloc(
-                // authBloc: BlocProvider.of<AuthBloc>(context),
-                // databaseRepository: context.read<DatabaseRepository>(),
-                )
+            create: (context) => HomePageBloc()
               ..add(
                 const HomeTabChangeEvent(
                     newIndex: 1), //newIhe first scndex = 0 is treen
               ),
+            // authBloc: BlocProvider.of<AuthBloc>(context),
+            // databaseRepository: context.read<DatabaseRepository>(),
           ),
           BlocProvider(
             create: (context) => CategoryBloc(
@@ -156,6 +154,12 @@ class MyApp extends StatelessWidget {
               productRepository: ProductRepository(),
             )..add(LoadProducts()),
           ),
+          BlocProvider(
+            create: (context) => RoleBloc(
+              authBloc: BlocProvider.of<AuthBloc>(context),
+              databaseRepository: context.read<DatabaseRepository>(),
+            )..add(const LoadUsers(role: 'admin')),
+          )
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

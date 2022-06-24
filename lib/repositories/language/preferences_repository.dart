@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 abstract class PreferencesRepository {
   Future<void> saveLocale(Locale locale);
 

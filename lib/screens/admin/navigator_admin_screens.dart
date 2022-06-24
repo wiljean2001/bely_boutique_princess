@@ -1,4 +1,5 @@
 import 'package:bely_boutique_princess/config/responsive.dart';
+import 'package:bely_boutique_princess/screens/admin/roles/role_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -122,6 +123,11 @@ class _HomeScreenState extends State<MenuAdminScreen> {
         case DrawerIndex.DASHBOARD:
           setState(() {
             screenView = DashboardScreen();
+          });
+          break;
+        case DrawerIndex.ROLE:
+          setState(() {
+            screenView = RoleScreen();
           });
           break;
         case DrawerIndex.Product_create:
