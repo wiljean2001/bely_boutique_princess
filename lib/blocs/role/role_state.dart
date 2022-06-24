@@ -11,9 +11,11 @@ class RoleLoading extends RoleState {}
 
 class RoleLoaded extends RoleState {
   final List<User> users;
+  final String? role;
 
   const RoleLoaded({
     required this.users,
+    required this.role
   });
 
   @override

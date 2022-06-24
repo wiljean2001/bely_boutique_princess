@@ -20,6 +20,8 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'es';
 
+  static String m0(role) => "Usuarios con rol de: ${role}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "AppTitle":
@@ -62,9 +64,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Usuario existente"),
         "register_error_title":
             MessageLookupByLibrary.simpleMessage("Error de registro"),
+        "role_user": m0,
         "shopping_card_screen": MessageLookupByLibrary.simpleMessage("Cesta"),
         "title_admin_screen":
             MessageLookupByLibrary.simpleMessage("Administración"),
+        "title_administrator_screen":
+            MessageLookupByLibrary.simpleMessage("Administrador"),
         "title_app": MessageLookupByLibrary.simpleMessage("Bienvenido"),
         "title_categories": MessageLookupByLibrary.simpleMessage("Categorías"),
         "title_create_category_screen":
@@ -85,6 +90,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "title_show_products_screen":
             MessageLookupByLibrary.simpleMessage("Ver producto"),
         "title_sign_in": MessageLookupByLibrary.simpleMessage("INICIAR SESIÓN"),
+        "title_size_screen": MessageLookupByLibrary.simpleMessage("Tallas"),
         "title_update_category_screen":
             MessageLookupByLibrary.simpleMessage("Actualizar categoría"),
         "title_update_product_screen":

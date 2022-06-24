@@ -500,6 +500,26 @@ class S {
     );
   }
 
+  /// `Administrador`
+  String get title_administrator_screen {
+    return Intl.message(
+      'Administrador',
+      name: 'title_administrator_screen',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Usuarios con rol de: {role}`
+  String role_user(Object role) {
+    return Intl.message(
+      'Usuarios con rol de: $role',
+      name: 'role_user',
+      desc: '',
+      args: [role],
+    );
+  }
+
   /// `Masculino`
   String get gender_male {
     return Intl.message(
@@ -525,6 +545,16 @@ class S {
     return Intl.message(
       'Dashboard',
       name: 'title_dashboard_screen',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tallas`
+  String get title_size_screen {
+    return Intl.message(
+      'Tallas',
+      name: 'title_size_screen',
       desc: '',
       args: [],
     );

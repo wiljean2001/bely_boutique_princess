@@ -41,7 +41,7 @@ class ProductRepository extends BaseProductRepository {
 
   @override
   Future<void> updateProduct(Product product, String docId) async {
-    _firebaseFirestore.collection('products').doc(docId).update(
+    await _firebaseFirestore.collection('products').doc(docId).update(
           product.toMap(),
         );
   }

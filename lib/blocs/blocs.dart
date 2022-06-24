@@ -6,3 +6,4 @@ export 'product/product_bloc.dart';
 export 'home/home_page_bloc.dart';
 export 'role/role_bloc.dart';
 export 'language/language_bloc.dart';
+export 'size_product/size_product_bloc.dart';

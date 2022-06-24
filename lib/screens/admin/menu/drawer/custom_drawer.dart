@@ -51,6 +51,16 @@ class _HomeDrawerState extends State<HomeDrawer> {
         icon: const Icon(Icons.supervised_user_circle_outlined),
       ),
       DrawerList(
+        index: DrawerIndex.TYPEPRODUCT,
+        labelName: 'Type product', // 'Dashboard',
+        icon: const Icon(Icons.list_alt_outlined),
+      ),
+      DrawerList(
+        index: DrawerIndex.SIZES,
+        labelName: S.of(context).title_size_screen, // 'Dashboard',
+        icon: const Icon(Icons.dashboard_customize_outlined),
+      ),
+      DrawerList(
         index: DrawerIndex.Products,
         labelName: S.of(context).title_products, // 'Productos',
         icon: const Icon(Icons.addchart_outlined),
@@ -76,7 +86,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
       ),
       DrawerList(
         index: DrawerIndex.Categories,
-        labelName: S.of(context).title_show_products_screen, // 'Categorías',
+        labelName: S.of(context).title_categories, // 'Categorías',
         icon: const Icon(Icons.category_outlined),
         isTap: false,
       ),
@@ -385,6 +395,8 @@ enum DrawerIndex {
   HOME_USER,
   DASHBOARD,
   ROLE,
+  TYPEPRODUCT,
+  SIZES,
   Products,
   Product_create,
   Product_edit,

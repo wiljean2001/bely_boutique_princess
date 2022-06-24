@@ -11,38 +11,31 @@ part 'role_event.dart';
 part 'role_state.dart';
 
 class RoleBloc extends Bloc<RoleEvent, RoleState> {
-  final AuthBloc _authBloc;
   final DatabaseRepository _databaseRepository;
-  StreamSubscription? _authSubscription;
-
+  StreamSubscription? _roleSubscription;
   RoleBloc({
     required AuthBloc authBloc,
     required DatabaseRepository databaseRepository,
-  })  : _authBloc = authBloc,
-        _databaseRepository = databaseRepository,
+  })  : _databaseRepository = databaseRepository,
         super(RoleLoading()) {
     on<LoadUsers>(_onLoadUsers);
     on<UpdateHome>(_onUpdateHome);
     on<UpdateRoleUser>(_onUpdateUser);
-
-    _authSubscription = _authBloc.stream.listen((state) {
-      if (state.status == AuthStatus.authenticated) {
-        add(const LoadUsers(role: 'admin')); //userId: state.user!.uids
-      }
-    });
   }
 
   void _onLoadUsers(
     LoadUsers event,
     Emitter<RoleState> emit,
   ) {
-    _databaseRepository.getUsers(event.role).listen((users) {
-      //event.userId,
-      print('$users');
-      add(
-        UpdateHome(users: users),
-      );
-    });
+    _roleSubscription = _databaseRepository.getUsers(event.role).listen(
+      (users) {
+        //event.userId,
+        print('$users');
+        add(
+          UpdateHome(users: users, role: event.role),
+        );
+      },
+    );
   }
 
   void _onUpdateHome(
@@ -50,7 +43,7 @@ class RoleBloc extends Bloc<RoleEvent, RoleState> {
     Emitter<RoleState> emit,
   ) {
     if (event.users != null) {
-      emit(RoleLoaded(users: event.users!));
+      emit(RoleLoaded(users: event.users!, role: event.role));
     } else {
       emit(RoleError());
     }
@@ -69,7 +62,7 @@ class RoleBloc extends Bloc<RoleEvent, RoleState> {
 
   @override
   Future<void> close() async {
-    _authSubscription?.cancel();
+    _roleSubscription?.cancel();
     super.close();
   }
 }

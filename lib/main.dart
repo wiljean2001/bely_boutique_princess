@@ -1,3 +1,5 @@
+import 'package:bely_boutique_princess/blocs/type_product/type_product_bloc.dart';
+import 'package:bely_boutique_princess/repositories/type_product/type_product_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -159,6 +161,16 @@ class MyApp extends StatelessWidget {
               authBloc: BlocProvider.of<AuthBloc>(context),
               databaseRepository: context.read<DatabaseRepository>(),
             )..add(const LoadUsers(role: 'admin')),
+          ),
+          BlocProvider(
+            create: (context) => TypeProductBloc(
+              typeProductRepository: TypeProductRepository(),
+            )..add(LoadTypeProducts()),
+          ),
+          BlocProvider(
+            create: (context) => SizeProductBloc(
+              sizeProductRepository: SizeProductRepository(),
+            )..add(LoadSizeProducts()),
           )
         ],
         child: MaterialApp(

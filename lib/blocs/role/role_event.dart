@@ -21,9 +21,11 @@ class LoadUsers extends RoleEvent {
 
 class UpdateHome extends RoleEvent {
   final List<User>? users;
+  final String? role;
 
   const UpdateHome({
     required this.users,
+    required this.role
   });
 
   @override
