@@ -21,6 +21,17 @@ class CategoryRepository extends BaseCategoryRepository {
   }
 
   @override
+  Stream<List<Category>> getCategories(String typeProductId) {
+    return _firebaseFirestore
+        .collection('categories')
+        .where('typeProductId', isEqualTo: typeProductId)
+        .snapshots()
+        .map((snap) {
+      return snap.docs.map((doc) => Category.fromSnapshot(doc)).toList();
+    });
+  }
+
+  @override
   Future<String> createCategory(Category category) async {
     String id = _firebaseFirestore.collection('categories').doc().id;
     await _firebaseFirestore.collection('categories').doc(id).set(

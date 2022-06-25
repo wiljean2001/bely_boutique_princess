@@ -6,3 +6,5 @@ export 'category_model.dart';
 export 'product_model.dart';
 export 'type_product_model.dart';
 export 'size_model.dart';
+export 'order_details_model.dart';
+export 'order_model.dart';

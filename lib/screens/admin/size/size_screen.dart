@@ -54,7 +54,7 @@ class _SizeScreenState extends State<SizeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Registrar talla',
+              'REGISTRAR TALLA',
               style: Theme.of(context).textTheme.titleMedium,
             ),
             Padding(
@@ -158,7 +158,7 @@ class _SizeScreenState extends State<SizeScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Ver tallas',
+            'VER TALLAS',
             style: Theme.of(context).textTheme.titleMedium,
           ),
           // TODO : 2  TypeProduct Duplicado

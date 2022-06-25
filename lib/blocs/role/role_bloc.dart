@@ -14,7 +14,7 @@ class RoleBloc extends Bloc<RoleEvent, RoleState> {
   final DatabaseRepository _databaseRepository;
   StreamSubscription? _roleSubscription;
   RoleBloc({
-    required AuthBloc authBloc,
+    // required AuthBloc authBloc,
     required DatabaseRepository databaseRepository,
   })  : _databaseRepository = databaseRepository,
         super(RoleLoading()) {

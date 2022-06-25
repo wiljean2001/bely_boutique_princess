@@ -33,11 +33,12 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     Emitter<CategoryState> emit,
   ) {
     _categorySubscription?.cancel();
-    _categorySubscription = _categoryRepository.getAllCategories().listen(
-          (products) => add(
-            UpdateCategories(products),
-          ),
-        );
+    _categorySubscription =
+        _categoryRepository.getCategories(event.typeProductId!).listen(
+              (products) => add(
+                UpdateCategories(products),
+              ),
+            );
   }
 
   void _onUpdateCategories(
@@ -85,6 +86,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
       add(LoadCategories());
     }
   }
+
   @override
   Future<void> close() {
     _categorySubscription?.cancel();

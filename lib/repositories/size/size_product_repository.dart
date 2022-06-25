@@ -41,7 +41,7 @@ class SizeProductRepository extends BaseSizeProductRepository {
 
   @override
   Future<void> createSizeProduct(SizeProduct sizeProduct) async {
-    return await _firebaseFirestore.collection('sizeProducts').doc().set(
+    await _firebaseFirestore.collection('sizeProducts').doc().set(
           sizeProduct.toMap(),
         );
   }

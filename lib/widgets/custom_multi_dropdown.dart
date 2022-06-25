@@ -3,10 +3,10 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 // import '../models/models.dart';
 //
-class CustomDropDown extends StatefulWidget {
-  final List<MultiSelectItem> listItems;
-  final Function(List<Object?> values) onConfirm;
-  final Function(List<Object?> values) validator;
+class CustomDropDown<T> extends StatelessWidget {
+  final List<MultiSelectItem<T>> listItems;
+  final Function(List<T> values) onConfirm;
+  final Function(List<T> values) validator;
   final Text buttonText;
   final Widget title;
 
@@ -20,28 +20,23 @@ class CustomDropDown extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<CustomDropDown> createState() => _CustomDropDownState();
-}
-
-class _CustomDropDownState extends State<CustomDropDown> {
-  @override
   Widget build(BuildContext context) {
     return Wrap(
       children: [
         MultiSelectDialogField(
-            items: widget.listItems,
+            items: listItems,
             // onSaved: (values){values?.clear();},
-            onConfirm: (List<Object?> values) => widget.onConfirm(values),
+            onConfirm: (List<T> values) => onConfirm(values),
             // validator: ,
             cancelText: const Text('CANCELAR'),
             confirmText: const Text('ACEPTAR'),
-            buttonText: widget.buttonText,
+            buttonText: buttonText,
             buttonIcon: const Icon(Icons.keyboard_arrow_down_outlined),
-            dialogHeight: widget.listItems.length * 55,
-            validator: (value) => value != null
-                ? widget.validator(value)
+            dialogHeight: listItems.length * 55,
+            validator: (List<T>? value) => value != null
+                ? validator(value)
                 : 'Selecciona al menos una opción.',
-            title: widget.title),
+            title: title),
       ],
     );
   }

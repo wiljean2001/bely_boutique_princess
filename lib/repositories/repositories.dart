@@ -11,3 +11,5 @@ export 'language/preferences_repository.dart';
 export 'language/preferences_repository_impl.dart';
 export 'size/base_size_product_repository.dart';
 export 'size/size_product_repository.dart';
+export 'order/base_order_repository.dart';
+export 'order/order_repository.dart';

@@ -148,7 +148,7 @@ class MyApp extends StatelessWidget {
             create: (context) => CategoryBloc(
               categoryRepository: CategoryRepository(),
               storageRepository: context.read<StorageRepository>(),
-            )..add(LoadCategories()),
+            )..add(const LoadCategories()),
           ),
           BlocProvider(
             create: (context) => ProductBloc(
@@ -158,7 +158,6 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (context) => RoleBloc(
-              authBloc: BlocProvider.of<AuthBloc>(context),
               databaseRepository: context.read<DatabaseRepository>(),
             )..add(const LoadUsers(role: 'admin')),
           ),

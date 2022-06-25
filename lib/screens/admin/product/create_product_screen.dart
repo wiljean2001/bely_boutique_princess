@@ -1,17 +1,17 @@
-import 'dart:ffi';
+import 'package:flutter/material.dart';
 
 import 'package:bely_boutique_princess/models/models.dart';
-import 'package:bely_boutique_princess/repositories/repositories.dart';
 import 'package:bely_boutique_princess/screens/onboarding_auth/onboarding_screen.dart';
 import 'package:bely_boutique_princess/utils/show_alert.dart';
 import 'package:bely_boutique_princess/utils/validators.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dropdown/flutter_dropdown.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
 
 import '../../../blocs/blocs.dart';
+import '../../../blocs/type_product/type_product_bloc.dart';
 import '../../../config/constrants.dart';
 import '../../../widgets/custom_carousel_sliders.dart';
 import '../../../widgets/custom_multi_dropdown.dart';
@@ -45,15 +45,14 @@ class CreateProductScreen extends StatefulWidget {
 class _CreateProductScreenState extends State<CreateProductScreen> {
   // images product
   List<XFile>? itemsImages = [];
-  List? categoriesProduct = [];
-  List? sizesProduct = [];
+  List<Category>? categoriesProduct = [];
+  List<SizeProduct>? sizesProduct = [];
   String? title;
   String? description;
   List<double>? price = [];
 
-  List<String> listItems = ['XS', 'S', 'M', 'L', 'XL', 'XXL', '1W', '2W', '3W'];
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,13 +78,48 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                       'PRODUCTO',
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: kPaddingL, vertical: kPaddingS),
+                      child: BlocBuilder<TypeProductBloc, TypeProductState>(
+                        builder: (context, stateSizeProduct) {
+                          if (stateSizeProduct is TypeProductLoading) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          if (stateSizeProduct is TypeProductsLoaded) {
+                            return DropDown(
+                              isExpanded: true,
+                              items: stateSizeProduct.typeProducts,
+                              customWidgets: stateSizeProduct.typeProducts
+                                  .map((e) => Text(e.title))
+                                  .toList(),
+                              onChanged: (TypeProduct? typeP) {
+                                print(typeP!);
+                                context.read<SizeProductBloc>().add(
+                                      LoadSizeProducts(typeProductId: typeP.id),
+                                    );
+                                context.read<CategoryBloc>().add(
+                                      LoadCategories(typeProductId: typeP.id),
+                                    );
+                              },
+                              hint: const Text('Tipo de producto'),
+                            );
+                          }
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        },
+                      ),
+                    ),
                     formProduct(),
                     const SizedBox(height: 10),
                     Text(
                       'CATEGORÍAS',
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
-                    // TODO: Categories
+                    // TODO : Categories
                     BlocBuilder<CategoryBloc, CategoryState>(
                       builder: (context, state) {
                         if (state is CategoryLoading) {
@@ -100,10 +134,10 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                             child: CustomDropDown(
                               title: const Text('Categorías'),
                               listItems: state.categories
-                                  .map((e) => MultiSelectItem(e.id, e.name))
+                                  .map((e) => MultiSelectItem(e, e.name))
                                   .toList(),
                               buttonText: const Text('Seleccionar categorías'),
-                              onConfirm: (List<Object?> values) {
+                              onConfirm: (List<Category> values) {
                                 categoriesProduct = [];
                                 categoriesProduct = values;
                               },
@@ -124,26 +158,40 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                       'TALLAS Y MÉTRICAS',
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
-                    // TODO: Sizes product
+                    // TODO : Sizes product
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: kPaddingL, vertical: kPaddingS),
-                      child: CustomDropDown(
-                        buttonText: const Text('Seleccionar tallas'),
-                        listItems: listItems
-                            .map((e) => MultiSelectItem(e, e))
-                            .toList(),
-                        onConfirm: (List<Object?> values) {
-                          sizesProduct = [];
-                          sizesProduct = values;
-                        },
-                        title: const Text('Tallas'),
-                        validator: (value) {
-                          if (value.isNotEmpty) {
-                            return null;
-                          } else {
-                            return 'Selecciona al menos una opción.';
+                      child: BlocBuilder<SizeProductBloc, SizeProductState>(
+                        builder: (context, state) {
+                          if (state is SizeProductLoading) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
                           }
+                          if (state is SizeProductsLoaded) {
+                            return CustomDropDown(
+                              buttonText: const Text('Seleccionar tallas'),
+                              listItems: state.sizeProducts
+                                  .map((e) => MultiSelectItem(e, e.size))
+                                  .toList(),
+                              onConfirm: (List<SizeProduct>? values) {
+                                sizesProduct = [];
+                                sizesProduct = values;
+                              },
+                              title: const Text('Tallas'),
+                              validator: (value) {
+                                if (value.isNotEmpty) {
+                                  return null;
+                                } else {
+                                  return 'Selecciona al menos una opción.';
+                                }
+                              },
+                            );
+                          }
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
                         },
                       ),
                     ),

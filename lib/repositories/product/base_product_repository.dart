@@ -1,6 +1,4 @@
-import 'package:image_picker/image_picker.dart';
-
-import '/models/models.dart';
+import '../../models/product_model.dart';
 
 abstract class BaseProductRepository {
   Stream<List<Product>> getAllProducts();
