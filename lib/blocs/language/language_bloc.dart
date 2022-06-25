@@ -17,7 +17,7 @@ class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
         _preferencesRepository = preferencesRepository,
         _initialState = PreferencesState(locale: initialLocale),
         super(
-          LanguageInitial(),
+          PreferencesState(locale: initialLocale),
         );
 
   @override

@@ -41,6 +41,7 @@ dependencies:
   flutter_svg: ^0.22.0
   flutter_custom_dialog: ^1.2.0
   flutter_dropdown: ^1.0.0+hotfix.1
+  flutter_localized_locales: ^2.0.3
 
 dev_dependencies:
   flutter_test:

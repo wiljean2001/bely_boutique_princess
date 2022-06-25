@@ -1,14 +1,19 @@
 // final theme = Provider.of<ThemeChanger>(context);
 
+import 'package:bely_boutique_princess/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
+import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 
 import '../blocs/blocs.dart';
 import '../blocs/theme.dart';
+import '../config/constrants.dart';
 import '../config/theme_default.dart';
 import 'package:provider/provider.dart';
 
+import '../models/user_model.dart';
 import 'onboarding_auth/onboarding_screen.dart';
 
 enum themesAll { dark, light, deffault, otro }
@@ -62,7 +67,10 @@ class _SettingScreenState extends State<SettingScreen> {
               SettingsTile(
                 title: 'Lenguaje',
                 leading: const Icon(Icons.language_outlined),
-                onPressed: (BuildContext context) {},
+                onPressed: (BuildContext context) {
+                  // context.read<LanguageBloc>().add(ChangeLocale(S.delegate.supportedLocales));
+                  YYNoticeDialog(context);
+                },
               ),
               SettingsTile.switchTile(
                 title: 'Notificaciones',
@@ -165,6 +173,58 @@ class _SettingScreenState extends State<SettingScreen> {
         );
       },
     );
+  }
+
+  String _localizeLocale(BuildContext context, Locale locale) {
+    if (locale == null) {
+      return 'Lenguaje del sistema';
+    } else {
+      Future.delayed(
+        Duration(seconds: 3),
+        () {
+          final localeString =
+              LocaleNames.of(context)?.nameOf(locale.toString());
+          print(localeString);
+          //return localeString![0].toUpperCase() + localeString.substring(1);
+          return 'Texto simple';
+        },
+      );
+      return '';
+    }
+  }
+
+  YYDialog YYNoticeDialog(BuildContext context) {
+    return YYDialog().build(context)
+      // ..width =
+      // ..height = 110
+      ..margin = const EdgeInsets.symmetric(horizontal: kPaddingM)
+      ..backgroundColor =
+          Theme.of(context).scaffoldBackgroundColor.withOpacity(0.9)
+      ..borderRadius = 10.0
+      ..showCallBack = () {
+        print("showCallBack invoke");
+      }
+      ..dismissCallBack = () {
+        print("dismissCallBack invoke");
+      }
+      ..widget(Padding(
+        padding: const EdgeInsets.only(top: kPaddingS, bottom: kPaddingS),
+        child: Column(
+          children: S.delegate.supportedLocales
+              .map((e) => ListTile(
+                    title: Text(_localizeLocale(context, e)),
+                  ))
+              .toList(),
+        ),
+      ))
+      // ..gravity = Gravity.bottom
+      ..animatedFunc = (child, animation) {
+        return ScaleTransition(
+          child: child,
+          scale: Tween(begin: 0.0, end: 1.0).animate(animation),
+        );
+      }
+      ..show();
   }
 }
 

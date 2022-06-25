@@ -172,29 +172,28 @@ class MyApp extends StatelessWidget {
             )..add(const LoadSizeProducts()),
           )
         ],
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Bely boutique princess',
-          theme: getThema,
-          /**
-            .copyWith(
-              pageTransitionsTheme: const PageTransitionsTheme(
-              builders: <TargetPlatform, PageTransitionsBuilder>{
-              TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
-              },
-              ),
-              ),
-           */
-          localizationsDelegates: const [
-            // translate
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-            S.delegate,
-          ],
-          supportedLocales: S.delegate.supportedLocales,
-          onGenerateRoute: Routers.onGenerateRoute,
-          initialRoute: SplashScreen.routeName,
+        child: BlocBuilder<LanguageBloc, LanguageState>(
+          builder: (context, state) {
+            if (state is PreferencesState) {
+              return MaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: 'Bely boutique princess',
+                theme: getThema,
+                localizationsDelegates: const [
+                  // translate
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                  S.delegate,
+                ],
+                supportedLocales: S.delegate.supportedLocales,
+                locale: state.locale,
+                onGenerateRoute: Routers.onGenerateRoute,
+                initialRoute: SplashScreen.routeName,
+              );
+            }
+            return SizedBox();
+          },
         ),
       ),
     );
