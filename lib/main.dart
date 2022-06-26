@@ -1,3 +1,4 @@
+import 'package:bely_boutique_princess/blocs/order/order_bloc.dart';
 import 'package:bely_boutique_princess/blocs/type_product/type_product_bloc.dart';
 import 'package:bely_boutique_princess/repositories/type_product/type_product_repository.dart';
 import 'package:flutter/material.dart';
@@ -116,8 +117,9 @@ class MyApp extends StatelessWidget {
             ),
           ),
           BlocProvider<SignupCubit>(
-            create: (context) =>
-                SignupCubit(authRepository: context.read<AuthRepository>()),
+            create: (context) => SignupCubit(
+              authRepository: context.read<AuthRepository>(),
+            ),
           ),
           BlocProvider<OnboardingBloc>(
             create: (context) => OnboardingBloc(
@@ -132,15 +134,14 @@ class MyApp extends StatelessWidget {
               // una vez es instanciado se inyectara el metodo add
             )..add(
                 LoadProfile(
-                    userId: BlocProvider.of<AuthBloc>(context).state.user!.uid),
+                  userId: BlocProvider.of<AuthBloc>(context).state.user!.uid,
+                ),
               ),
           ),
           BlocProvider(
-            create: (context) => HomePageBloc()
-              ..add(
-                const HomeTabChangeEvent(
-                    newIndex: 1), //newIhe first scndex = 0 is treen
-              ),
+            create: (context) =>
+                HomePageBloc()..add(const HomeTabChangeEvent(newIndex: 1)),
+            //newIndex as first, index = 0 is treen
             // authBloc: BlocProvider.of<AuthBloc>(context),
             // databaseRepository: context.read<DatabaseRepository>(),
           ),
@@ -170,7 +171,17 @@ class MyApp extends StatelessWidget {
             create: (context) => SizeProductBloc(
               sizeProductRepository: SizeProductRepository(),
             )..add(const LoadSizeProducts()),
-          )
+          ),
+          BlocProvider(
+            create: (context) => OrderBloc(
+              authBloc: BlocProvider.of<AuthBloc>(context),
+              orderRepository: OrderRepository(),
+            )..add(
+                LoadOrderById(
+                  userId: BlocProvider.of<AuthBloc>(context).state.user!.uid,
+                ),
+              ),
+          ),
         ],
         child: BlocBuilder<LanguageBloc, LanguageState>(
           builder: (context, state) {

@@ -16,6 +16,16 @@ class LoadOrderById extends OrderEvent {
   List<Object> get props => [userId];
 }
 
+class UpdateHome extends OrderEvent {
+  final List<Order>? orders;
+  final String? userId;
+
+  const UpdateHome({required this.orders, required this.userId});
+
+  @override
+  List<Object> get props => [orders!, userId!];
+}
+
 class LoadAllOrder extends OrderEvent {}
 
 class UpdateOrder extends OrderEvent {

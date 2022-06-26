@@ -23,6 +23,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         super(OrderLoading()) {
     on<LoadOrderById>(_onLoadOrderById);
     on<LoadAllOrder>(_onLoadAllOrders);
+    on<UpdateHome>(_onUpdateHome);
     on<UpdateOrder>(_onUpdateOrder);
 
     _authSubscription = _authBloc.stream.listen((state) {
@@ -34,15 +35,39 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     });
   }
 
-  _onLoadOrderById(
+  void _onLoadOrderById(
     LoadOrderById event,
     Emitter<OrderState> emit,
-  ) {}
-  _onLoadAllOrders(
+  ) {
+    _authSubscription = _orderRepository.getOrders(event.userId).listen(
+      (orders) {
+        //event.userId,
+        print('ORDER');
+        print('$orders');
+        add(
+          UpdateHome(orders: orders, userId: event.userId),
+        );
+      },
+    );
+  }
+
+  void _onLoadAllOrders(
     LoadAllOrder event,
     Emitter<OrderState> emit,
   ) {}
-  _onUpdateOrder(
+
+  void _onUpdateHome(
+    UpdateHome event,
+    Emitter<OrderState> emit,
+  ) {
+    if (event.orders != null) {
+      emit(OrdersLoaded(order: event.orders!));
+    } else {
+      emit(OrderError());
+    }
+  }
+
+  void _onUpdateOrder(
     UpdateOrder event,
     Emitter<OrderState> emit,
   ) {}

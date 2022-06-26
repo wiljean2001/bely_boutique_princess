@@ -112,30 +112,25 @@ class _SizeScreenState extends State<SizeScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Card(
-                  // color: Theme.of(context).primaryColor.withOpacity(.8),
-                  shadowColor: Theme.of(context).primaryColor.withOpacity(.8),
-
-                  child: MaterialButton(
-                    onPressed: () {
-                      if (!_formKey.currentState!.validate() ||
-                          typeProduct == null) {
-                        ShowAlert.showErrorSnackBar(context,
-                            message: 'Por favor completa el registro.');
-                        return;
-                      }
-                      // save all form
-                      _formKey.currentState!.save();
-                      final sizeProduct = SizeProduct(
-                        size: titlesizeProduct!,
-                        typeProductId: typeProduct!.id!,
-                      );
-                      context.read<SizeProductBloc>().add(
-                            AddSizeProduct(sizeProduct: sizeProduct),
-                          );
-                    },
-                    child: const Text('Registrar'),
-                  ),
+                OutlinedButton(
+                  onPressed: () {
+                    if (!_formKey.currentState!.validate() ||
+                        typeProduct == null) {
+                      ShowAlert.showErrorSnackBar(context,
+                          message: 'Por favor completa el registro.');
+                      return;
+                    }
+                    // save all form
+                    _formKey.currentState!.save();
+                    final sizeProduct = SizeProduct(
+                      size: titlesizeProduct!,
+                      typeProductId: typeProduct!.id!,
+                    );
+                    context.read<SizeProductBloc>().add(
+                          AddSizeProduct(sizeProduct: sizeProduct),
+                        );
+                  },
+                  child: const Text('Registrar'),
                 ),
               ],
             ),
