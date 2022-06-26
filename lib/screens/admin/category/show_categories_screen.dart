@@ -2,10 +2,13 @@ import 'package:bely_boutique_princess/widgets/custom_loading_screen.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dropdown/flutter_dropdown.dart';
 
 import '../../../blocs/blocs.dart';
+import '../../../blocs/type_product/type_product_bloc.dart';
 import '../../../config/constrants.dart';
 import '../../../generated/l10n.dart';
+import '../../../models/type_product_model.dart';
 import '../../../widgets/custom_sliver_app_bar.dart';
 
 class ShowCategoriesScreen extends StatelessWidget {
@@ -22,6 +25,47 @@ class ShowCategoriesScreen extends StatelessWidget {
             hasActions: false,
             hasIcon: false,
             isTextCenter: false,
+          ),
+          SliverToBoxAdapter(
+            child: BlocBuilder<TypeProductBloc, TypeProductState>(
+              builder: (context, stateSizeProduct) {
+                if (stateSizeProduct is TypeProductLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (stateSizeProduct is TypeProductsLoaded) {
+                  return Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: kPaddingL, vertical: kPaddingS),
+                        child: DropDown(
+                          isExpanded: true,
+                          items: stateSizeProduct.typeProducts,
+                          customWidgets: stateSizeProduct.typeProducts
+                              .map((e) => Text(e.title))
+                              .toList(),
+                          onChanged: (TypeProduct? typeP) {
+                            print(typeP!);
+                            context.read<SizeProductBloc>().add(
+                                  LoadSizeProducts(typeProductId: typeP.id),
+                                );
+                            context.read<CategoryBloc>().add(
+                                  LoadCategories(typeProductId: typeP.id),
+                                );
+                          },
+                          hint: const Text('Tipo de producto'),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              },
+            ),
           ),
           SliverFillRemaining(
             child: BlocBuilder<CategoryBloc, CategoryState>(
@@ -62,7 +106,7 @@ class ShowCategoriesScreen extends StatelessWidget {
                       DataColumn2(
                           label: Text('Imagen',
                               style: TextStyle(fontStyle: FontStyle.italic)),
-                          size: ColumnSize.S),
+                          size: ColumnSize.S)
                     ],
                     rows: state.categories.isNotEmpty
                         ? state.categories.map<DataRow>((e) {

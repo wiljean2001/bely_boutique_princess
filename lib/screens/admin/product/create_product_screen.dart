@@ -55,6 +55,9 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
 
   @override
   Widget build(BuildContext context) {
+    context.read<SizeProductBloc>().add(
+          LoadSizeProducts(typeProductId: ""),
+        );
     return Scaffold(
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(),
