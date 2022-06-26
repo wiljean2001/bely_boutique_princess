@@ -85,6 +85,14 @@ class CustomCardProduct extends StatelessWidget {
               //     ),
               //   ),
               // ),
+              // LoadingBouncingGrid.circle(
+              //   size: Responsive.isMobile(context) ? 150.0 : 250,
+              //   // height: Responsive.isMobile(context) ? 150.0 : 250,
+              //   inverted: true,
+              //   itemBuilder: (context, index) => Image.asset(
+              //     Assets.imagesLogoTextoRosa,
+              //   ),
+              // ),
               FadeInImage(
                 height: Responsive.isMobile(context) ? 150.0 : 250,
                 placeholder: const AssetImage(

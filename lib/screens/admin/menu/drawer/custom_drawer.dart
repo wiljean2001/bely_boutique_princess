@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../blocs/profile/profile_bloc.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../config/responsive.dart';
+import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
 
 class HomeDrawer extends StatefulWidget {
@@ -177,12 +179,19 @@ class _HomeDrawerState extends State<HomeDrawer> {
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(60.0)),
                                     child: state.user.image.isNotEmpty
-                                        ? Image.network(
-                                            state.user.image, // user image
+                                        ? FadeInImage(
+                                            height: Responsive.isMobile(context)
+                                                ? 150.0
+                                                : 250,
+                                            placeholder: const AssetImage(
+                                              Assets.imagesLogoTextoRosa,
+                                            ),
                                             fit: BoxFit.cover,
+                                            image:
+                                                NetworkImage(state.user.image),
                                           )
                                         : Image.asset(
-                                            'assets/images/profile_pic.png',
+                                            Assets.imagesLogoTextoRosa,
                                           ),
                                   ),
                                 ),

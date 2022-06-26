@@ -63,7 +63,6 @@ flutter:
     - assets/icons/
     - assets/images/facebook_64.png
     - assets/images/whatsapp_64.png
-    - assets/images/profile_pic.png
     - assets/images/loading_gif.gif
     - assets/videos/
 flutter_intl:
