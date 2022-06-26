@@ -61,7 +61,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     Emitter<OrderState> emit,
   ) {
     if (event.orders != null) {
-      emit(OrdersLoaded(order: event.orders!));
+      emit(OrdersLoaded(orders: event.orders!));
     } else {
       emit(OrderError());
     }

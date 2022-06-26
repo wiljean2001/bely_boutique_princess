@@ -10,12 +10,12 @@ abstract class OrderState extends Equatable {
 class OrderLoading extends OrderState {}
 
 class OrdersLoaded extends OrderState {
-  final List<Order> order;
+  final List<Order> orders;
 
-  const OrdersLoaded({required this.order});
+  const OrdersLoaded({required this.orders});
 
   @override
-  List<Object> get props => [order];
+  List<Object> get props => [orders];
 }
 
 class OrderError extends OrderState {}

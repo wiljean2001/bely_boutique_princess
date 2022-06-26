@@ -1,3 +1,4 @@
+import 'package:bely_boutique_princess/config/constrants.dart';
 import 'package:bely_boutique_princess/widgets/Custom_loading_screen.dart';
 import 'package:bely_boutique_princess/widgets/custom_card_product.dart';
 import 'package:bely_boutique_princess/widgets/custom_card_shopping.dart';
@@ -5,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../blocs/blocs.dart';
+import '../../../blocs/order/order_bloc.dart';
+import '../../../models/order_model.dart';
 
 // falta cambiar los textos a dinamicos
 
@@ -32,10 +35,29 @@ class ShoppingCartView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const _CustomProductSpace(),
-                  const Divider(
+                  SizedBox(
+                    height: 300,
+                    child: BlocBuilder<OrderBloc, OrderState>(
+                      builder: (context, state) {
+                        if (state is OrderLoading) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+                        if (state is OrdersLoaded) {
+                          if (state.orders.isNotEmpty) {
+                            return CustomShowOrders(orders: state.orders);
+                          }
+                          return const _CustomProductSpace();
+                        }
+                        return const Center(child: CircularProgressIndicator());
+                      },
+                    ),
+                  ),
+                  Divider(
                     indent: 90.0,
                     endIndent: 90.0,
+                    height: kPaddingM,
+                    color: Theme.of(context).primaryColor,
                   ),
                   const Padding(
                     padding: EdgeInsets.only(left: 40),
@@ -90,7 +112,7 @@ class ShoppingCartView extends StatelessWidget {
                               context: context,
                               isShowAdd: false, // mostrar opciones
                               isShowFavorite: false, // mostrar opcion fav
-                              onTap: (){},
+                              onTap: () {},
                             );
                           },
                         );
@@ -107,6 +129,25 @@ class ShoppingCartView extends StatelessWidget {
   }
 }
 
+class CustomShowOrders extends StatelessWidget {
+  final List<Order> orders;
+  const CustomShowOrders({
+    Key? key,
+    required this.orders,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        children: orders
+            .map((e) => ListTile(title: Text(e.orderDate.toString())))
+            .toList(),
+      ),
+    );
+  }
+}
+
 //espacio de trabajo
 class _CustomProductSpace extends StatelessWidget {
   const _CustomProductSpace({
@@ -115,26 +156,23 @@ class _CustomProductSpace extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 300,
-      child: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: const [
-            Icon(
-              Icons.shopping_cart,
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: const [
+          Icon(
+            Icons.shopping_cart,
+            color: Color(0xA9A9A9A9),
+            size: 120,
+          ),
+          Text(
+            'No hay nada en tu cesta',
+            style: TextStyle(
               color: Color(0xA9A9A9A9),
-              size: 120,
+              fontSize: 14,
             ),
-            Text(
-              'No hay nada en tu cesta',
-              style: TextStyle(
-                color: Color(0xA9A9A9A9),
-                fontSize: 14,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

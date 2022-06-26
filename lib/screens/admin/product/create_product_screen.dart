@@ -43,10 +43,18 @@ class CreateProductScreen extends StatefulWidget {
 }
 
 class _CreateProductScreenState extends State<CreateProductScreen> {
+  @override
+  void initState() {
+    context.read<SizeProductBloc>().add(
+          LoadSizeProducts(typeProductId: ""),
+        );
+    super.initState();
+  }
+
   // images product
   List<XFile>? itemsImages = [];
-  List<Category>? categoriesProduct = [];
-  List<SizeProduct>? sizesProduct = [];
+  List<String?>? categoriesProduct = [];
+  List<String?>? sizesProduct = [];
   String? title;
   String? description;
   List<double>? price = [];
@@ -55,9 +63,6 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    context.read<SizeProductBloc>().add(
-          LoadSizeProducts(typeProductId: ""),
-        );
     return Scaffold(
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(),
@@ -142,7 +147,8 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                               buttonText: const Text('Seleccionar categorías'),
                               onConfirm: (List<Category> values) {
                                 categoriesProduct = [];
-                                categoriesProduct = values;
+                                // categoriesProduct = values;
+                                values.map((e) => categoriesProduct?.add(e.id));
                               },
                               validator: (value) {
                                 if (value.isNotEmpty) {
@@ -178,9 +184,9 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                               listItems: state.sizeProducts
                                   .map((e) => MultiSelectItem(e, e.size))
                                   .toList(),
-                              onConfirm: (List<SizeProduct>? values) {
+                              onConfirm: (List<SizeProduct> values) {
                                 sizesProduct = [];
-                                sizesProduct = values;
+                                values.map((e) => sizesProduct?.add(e.id));
                               },
                               title: const Text('Tallas'),
                               validator: (value) {
