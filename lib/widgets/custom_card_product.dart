@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:loading_animations/loading_animations.dart';
 
 import '../config/responsive.dart';
+import '../generated/assets.dart';
 
 class CustomCardProduct extends StatelessWidget {
   const CustomCardProduct({
@@ -41,14 +43,15 @@ class CustomCardProduct extends StatelessWidget {
             maxWidth: Responsive.isMobile(context) ? 150 : 250,
           ),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15.0),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.grey.withOpacity(0.2),
-                    spreadRadius: 3.0,
-                    blurRadius: 5.0)
-              ],
-              color: Colors.white),
+            borderRadius: BorderRadius.circular(15.0),
+            boxShadow: [
+              BoxShadow(
+                  color: Colors.grey.withOpacity(0.2),
+                  spreadRadius: 3.0,
+                  blurRadius: 5.0)
+            ],
+            color: Theme.of(context).scaffoldBackgroundColor,
+          ), //Colors.white
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -70,17 +73,25 @@ class CustomCardProduct extends StatelessWidget {
               // Hero(
               //     tag: imgPath.substring(0, 20),
               //     child: Container(
-              Container(
-                constraints: BoxConstraints(
-                  maxHeight: Responsive.isMobile(context) ? 150.0 : 250,
+              // Container(
+              //   constraints: BoxConstraints(
+              //     maxHeight: Responsive.isMobile(context) ? 150.0 : 250,
+              //   ),
+              //   // width: 150.0,
+              //   decoration: BoxDecoration(
+              //     image: DecorationImage(
+              //       image: NetworkImage(imgPath),
+              //       fit: BoxFit.contain,
+              //     ),
+              //   ),
+              // ),
+              FadeInImage(
+                height: Responsive.isMobile(context) ? 150.0 : 250,
+                placeholder: const AssetImage(
+                  Assets.imagesLogoTextoRosa,
                 ),
-                // width: 150.0,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: NetworkImage(imgPath), fit: BoxFit.contain),
-                ),
-              ), // ),
-              // Image.network(imgPath, fit: BoxFit.contain),
+                image: NetworkImage(imgPath),
+              ),
               const SizedBox(height: 7.0),
               Text(price,
                   style: const TextStyle(
