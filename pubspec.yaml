@@ -41,11 +41,8 @@ dependencies:
   flutter_svg: ^0.22.0
   flutter_custom_dialog: ^1.2.0
   flutter_dropdown: ^1.0.0+hotfix.1
-<<<<<<< Updated upstream
   flutter_localized_locales: ^2.0.3
-=======
   loading_animations: "^2.1.0"
->>>>>>> Stashed changes
 
 dev_dependencies:
   flutter_test:
