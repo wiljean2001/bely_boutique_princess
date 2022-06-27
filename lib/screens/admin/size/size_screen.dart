@@ -70,7 +70,7 @@ class _SizeScreenState extends State<SizeScreen> {
                 validator: (value) => Validators.isValidateOnlyTextMinMax(
                   text: value!,
                   minCaracter: 1,
-                  maxCarater: 4,
+                  maxCarater: 8,
                   messageError: 'Titulo del tipo de producto no valido.',
                 ),
                 onSaved: (value) => setState(() {
