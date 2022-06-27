@@ -55,7 +55,7 @@ class _SettingScreenState extends State<SettingScreen> {
         ),
         elevation: 0,
       ),
-      // TODO: Settings
+      // TODO : Settings
       body: SettingsList(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         sections: [
@@ -176,20 +176,16 @@ class _SettingScreenState extends State<SettingScreen> {
   }
 
   String _localizeLocale(BuildContext context, Locale locale) {
-    if (locale == null) {
+    if (locale == null || context == null) {
       return 'Lenguaje del sistema';
     } else {
-      Future.delayed(
-        Duration(seconds: 3),
-        () {
-          final localeString =
-              LocaleNames.of(context)?.nameOf(locale.toString());
-          print(localeString);
-          //return localeString![0].toUpperCase() + localeString.substring(1);
-          return 'Texto simple';
-        },
+      // print(LocaleNames.of(context)?.nameOf(locale.toString()));
+      final localeString = LocaleNames.of(context)?.nameOf(
+        locale.toString(),
       );
-      return '';
+      print(localeString);
+      //return localeString![0].toUpperCase() + localeString.substring(1);
+      return 'Texto simple';
     }
   }
 

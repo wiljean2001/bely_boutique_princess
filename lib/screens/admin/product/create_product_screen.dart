@@ -148,7 +148,9 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                               onConfirm: (List<Category> values) {
                                 categoriesProduct = [];
                                 // categoriesProduct = values;
-                                values.map((e) => categoriesProduct?.add(e.id));
+                                values
+                                    .map((e) => categoriesProduct!.add(e.id))
+                                    .toList();
                               },
                               validator: (value) {
                                 if (value.isNotEmpty) {
@@ -186,7 +188,9 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                                   .toList(),
                               onConfirm: (List<SizeProduct> values) {
                                 sizesProduct = [];
-                                values.map((e) => sizesProduct?.add(e.id));
+                                values
+                                    .map((e) => sizesProduct!.add(e.id))
+                                    .toList();
                               },
                               title: const Text('Tallas'),
                               validator: (value) {
@@ -258,18 +262,11 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                               categories: categoriesProduct!,
                             );
 
-                            print(product);
+                            // print(product);
                             context.read<ProductBloc>().add(
                                   AddProduct(
                                       product: product, images: itemsImages!),
                                 );
-                            // try {
-                            // context.read<ProductBloc>().add(
-                            //       UpdateProductImages(image: itemsImages!),
-                            //     );
-                            // } catch (e) {
-                            //   ShowAlert.showErrorSnackBar(context);
-                            // }
                             ShowAlert.showSuccessSnackBar(context,
                                 message: '¡Registro exitoso!.');
                           },
