@@ -7,6 +7,8 @@ abstract class SizeProductEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class LoadAllSizeProducts extends SizeProductEvent {}
+
 class LoadSizeProducts extends SizeProductEvent {
   final String? typeProductId;
 

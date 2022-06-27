@@ -16,10 +16,24 @@ class SizeProductBloc extends Bloc<SizeProductEvent, SizeProductState> {
     required SizeProductRepository sizeProductRepository,
   })  : _sizeProductRepository = sizeProductRepository,
         super(SizeProductLoading()) {
+    on<LoadAllSizeProducts>(_onLoadAllSizeProducts);
     on<LoadSizeProducts>(_onLoadSizeProducts);
     on<UpdateSizeProducts>(_onUpdateSizeProducts);
     on<AddSizeProduct>(_onAddSizeProduct);
     on<UpdateSizeProduct>(_onUpdateSizeProduct);
+  }
+
+  void _onLoadAllSizeProducts(
+    LoadAllSizeProducts event,
+    Emitter<SizeProductState> emit,
+  ) {
+    _sizeProductSubscription?.cancel();
+    _sizeProductSubscription =
+        _sizeProductRepository.getAllSizeProducts().listen(
+              (typProducts) => add(
+                UpdateSizeProducts(typProducts),
+              ),
+            );
   }
 
   void _onLoadSizeProducts(

@@ -22,6 +22,7 @@ class TypeProductBloc extends Bloc<TypeProductEvent, TypeProductState> {
     on<AddTypeProduct>(_onAddTypeProduct);
     on<UpdateTypeProduct>(_onUpdateTypeProduct);
   }
+  
   void _onLoadTypeProducts(
     LoadTypeProducts event,
     Emitter<TypeProductState> emit,
