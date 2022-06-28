@@ -57,6 +57,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
   List<String?>? sizesProduct = [];
   String? title;
   String? description;
+  TypeProduct? typeProduct;
   List<double>? price = [];
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -105,6 +106,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                                   .toList(),
                               onChanged: (TypeProduct? typeP) {
                                 print(typeP!);
+                                typeProduct = typeP;
                                 context.read<SizeProductBloc>().add(
                                       LoadSizeProducts(typeProductId: typeP.id),
                                     );
@@ -260,6 +262,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                               imageUrls: const [], //downloadURLProduct
                               sizes: sizesProduct!,
                               categories: categoriesProduct!,
+                              typeProductId: typeProduct!.id!,
                             );
 
                             // print(product);
@@ -360,7 +363,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
               messageError: 'Costo no valido.',
             ),
             onSaved: (value) => setState(() {
-              price!.add(double.parse(value!));
+              price!.insert(0, double.parse(value!));
             }),
           ),
           const SizedBox(height: 10),
@@ -380,7 +383,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
               messageError: 'Costo no valido.',
             ),
             onSaved: (value) => setState(() {
-              price!.add(double.parse(value!));
+              price!.insert(0, double.parse(value!));
             }),
           ),
         ],

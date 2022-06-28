@@ -5,6 +5,7 @@ class Product extends Equatable {
   final String? id; // identificador - PK
   final String title; // titulo o nombre del producto
   final String descript; // descripcion del producto
+  final String typeProductId; // descripcion del producto
   final List<dynamic> prices; // descripcion del producto
   final List<dynamic> imageUrls; // imagenes - fotos
   final List<dynamic> sizes; //tallas
@@ -16,6 +17,7 @@ class Product extends Equatable {
     required this.categories,
     required this.title,
     required this.descript,
+    required this.typeProductId,
     required this.prices,
     required this.imageUrls,
     required this.sizes,
@@ -28,6 +30,7 @@ class Product extends Equatable {
         title,
         prices,
         descript,
+        typeProductId,
         imageUrls,
         sizes,
       ];
@@ -39,6 +42,7 @@ class Product extends Equatable {
       categories: snap['categories'],
       title: snap['title'],
       descript: snap['descript'],
+      typeProductId: snap['typeProductId'],
       imageUrls: snap['imageUrls'],
       sizes: snap['sizes'],
       prices: snap['prices'],
@@ -51,6 +55,7 @@ class Product extends Equatable {
       'title': title,
       'categories': categories,
       'descript': descript,
+      'typeProductId': typeProductId,
       'imageUrls': imageUrls,
       'sizes': sizes,
       'prices': prices,
@@ -61,6 +66,7 @@ class Product extends Equatable {
     String? id,
     String? title,
     String? descript,
+    String? typeProductId,
     List<dynamic>? imageUrls,
     List<dynamic>? sizes,
     List<dynamic>? categories,
@@ -70,6 +76,7 @@ class Product extends Equatable {
       id: id ?? this.id,
       title: title ?? this.title,
       descript: descript ?? this.descript,
+      typeProductId: typeProductId ?? this.typeProductId,
       imageUrls: imageUrls ?? this.imageUrls,
       sizes: sizes ?? this.sizes,
       prices: prices ?? this.prices,
