@@ -4,9 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../blocs/profile/profile_bloc.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../blocs/theme.dart';
 import '../../../../config/responsive.dart';
 import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
+import 'package:provider/provider.dart';
 
 class HomeDrawer extends StatefulWidget {
   const HomeDrawer(
@@ -49,12 +51,12 @@ class _HomeDrawerState extends State<HomeDrawer> {
       ),
       DrawerList(
         index: DrawerIndex.ROLE,
-        labelName: 'Role', // 'Dashboard',
+        labelName: S.of(context).title_roles, // 'Dashboard',
         icon: const Icon(Icons.supervised_user_circle_outlined),
       ),
       DrawerList(
         index: DrawerIndex.TYPEPRODUCT,
-        labelName: 'Type product', // 'Dashboard',
+        labelName: S.of(context).title_type_product, // 'Dashboard',
         icon: const Icon(Icons.list_alt_outlined),
       ),
       DrawerList(
@@ -115,6 +117,8 @@ class _HomeDrawerState extends State<HomeDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeChanger theme = Provider.of<ThemeChanger>(context);
+    ThemeData themeData = theme.getTheme();
     setDrawerListArray();
     return Scaffold(
       // backgroundColor: AppTheme.notWhite.withOpacity(0.5),
@@ -206,7 +210,9 @@ class _HomeDrawerState extends State<HomeDrawer> {
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               // color: AppTheme.grey,
-                              color: Theme.of(context).primaryColorDark,
+                              color: ThemeData.dark() == themeData
+                                  ? Colors.white
+                                  : Theme.of(context).primaryColorDark,
                               fontSize: 18,
                             ),
                           ),
@@ -233,7 +239,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
               padding: const EdgeInsets.all(0.0),
               itemCount: drawerList?.length,
               itemBuilder: (BuildContext context, int index) {
-                return inkwell(drawerList![index]);
+                return inkwell(drawerList![index], themeData);
               },
             ),
           ),
@@ -263,10 +269,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
                 ),
                 onTap: () {
                   onTapped();
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                    '/',
-                    (route) => false,
-                  );
                 },
               ),
               SizedBox(
@@ -281,10 +283,14 @@ class _HomeDrawerState extends State<HomeDrawer> {
 
   void onTapped() {
     print('Haciendo algo...'); // Print to console.
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      '/',
+      (route) => false,
+    );
   }
 
 // customizacion de los botones internos del drawer
-  Widget inkwell(DrawerList listData) {
+  Widget inkwell(DrawerList listData, ThemeData themeData) {
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -327,23 +333,33 @@ class _HomeDrawerState extends State<HomeDrawer> {
                                   // : AppTheme.nearlyBlack),
                                   : Theme.of(context).primaryColorDark),
                         )
-                      : Icon(listData.icon?.icon,
+                      : Icon(
+                          listData.icon?.icon,
                           color: widget.screenIndex == listData.index
-                              ? Theme.of(context).primaryColor
+                              ? ThemeData.dark() == themeData
+                                  ? Colors.pink
+                                  : Theme.of(context).primaryColor
                               // : AppTheme.nearlyBlack),
-                              : Theme.of(context).primaryColorDark),
+                              : ThemeData.dark() == themeData
+                                  ? Colors.white
+                                  : Theme.of(context).primaryColorDark,
+                        ),
                   const Padding(
                     padding: EdgeInsets.all(4.0),
                   ),
                   Text(
                     listData.labelName,
                     style: TextStyle(
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w400,
                       fontSize: 16,
                       color: widget.screenIndex == listData.index
-                          ? Theme.of(context).primaryColor
+                          ? ThemeData.dark() == themeData
+                              ? Colors.pink
+                              : Theme.of(context).primaryColor
                           // : AppTheme.nearlyBlack,
-                          : Theme.of(context).primaryColorDark,
+                          : ThemeData.dark() == themeData
+                              ? Colors.white
+                              : Theme.of(context).primaryColorDark,
                     ),
                     textAlign: TextAlign.left,
                   ),

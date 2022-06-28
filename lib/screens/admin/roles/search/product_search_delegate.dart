@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:bely_boutique_princess/models/user_model.dart';
+import 'package:bely_boutique_princess/utils/custom_alert_dialog.dart';
 import 'package:bely_boutique_princess/utils/show_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,73 +36,6 @@ class UserSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    YYDialog YYNoticeDialog(User user) {
-      return YYDialog().build()
-        // ..width =
-        // ..height = 110
-        ..margin = const EdgeInsets.symmetric(horizontal: kPaddingM)
-        ..backgroundColor =
-            Theme.of(context).scaffoldBackgroundColor.withOpacity(0.8)
-        ..borderRadius = 10.0
-        ..showCallBack = () {
-          print("showCallBack invoke");
-        }
-        ..dismissCallBack = () {
-          print("dismissCallBack invoke");
-        }
-        ..widget(Padding(
-          padding: const EdgeInsets.only(top: kPaddingS, bottom: kPaddingS),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  const Text('Nombre'),
-                  const Text(':'),
-                  Text(user.name)
-                ],
-              ),
-            ],
-          ),
-        ))
-        ..widget(
-          MaterialButton(
-            color: Theme.of(context).primaryColor,
-            minWidth: 100,
-            elevation: 10,
-            onPressed: () {
-              print(user.role);
-              if (user.role == 'user') {
-                context.read<RoleBloc>().add(
-                      UpdateRoleUser(user: user.copyWith(role: 'admin')),
-                    );
-              } else {
-                context.read<RoleBloc>().add(
-                      UpdateRoleUser(user: user.copyWith(role: 'user')),
-                    );
-              }
-              ShowAlert.showSuccessSnackBar(
-                context,
-                message: 'Rol de usuario cambiado correctamente.',
-              );
-            },
-            child: Text(
-              'Confirmar cambio de rol',
-              style:
-                  TextStyle(color: Theme.of(context).scaffoldBackgroundColor),
-            ),
-          ),
-        )
-        // ..gravity = Gravity.bottom
-        ..animatedFunc = (child, animation) {
-          return ScaleTransition(
-            child: child,
-            scale: Tween(begin: 0.0, end: 1.0).animate(animation),
-          );
-        }
-        ..show();
-    }
-
     return BlocBuilder<RoleBloc, RoleState>(
       builder: (context, state) {
         if (state is RoleLoading) {
@@ -124,7 +60,55 @@ class UserSearchDelegate extends SearchDelegate {
                         (e) => ListTile(
                           title: Text(e.name),
                           subtitle: Text(e.role),
-                          onTap: () => YYNoticeDialog(e),
+                          onTap: () => CustomAlertDialog.contentButtonAndTitle(
+                            context: context,
+                            content: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    const Text('Nombre'),
+                                    const Text(':'),
+                                    Text(e.name)
+                                  ],
+                                ),
+                                MaterialButton(
+                                  color: Theme.of(context).primaryColor,
+                                  minWidth: 100,
+                                  elevation: 10,
+                                  onPressed: () {
+                                    print(e.role);
+                                    if (e.role == 'user') {
+                                      context.read<RoleBloc>().add(
+                                            UpdateRoleUser(
+                                                user:
+                                                    e.copyWith(role: 'admin')),
+                                          );
+                                    } else {
+                                      context.read<RoleBloc>().add(
+                                            UpdateRoleUser(
+                                                user: e.copyWith(role: 'user')),
+                                          );
+                                    }
+                                    ShowAlert.showSuccessSnackBar(
+                                      context,
+                                      message:
+                                          'Rol de usuario cambiado correctamente.',
+                                    );
+                                  },
+                                  child: Text(
+                                    'Confirmar cambio de rol',
+                                    style: TextStyle(
+                                        color: Theme.of(context)
+                                            .scaffoldBackgroundColor),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            title: Text('Confirmar el cambio de rol.'),
+                          ),
+                          // YYNoticeDialog(e),
                         ),
                       )
                       .toList(),

@@ -21,8 +21,9 @@ class TypeProductBloc extends Bloc<TypeProductEvent, TypeProductState> {
     on<UpdateTypeProducts>(_onUpdateTypeProducts);
     on<AddTypeProduct>(_onAddTypeProduct);
     on<UpdateTypeProduct>(_onUpdateTypeProduct);
+    on<DeleteTypeProduct>(_onDeleteTypeProduct);
   }
-  
+
   void _onLoadTypeProducts(
     LoadTypeProducts event,
     Emitter<TypeProductState> emit,
@@ -59,7 +60,18 @@ class TypeProductBloc extends Bloc<TypeProductEvent, TypeProductState> {
   ) async {
     final state = this.state;
     if (state is TypeProductsLoaded) {
-      await _typeProductRepository.updateTypeProduct(event.typeProducts, '');
+      await _typeProductRepository.updateTypeProduct(event.typeProducts);
+      add(LoadTypeProducts());
+    }
+  }
+
+  void _onDeleteTypeProduct(
+    DeleteTypeProduct event,
+    Emitter<TypeProductState> emit,
+  ) async {
+    final state = this.state;
+    if (state is TypeProductsLoaded) {
+      await _typeProductRepository.updateTypeProduct(event.typeProducts);
       add(LoadTypeProducts());
     }
   }

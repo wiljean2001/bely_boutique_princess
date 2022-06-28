@@ -30,7 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "COMMENT2":
             MessageLookupByLibrary.simpleMessage(" // ONBOARDING SCREENS "),
         "COMMENT3":
-            MessageLookupByLibrary.simpleMessage(" // ADMIN BOARDING SCREEN "),
+            MessageLookupByLibrary.simpleMessage(" // ADMIN BOARDING SCREENS "),
         "Error_displaying_interaces": MessageLookupByLibrary.simpleMessage(
             "Error al cargar las interfaces"),
         "bttn_date_birth": MessageLookupByLibrary.simpleMessage(
@@ -77,12 +77,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "title_create_product_screen":
             MessageLookupByLibrary.simpleMessage("Agregar producto"),
         "title_dashboard_screen":
-            MessageLookupByLibrary.simpleMessage("Dashboard"),
+            MessageLookupByLibrary.simpleMessage("Panel de administración"),
         "title_picture_screen":
             MessageLookupByLibrary.simpleMessage("Seleccionar foto de perfil"),
         "title_products": MessageLookupByLibrary.simpleMessage("Productos"),
         "title_register_screen":
             MessageLookupByLibrary.simpleMessage("Registrar"),
+        "title_roles": MessageLookupByLibrary.simpleMessage("Roles"),
         "title_show_as_user":
             MessageLookupByLibrary.simpleMessage("Vista de usuario"),
         "title_show_categories_screen":
@@ -91,6 +92,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ver producto"),
         "title_sign_in": MessageLookupByLibrary.simpleMessage("INICIAR SESIÓN"),
         "title_size_screen": MessageLookupByLibrary.simpleMessage("Tallas"),
+        "title_type_product":
+            MessageLookupByLibrary.simpleMessage("Tipo de productos"),
         "title_update_category_screen":
             MessageLookupByLibrary.simpleMessage("Actualizar categoría"),
         "title_update_product_screen":

@@ -18,18 +18,29 @@ class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
         _initialState = PreferencesState(locale: initialLocale),
         super(
           PreferencesState(locale: initialLocale),
-        );
+        ) {
+    on<ChangeLocale>(_onchangelocale);
+  }
 
-  @override
-  PreferencesState get initialState => _initialState;
+  // @override
+  // PreferencesState get initialState => _initialState;
 
-  @override
-  Stream<PreferencesState> mapEventToState(
-    LanguageEvent event,
+  // @override
+  // Stream<PreferencesState> mapEventToState(
+  //   LanguageEvent event,
+  // ) async* {
+  //   if (event is ChangeLocale) {
+  //     await _preferencesRepository.saveLocale(event.locale);
+  //     yield PreferencesState(locale: event.locale);
+  //   }
+  // }
+
+  Stream<PreferencesState> _onchangelocale(
+    ChangeLocale event,
+    Emitter<LanguageState> emit,
   ) async* {
-    if (event is ChangeLocale) {
-      await _preferencesRepository.saveLocale(event.locale);
-      yield PreferencesState(locale: event.locale);
-    }
+    print('adwadwda');
+    await _preferencesRepository.saveLocale(event.locale);
+    yield PreferencesState(locale: event.locale);
   }
 }

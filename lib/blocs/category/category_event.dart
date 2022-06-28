@@ -37,22 +37,24 @@ class AddCategory extends CategoryEvent {
 
 class UpdateCategory extends CategoryEvent {
   final Category category;
+  final XFile? image;
 
   const UpdateCategory({
+    required this.category,
+    this.image,
+  });
+
+  @override
+  List<Object> get props => [category, image!];
+}
+
+class DeleteCategory extends CategoryEvent {
+  final Category category;
+
+  const DeleteCategory({
     required this.category,
   });
 
   @override
   List<Object> get props => [category];
 }
-
-// class DeleteCategory extends CategoryEvent {
-//   final Category category;
-
-//   const DeleteCategory({
-//     required this.category,
-//   });
-
-//   @override
-//   List<Object> get props => [category];
-// }

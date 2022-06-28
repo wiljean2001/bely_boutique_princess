@@ -480,10 +480,10 @@ class S {
     );
   }
 
-  /// ` // ADMIN BOARDING SCREEN `
+  /// ` // ADMIN BOARDING SCREENS `
   String get COMMENT3 {
     return Intl.message(
-      ' // ADMIN BOARDING SCREEN ',
+      ' // ADMIN BOARDING SCREENS ',
       name: 'COMMENT3',
       desc: '',
       args: [],
@@ -540,10 +540,10 @@ class S {
     );
   }
 
-  /// `Dashboard`
+  /// `Panel de administración`
   String get title_dashboard_screen {
     return Intl.message(
-      'Dashboard',
+      'Panel de administración',
       name: 'title_dashboard_screen',
       desc: '',
       args: [],
@@ -565,6 +565,26 @@ class S {
     return Intl.message(
       'Productos',
       name: 'title_products',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Roles`
+  String get title_roles {
+    return Intl.message(
+      'Roles',
+      name: 'title_roles',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tipo de productos`
+  String get title_type_product {
+    return Intl.message(
+      'Tipo de productos',
+      name: 'title_type_product',
       desc: '',
       args: [],
     );

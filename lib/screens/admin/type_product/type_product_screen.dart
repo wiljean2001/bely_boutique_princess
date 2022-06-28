@@ -25,7 +25,7 @@ class _TypeProductScreenState extends State<TypeProductScreen> {
       body: CustomScrollView(
         slivers: [
           CustomSliverAppBar(
-            title: S.of(context).title_administrator_screen,
+            title: S.of(context).title_type_product,
             hasActions: false,
             hasIcon: false,
             isTextCenter: false,

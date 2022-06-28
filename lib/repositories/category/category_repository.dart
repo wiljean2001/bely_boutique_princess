@@ -41,11 +41,21 @@ class CategoryRepository extends BaseCategoryRepository {
   }
 
   @override
-  Future<void> updateCategory(Category category, String docId) async {
+  Future<void> updateCategory(Category category) async {
     _firebaseFirestore
         .collection('categories')
-        .doc(docId)
+        .doc(category.id)
         .update(category.toMap())
+        .then(
+          (value) => print('Category document updated.'),
+        );
+  }
+  @override
+  Future<void> deleteCategory(Category category) async {
+    _firebaseFirestore
+        .collection('categories')
+        .doc(category.id)
+        .delete()
         .then(
           (value) => print('Category document updated.'),
         );

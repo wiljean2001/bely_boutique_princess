@@ -21,6 +21,7 @@ class SizeProductBloc extends Bloc<SizeProductEvent, SizeProductState> {
     on<UpdateSizeProducts>(_onUpdateSizeProducts);
     on<AddSizeProduct>(_onAddSizeProduct);
     on<UpdateSizeProduct>(_onUpdateSizeProduct);
+    on<DeleteSizeProduct>(_onDeleteSizeProduct);
   }
 
   void _onLoadAllSizeProducts(
@@ -72,8 +73,19 @@ class SizeProductBloc extends Bloc<SizeProductEvent, SizeProductState> {
   ) async {
     final state = this.state;
     if (state is SizeProductsLoaded) {
-      // await _sizeProductRepository.updateSizeProduct(event.sizeProduct, '');
-      // add(LoadSizeProducts(typeProductId: event.typeProductId));
+      await _sizeProductRepository.updateSizeProduct(event.sizeProduct);
+      add(const LoadSizeProducts(typeProductId: ''));
+    }
+  }
+
+  void _onDeleteSizeProduct(
+    DeleteSizeProduct event,
+    Emitter<SizeProductState> emit,
+  ) async {
+    final state = this.state;
+    if (state is SizeProductsLoaded) {
+      await _sizeProductRepository.deleteSizeProduct(event.sizeProduct);
+      add(const LoadSizeProducts(typeProductId: ''));
     }
   }
 

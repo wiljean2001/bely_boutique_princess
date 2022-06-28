@@ -39,3 +39,13 @@ class UpdateTypeProduct extends TypeProductEvent {
   @override
   List<Object> get props => [typeProducts];
 }
+class DeleteTypeProduct extends TypeProductEvent {
+  final TypeProduct typeProducts;
+
+  const DeleteTypeProduct({
+    required this.typeProducts,
+  });
+
+  @override
+  List<Object> get props => [typeProducts];
+}

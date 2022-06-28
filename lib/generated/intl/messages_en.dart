@@ -83,6 +83,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "title_products": MessageLookupByLibrary.simpleMessage("Products"),
         "title_register_screen":
             MessageLookupByLibrary.simpleMessage("Register"),
+        "title_roles": MessageLookupByLibrary.simpleMessage("Roles"),
         "title_show_as_user": MessageLookupByLibrary.simpleMessage("User view"),
         "title_show_categories_screen":
             MessageLookupByLibrary.simpleMessage("Show categories"),

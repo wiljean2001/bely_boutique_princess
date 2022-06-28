@@ -25,7 +25,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     on<UpdateCategories>(_onUpdateCategories);
     on<AddCategory>(_onAddCategory);
     on<UpdateCategory>(_onUpdateCategory);
-    // on<DeleteCategory>(_onDeleteCategory);
+    on<DeleteCategory>(_onDeleteCategory);
   }
 
   void _onLoadCategories(
@@ -63,18 +63,8 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
             ),
           );
     }
-    add(LoadCategories());
+    add(const LoadCategories());
   }
-
-  // void _onDeleteCategory(
-  //   DeleteCategory event,
-  //   Emitter<CategoryState> emit,
-  // ) {
-  //   final state = this.state;
-  //   if (state is CategoryLoaded) {
-  //     //
-  //   }
-  // }
 
   void _onUpdateCategory(
     UpdateCategory event,
@@ -82,8 +72,19 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   ) async {
     final state = this.state;
     if (state is CategoryLoaded) {
-      await _categoryRepository.updateCategory(event.category, '');
-      add(LoadCategories());
+      await _categoryRepository.updateCategory(event.category);
+      add(const LoadCategories());
+    }
+  }
+
+  void _onDeleteCategory(
+    DeleteCategory event,
+    Emitter<CategoryState> emit,
+  ) async {
+    final state = this.state;
+    if (state is CategoryLoaded) {
+      await _categoryRepository.deleteCategory(event.category);
+      add(const LoadCategories());
     }
   }
 

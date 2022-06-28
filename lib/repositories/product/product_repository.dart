@@ -40,10 +40,15 @@ class ProductRepository extends BaseProductRepository {
   }
 
   @override
-  Future<void> updateProduct(Product product, String docId) async {
-    await _firebaseFirestore.collection('products').doc(docId).update(
+  Future<void> updateProduct(Product product) async {
+    await _firebaseFirestore.collection('products').doc(product.id).update(
           product.toMap(),
         );
+  }
+
+  @override
+  Future<void> deleteProduct(Product product) async {
+    await _firebaseFirestore.collection('products').doc(product.id).delete();
   }
 
   @override
@@ -53,10 +58,6 @@ class ProductRepository extends BaseProductRepository {
   ) async {
     String downloadUrl =
         await StorageRepository().getDownloadURLProduct(imageName, productId);
-    print('URL Image - updateProductPictures:');
-    print(downloadUrl);
-    print('Producto ID - updateProductPictures:');
-    print(productId);
 
     return _firebaseFirestore.collection('products').doc(productId).update({
       'imageUrls': FieldValue.arrayUnion([downloadUrl])

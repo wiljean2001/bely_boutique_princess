@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,10 +13,12 @@ class CustomImageContainer extends StatefulWidget {
   CustomImageContainer({
     Key? key,
     this.imageUrl,
+    this.imageUrlLocal,
     this.onPressed,
   }) : super(key: key);
 
   String? imageUrl;
+  XFile? imageUrlLocal;
   final Function(XFile file)? onPressed;
 
   @override
@@ -70,13 +74,19 @@ class _CustomImageContainerState extends State<CustomImageContainer> {
                         );
                       } else {
                         widget.onPressed!(_image);
-                        widget.imageUrl = _image.path;
+                        setState(() {
+                          widget.imageUrl = _image.path;
+                          widget.imageUrlLocal = _image;
+                        });
                       }
                     }
                   },
                 ),
               )
-            : Image.network(widget.imageUrl!, fit: BoxFit.cover),
+            : widget.imageUrlLocal == null
+                ? Image.network(widget.imageUrl!, fit: BoxFit.cover)
+                : Image.file(File(widget.imageUrlLocal!.path),
+                    fit: BoxFit.cover),
       ),
     );
   }

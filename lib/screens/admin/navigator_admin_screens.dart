@@ -80,18 +80,16 @@ class _HomeScreenState extends State<MenuAdminScreen> {
                         screenIndex: drawerIndex,
                         onDrawerCall: (DrawerIndex drawerIndexdata) {
                           changeIndex(drawerIndexdata);
-                          /**
-                                 * devolución de llamada desde el cajón para reemplazar
-                                 * la pantalla según las necesidades del usuario al pasar
-                                 * DrawerIndex (índice Enum)
-                                 */
+
+                          /// devolución de llamada desde el cajón para reemplazar
+                          /// la pantalla según las necesidades del usuario al pasar
+                          /// DrawerIndex (índice Enum)
                         },
                         screenView: screenView,
-                        /**
-                               * reemplazamos la vista de pantalla según sea necesario
-                               * en las pantallas de inicio de navegación como MyHomePage,
-                               * HelpScreen, FeedbackScreen, etc.
-                               */
+
+                        /// reemplazamos la vista de pantalla según sea necesario
+                        /// en las pantallas de inicio de navegación como MyHomePage,
+                        /// HelpScreen, FeedbackScreen, etc.
                       );
                       // });
                     } else {

@@ -1,3 +1,4 @@
+import 'package:bely_boutique_princess/blocs/theme.dart';
 import 'package:bely_boutique_princess/config/responsive.dart';
 import 'package:bely_boutique_princess/utils/open_all.dart';
 import 'package:bely_boutique_princess/widgets/custom_app_bar_avatar.dart';
@@ -13,6 +14,7 @@ import '../../../generated/l10n.dart';
 import '../../../repositories/auth/auth_repository.dart';
 import '../../setting_screen.dart';
 import 'pruebaAnimate.dart';
+import 'package:provider/provider.dart';
 
 class UserProfileView extends StatefulWidget {
   const UserProfileView({Key? key}) : super(key: key);
@@ -54,6 +56,8 @@ class getProfileLoaded extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeChanger theme = Provider.of<ThemeChanger>(context);
+    ThemeData themeData = theme.getTheme();
     return Scaffold(
       // appBar: CustomAppBar(title: S.of(context).AppTitle, hasActions: false),
       body: CustomScrollView(
@@ -96,15 +100,17 @@ class getProfileLoaded extends StatelessWidget {
                         children: <Widget>[
                           Column(
                             children: <Widget>[
-                              Text(
+                              const Text(
                                 'Edad',
                                 style: TextStyle(
-                                    color: Theme.of(context).primaryColorLight),
+                                  color: Colors.white,
+                                ),
                               ),
                               Text(
                                 edad.toString(),
                                 style: TextStyle(
-                                    color: Theme.of(context).primaryColorLight),
+                                  color: Colors.white,
+                                ),
                               ),
                             ],
                           ),
@@ -112,7 +118,7 @@ class getProfileLoaded extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const Body(),
+                  Body(themeData: themeData),
                 ],
               ),
             ),
@@ -124,8 +130,10 @@ class getProfileLoaded extends StatelessWidget {
 }
 
 class Body extends StatefulWidget {
+  final ThemeData themeData;
   const Body({
     Key? key,
+    required this.themeData,
   }) : super(key: key);
 
   @override
@@ -185,7 +193,11 @@ class _BodyState extends State<Body> {
       mainAxisSize: MainAxisSize.min,
       children: listButtons
           .map(
-            (e) => CustomButtonProfile(title: e.title, onPressed: e.onPressed),
+            (e) => CustomButtonProfile(
+              title: e.title,
+              onPressed: e.onPressed,
+              themeData: widget.themeData,
+            ),
           )
           .toList(),
     );
@@ -202,10 +214,12 @@ class ButtonProfile {
 class CustomButtonProfile extends StatelessWidget {
   final String title;
   final Function onPressed;
+  final ThemeData themeData;
   const CustomButtonProfile({
     Key? key,
     required this.title,
     required this.onPressed,
+    required this.themeData,
   }) : super(key: key);
 
   @override
@@ -226,7 +240,11 @@ class CustomButtonProfile extends StatelessWidget {
             onPressed: () async => onPressed(),
             child: Text(
               title,
-              style: TextStyle(color: Theme.of(context).primaryColorDark),
+              style: TextStyle(
+                color: ThemeData.dark() == themeData
+                    ? Colors.white
+                    : Theme.of(context).primaryColorDark,
+              ),
             ),
           ),
         ),

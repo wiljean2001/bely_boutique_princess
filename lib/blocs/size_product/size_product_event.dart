@@ -44,13 +44,21 @@ class AddSizeProduct extends SizeProductEvent {
 
 class UpdateSizeProduct extends SizeProductEvent {
   final SizeProduct sizeProduct;
-  final String typeProductId;
 
   const UpdateSizeProduct({
     required this.sizeProduct,
-    required this.typeProductId,
   });
 
   @override
-  List<Object> get props => [sizeProduct, typeProductId];
+  List<Object> get props => [sizeProduct];
+}
+class DeleteSizeProduct extends SizeProductEvent {
+  final SizeProduct sizeProduct;
+
+  const DeleteSizeProduct({
+    required this.sizeProduct,
+  });
+
+  @override
+  List<Object> get props => [sizeProduct];
 }

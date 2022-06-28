@@ -47,9 +47,20 @@ class SizeProductRepository extends BaseSizeProductRepository {
   }
 
   @override
-  Future<void> updateSizeProduct(SizeProduct sizeProduct, String docId) async {
-    await _firebaseFirestore.collection('sizeProduct').doc(docId).update(
+  Future<void> updateSizeProduct(SizeProduct sizeProduct) async {
+    await _firebaseFirestore
+        .collection('sizeProduct')
+        .doc(sizeProduct.id)
+        .update(
           sizeProduct.toMap(),
         );
+  }
+
+  @override
+  Future<void> deleteSizeProduct(SizeProduct sizeProduct) async {
+    await _firebaseFirestore
+        .collection('sizeProduct')
+        .doc(sizeProduct.id)
+        .delete();
   }
 }

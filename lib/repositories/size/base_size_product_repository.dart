@@ -5,5 +5,6 @@ abstract class BaseSizeProductRepository {
   Stream<List<SizeProduct>> getSizeProducts(String typeProductId);
   Stream<SizeProduct> getSizeProduct(String sizeProductId);
   Future<void> createSizeProduct(SizeProduct sizeProduct);
-  Future<void> updateSizeProduct(SizeProduct sizeProduct, String docId);
+  Future<void> updateSizeProduct(SizeProduct sizeProduct);
+  Future<void> deleteSizeProduct(SizeProduct sizeProduct);
 }

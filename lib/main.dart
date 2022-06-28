@@ -8,6 +8,7 @@ import 'dart:io';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'generated/l10n.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -42,7 +43,7 @@ Future<void> main() async {
   final preferencesBloc = LanguageBloc(
     preferencesRepository: preferencesRepository,
     initialLocale: await preferencesRepository.locale,
-  );
+  )..add(ChangeLocale(await preferencesRepository.locale));
   // simple bloc observer
   BlocOverrides.runZoned(
     () async => {
@@ -192,6 +193,7 @@ class MyApp extends StatelessWidget {
                 theme: getThema,
                 localizationsDelegates: const [
                   // translate
+                  LocaleNamesLocalizationsDelegate(),
                   GlobalMaterialLocalizations.delegate,
                   GlobalWidgetsLocalizations.delegate,
                   GlobalCupertinoLocalizations.delegate,

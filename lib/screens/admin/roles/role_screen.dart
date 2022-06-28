@@ -1,4 +1,5 @@
 import 'package:bely_boutique_princess/config/responsive.dart';
+import 'package:bely_boutique_princess/utils/custom_alert_dialog.dart';
 import 'package:flutter/material.dart';
 
 import 'package:data_table_2/data_table_2.dart';
@@ -28,7 +29,6 @@ class _RoleScreenState extends State<RoleScreen> {
   @override
   Widget build(BuildContext context) {
     // role as title
-    YYDialog.init(context);
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -84,13 +84,7 @@ class _RoleScreenState extends State<RoleScreen> {
                           _character = e.role == 'user'
                               ? SingingCharacter.user
                               : SingingCharacter.admin;
-                          return DataRow2(
-                            cells: [
-                              DataCell(Text(e.name)),
-                              DataCell(Row(children: [Text(e.role)])),
-                            ],
-                            onTap: () => YYNoticeDialog(e),
-                          );
+                          return DataTableRole(e, context);
                         },
                       ).toList(),
                     ),
@@ -105,69 +99,52 @@ class _RoleScreenState extends State<RoleScreen> {
     );
   }
 
-  YYDialog YYNoticeDialog(User user) {
-    return YYDialog().build()
-      // ..width =
-      // ..height = 110
-      ..margin = const EdgeInsets.symmetric(horizontal: kPaddingM)
-      ..backgroundColor =
-          Theme.of(context).scaffoldBackgroundColor.withOpacity(0.8)
-      ..borderRadius = 10.0
-      ..showCallBack = () {
-        print("showCallBack invoke");
-      }
-      ..dismissCallBack = () {
-        print("dismissCallBack invoke");
-      }
-      ..widget(Padding(
-        padding: const EdgeInsets.only(top: kPaddingS, bottom: kPaddingS),
-        child: Column(
+  DataRow2 DataTableRole(User e, BuildContext context) {
+    return DataRow2(
+      cells: [
+        DataCell(Text(e.name)),
+        DataCell(Row(children: [Text(e.role)])),
+      ],
+      onTap: () => CustomAlertDialog.contentButtonAndTitle(
+        context: context,
+        content: Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                const Text('Nombre'),
-                const Text(':'),
-                Text(user.name)
-              ],
+              children: [const Text('Nombre'), const Text(':'), Text(e.name)],
+            ),
+            Divider(color: Theme.of(context).primaryColor),
+            MaterialButton(
+              color: Theme.of(context).primaryColor,
+              minWidth: 100,
+              elevation: 10,
+              onPressed: () {
+                print(e.role);
+                if (e.role == 'user') {
+                  context.read<RoleBloc>().add(
+                        UpdateRoleUser(user: e.copyWith(role: 'admin')),
+                      );
+                } else {
+                  context.read<RoleBloc>().add(
+                        UpdateRoleUser(user: e.copyWith(role: 'user')),
+                      );
+                }
+                ShowAlert.showSuccessSnackBar(
+                  context,
+                  message: 'Rol de administrador cambiado correctamente.',
+                );
+              },
+              child: Text(
+                'Confirmar cambio de rol',
+                style: TextStyle(
+                  color: Theme.of(context).cardColor,
+                ),
+              ),
             ),
           ],
         ),
-      ))
-      ..widget(
-        MaterialButton(
-          color: Theme.of(context).primaryColor,
-          minWidth: 100,
-          elevation: 10,
-          onPressed: () {
-            print(user.role);
-            if (user.role == 'user') {
-              context.read<RoleBloc>().add(
-                    UpdateRoleUser(user: user.copyWith(role: 'admin')),
-                  );
-            } else {
-              context.read<RoleBloc>().add(
-                    UpdateRoleUser(user: user.copyWith(role: 'user')),
-                  );
-            }
-            ShowAlert.showSuccessSnackBar(
-              context,
-              message: 'Rol de administrador cambiado correctamente.',
-            );
-          },
-          child: Text(
-            'Confirmar cambio de rol',
-            style: TextStyle(color: Theme.of(context).scaffoldBackgroundColor),
-          ),
-        ),
-      )
-      // ..gravity = Gravity.bottom
-      ..animatedFunc = (child, animation) {
-        return ScaleTransition(
-          child: child,
-          scale: Tween(begin: 0.0, end: 1.0).animate(animation),
-        );
-      }
-      ..show();
+        title: Text('Confirmar cambio de rol.'),
+      ),
+    );
   }
 }

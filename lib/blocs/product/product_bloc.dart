@@ -24,6 +24,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     on<UpdateProducts>(_onUpdateProducts);
     on<AddProduct>(_onAddProduct);
     on<UpdateProduct>(_onUpdateProduct);
+    on<DeleteProduct>(_onDeleteProduct);
     // on<UpdateProductImages>(_onUpdateProductImages);
   }
 
@@ -67,27 +68,22 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   ) async {
     final state = this.state;
     if (state is ProductsLoaded) {
-      await _productRepository.updateProduct(event.product, '');
+      await _productRepository.updateProduct(event.product);
       add(LoadProducts());
     }
   }
 
-  // void _onUpdateProductImages(
-  //   UpdateProductImages event,
-  //   Emitter<ProductState> emit,
-  // ) async {
-  //   if (state is ProductsLoaded) {
-  //     print('ULTIMO');
-  //     Product product = (state as ProductsLoaded).products.last;
-  //     print(product);
+  void _onDeleteProduct(
+    DeleteProduct event,
+    Emitter<ProductState> emit,
+  ) async {
+    final state = this.state;
+    if (state is ProductsLoaded) {
+      await _productRepository.deleteProduct(event.product);
+      add(LoadProducts());
+    }
+  }
 
-  //     await _storageRepository.uploadImageProduct(event.image);
-
-  //     _productRepository.getProduct(product.id!).listen((product) {
-  //       add(UpdateProduct(product: product));
-  //     });
-  //   }
-  // }
   @override
   Future<void> close() {
     _productSubscription?.cancel();

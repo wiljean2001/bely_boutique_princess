@@ -51,6 +51,8 @@
   "title_dashboard_screen": "Dashboard",
   "title_size_screen": "Sizes",
   "title_products": "Products",
+  "title_roles": "Roles",
+  " ": "Types product",
   "title_create_product_screen": "Add Product",
   "title_update_product_screen": "Update Product",
   "title_show_products_screen": "Show Product",

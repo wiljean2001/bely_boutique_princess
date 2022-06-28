@@ -1,3 +1,4 @@
+import 'package:bely_boutique_princess/config/responsive.dart';
 import 'package:bely_boutique_princess/widgets/custom_loading_screen.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
@@ -88,21 +89,24 @@ class ShowCategoriesScreen extends StatelessWidget {
                     //     .textTheme
                     //     .titleMedium
                     //     ?.copyWith(fontWeight: FontWeight.bold),
-                    dataRowHeight: 70,
-                    columnSpacing: 12,
+                    dataRowHeight: 100,
+                    // columnSpacing: 12,
                     // horizontalMargin: 12,
+                    minWidth: Responsive.isMobile(context) ? 400 : null,
                     columns: const [
                       // DataColumn2(label: SizedBox()),
                       // DataColumn(label: SizedBox()),
                       DataColumn2(
-                          label: Text('N°',
-                              style: TextStyle(fontStyle: FontStyle.italic)),
-                          size: ColumnSize.S,
-                          numeric: true),
+                        label: Text('N°',
+                            style: TextStyle(fontStyle: FontStyle.italic)),
+                        fixedWidth: 50,
+                        numeric: true,
+                      ),
                       DataColumn2(
-                          label: Text('Categoría',
-                              style: TextStyle(fontStyle: FontStyle.italic)),
-                          size: ColumnSize.L),
+                        label: Text('Categoría',
+                            style: TextStyle(fontStyle: FontStyle.italic)),
+                        fixedWidth: 200,
+                      ),
                       DataColumn2(
                           label: Text('Imagen',
                               style: TextStyle(fontStyle: FontStyle.italic)),
