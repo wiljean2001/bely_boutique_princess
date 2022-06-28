@@ -60,8 +60,8 @@ class TypeProductBloc extends Bloc<TypeProductEvent, TypeProductState> {
   ) async {
     final state = this.state;
     if (state is TypeProductsLoaded) {
-      await _typeProductRepository.updateTypeProduct(event.typeProducts);
-      add(LoadTypeProducts());
+      await _typeProductRepository.updateTypeProduct(event.typeProduct);
+      // add(LoadTypeProducts());
     }
   }
 
@@ -71,8 +71,8 @@ class TypeProductBloc extends Bloc<TypeProductEvent, TypeProductState> {
   ) async {
     final state = this.state;
     if (state is TypeProductsLoaded) {
-      await _typeProductRepository.updateTypeProduct(event.typeProducts);
-      add(LoadTypeProducts());
+      await _typeProductRepository.deleteTypeProduct(event.typeProducts);
+      // add(LoadTypeProducts());
     }
   }
 

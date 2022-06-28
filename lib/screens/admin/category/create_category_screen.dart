@@ -84,7 +84,9 @@ class _FormCreateCategoryState extends State<FormCreateCategory> {
                     labelText: 'Nombre de la categoría',
                   ),
                   maxLines: 1,
-                  onSaved: (nameC) => nameCategory = nameC,
+                  onSaved: (nameC) => setState(() {
+                    nameCategory = nameC;
+                  }),
                   validator: (value) => value!.isEmpty
                       ? 'Campo categoría no puede estar vacía.'
                       : null,

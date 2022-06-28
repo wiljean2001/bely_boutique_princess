@@ -30,14 +30,14 @@ class AddTypeProduct extends TypeProductEvent {
 }
 
 class UpdateTypeProduct extends TypeProductEvent {
-  final TypeProduct typeProducts;
+  final TypeProduct typeProduct;
 
   const UpdateTypeProduct({
-    required this.typeProducts,
+    required this.typeProduct,
   });
 
   @override
-  List<Object> get props => [typeProducts];
+  List<Object> get props => [typeProduct];
 }
 class DeleteTypeProduct extends TypeProductEvent {
   final TypeProduct typeProducts;

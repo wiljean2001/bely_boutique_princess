@@ -56,7 +56,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       await _productRepository.createProduct(event.product).then(
         (productId) async {
           await _storageRepository.uploadImageProduct(event.images, productId);
-          add(LoadProducts());
+          // add(LoadProducts());
         },
       );
     }
@@ -69,7 +69,6 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     final state = this.state;
     if (state is ProductsLoaded) {
       await _productRepository.updateProduct(event.product);
-      add(LoadProducts());
     }
   }
 
@@ -80,7 +79,6 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     final state = this.state;
     if (state is ProductsLoaded) {
       await _productRepository.deleteProduct(event.product);
-      add(LoadProducts());
     }
   }
 

@@ -38,7 +38,7 @@ class TypeProductRepository extends BaseTypeProductRepository {
   @override
   Future<void> updateTypeProduct(TypeProduct typeProduct) async {
     await _firebaseFirestore
-        .collection('typeProduct')
+        .collection('typeProducts')
         .doc(typeProduct.id)
         .update(
           typeProduct.toMap(),
@@ -48,7 +48,7 @@ class TypeProductRepository extends BaseTypeProductRepository {
   @override
   Future<void> deleteTypeProduct(TypeProduct typeProduct) async {
     await _firebaseFirestore
-        .collection('typeProduct')
+        .collection('typeProducts')
         .doc(typeProduct.id)
         .delete();
   }

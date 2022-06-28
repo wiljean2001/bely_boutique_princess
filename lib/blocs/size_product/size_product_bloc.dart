@@ -85,7 +85,6 @@ class SizeProductBloc extends Bloc<SizeProductEvent, SizeProductState> {
     final state = this.state;
     if (state is SizeProductsLoaded) {
       await _sizeProductRepository.deleteSizeProduct(event.sizeProduct);
-      add(const LoadSizeProducts(typeProductId: ''));
     }
   }
 
