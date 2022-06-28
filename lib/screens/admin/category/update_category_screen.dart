@@ -33,6 +33,7 @@ class UpdateCategoryScreen extends StatefulWidget {
 class _UpdateCategoryScreenState extends State<UpdateCategoryScreen> {
   String? nameCategory;
   TypeProduct? typeProduct;
+  TypeProduct? historyTypeProduct;
 
   final GlobalKey<FormState> _keyForm = GlobalKey<FormState>();
 
@@ -41,7 +42,6 @@ class _UpdateCategoryScreenState extends State<UpdateCategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    YYDialog.init(context);
     return Scaffold(
       // backgroundColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(.2)
       body: CustomScrollView(
@@ -74,7 +74,7 @@ class _UpdateCategoryScreenState extends State<UpdateCategoryScreen> {
                               .map((category) => Text(category.title))
                               .toList(),
                           onChanged: (TypeProduct? typeP) {
-                            print(typeP!);
+                            historyTypeProduct = typeP!;
                             context.read<SizeProductBloc>().add(
                                   LoadSizeProducts(typeProductId: typeP.id),
                                 );
@@ -306,6 +306,9 @@ class _UpdateCategoryScreenState extends State<UpdateCategoryScreen> {
                                   );
                                   return;
                                 }
+                                _keyForm.currentState!.save();
+                                // print(nameCategory);
+                                // print(typeProduct!.id);
                                 // registro de imagen
                                 BlocProvider.of<CategoryBloc>(context).add(
                                   UpdateCategory(
@@ -314,11 +317,11 @@ class _UpdateCategoryScreenState extends State<UpdateCategoryScreen> {
                                       typeProductId: typeProduct!.id,
                                     ),
                                     image: xfile != null ? xfile! : null,
+                                    historyTypeProductId:
+                                        historyTypeProduct!.id,
                                   ),
                                 );
-
-                                _keyForm.currentState!.save();
-
+                                Navigator.pop(context);
                                 ShowAlert.showSuccessSnackBar(
                                   context,
                                   message:
@@ -351,7 +354,11 @@ class _UpdateCategoryScreenState extends State<UpdateCategoryScreen> {
                 color: Theme.of(context).primaryColor,
                 splashColor: Theme.of(context).primaryColorLight,
                 elevation: 10,
-                onPressed: () {},
+                onPressed: () {
+                  BlocProvider.of<CategoryBloc>(context).add(
+                    DeleteCategory(category: category),
+                  );
+                },
                 child: const Text(
                   'Eliminar',
                   style: TextStyle(fontSize: 10),

@@ -46,9 +46,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
             child: BlocBuilder<ProductBloc, ProductState>(
               builder: (context, stateProduct) {
                 if (stateProduct is ProductLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  return const Center(child: CircularProgressIndicator());
                 }
                 if (stateProduct is ProductsLoaded) {
                   int contIndex = 0;
@@ -173,9 +171,6 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         _updateProductDIalog(context, e),
-                        VerticalDivider(
-                          color: Theme.of(context).primaryColor,
-                        ),
                         MaterialButton(
                           textColor: Theme.of(context).primaryColorLight,
                           color: Theme.of(context).primaryColor,

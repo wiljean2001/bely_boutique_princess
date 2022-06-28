@@ -63,7 +63,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
             ),
           );
     }
-    add(const LoadCategories());
+    // add(const LoadCategories());
   }
 
   void _onUpdateCategory(
@@ -73,7 +73,12 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     final state = this.state;
     if (state is CategoryLoaded) {
       await _categoryRepository.updateCategory(event.category);
-      add(const LoadCategories());
+      if (event.image != null) {
+        await _storageRepository.uploadImageCategory(
+          event.image!,
+          event.category.id!,
+        );
+      }
     }
   }
 
@@ -84,7 +89,6 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     final state = this.state;
     if (state is CategoryLoaded) {
       await _categoryRepository.deleteCategory(event.category);
-      add(const LoadCategories());
     }
   }
 

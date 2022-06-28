@@ -40,13 +40,13 @@ class Category extends Equatable {
   }
 
   Category copyWith({
-    // String? id,
+    String? id,
     String? name,
     String? typeProductId,
     String? imageUrl,
   }) {
     return Category(
-      // id: id ?? this.id,
+      id: id ?? this.id,
       name: name ?? this.name,
       typeProductId: typeProductId ?? this.typeProductId,
       imageUrl: imageUrl ?? this.imageUrl,
