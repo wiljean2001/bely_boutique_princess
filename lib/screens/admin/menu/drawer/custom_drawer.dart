@@ -44,11 +44,11 @@ class _HomeDrawerState extends State<HomeDrawer> {
         labelName: S.of(context).title_show_as_user, // 'Ver como usuario',
         icon: const Icon(Icons.home_outlined),
       ),
-      DrawerList(
-        index: DrawerIndex.DASHBOARD,
-        labelName: S.of(context).title_dashboard_screen, // 'Dashboard',
-        icon: const Icon(Icons.dashboard_outlined),
-      ),
+      // DrawerList(
+      //   index: DrawerIndex.DASHBOARD,
+      //   labelName: S.of(context).title_dashboard_screen, // 'Dashboard',
+      //   icon: const Icon(Icons.dashboard_outlined),
+      // ),
       DrawerList(
         index: DrawerIndex.ROLE,
         labelName: S.of(context).title_roles, // 'Dashboard',
