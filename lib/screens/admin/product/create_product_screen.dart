@@ -1,3 +1,4 @@
+import 'package:bely_boutique_princess/config/responsive.dart';
 import 'package:flutter/material.dart';
 
 import 'package:bely_boutique_princess/models/models.dart';
@@ -241,7 +242,10 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
                       width: double.infinity,
                       child: Padding(
                         padding: EdgeInsets.only(
-                            left: MediaQuery.of(context).size.width * 0.4),
+                          left: Responsive.isMobile(context)
+                              ? MediaQuery.of(context).size.width * 0.4
+                              : MediaQuery.of(context).size.width * 0.7,
+                        ),
                         child: MaterialButton(
                           color: Theme.of(context).primaryColor,
                           elevation: 8.0,

@@ -136,7 +136,7 @@ class CustomExtraProducts extends StatelessWidget {
               added: false,
               // isFavorite: false,
               context: context,
-              isShowAdd: false, // mostrar opciones
+              quantity: false, // mostrar opciones
               isShowFavorite: false, // mostrar opcion fav
               onTap: () {},
             );

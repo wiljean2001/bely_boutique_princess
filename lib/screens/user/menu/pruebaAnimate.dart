@@ -48,13 +48,7 @@ class OpenContainerTransformDemo extends StatefulWidget {
     return MaterialPageRoute(
         settings: const RouteSettings(name: routeName),
         builder: (context) {
-          // print the status user with the authbloc
-          print(BlocProvider.of<AuthBloc>(context).state.status);
-
-          return BlocProvider.of<AuthBloc>(context).state.status ==
-                  AuthStatus.unauthenticated
-              ? const OnboardingScreen()
-              : const OpenContainerTransformDemo();
+          return const OpenContainerTransformDemo();
         });
   }
 

@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../blocs/blocs.dart';
 import '../../../blocs/order/order_bloc.dart';
+import '../../../config/responsive.dart';
 import '../../../models/order_model.dart';
 
 // falta cambiar los textos a dinamicos
@@ -92,7 +93,7 @@ class ShoppingCartView extends StatelessWidget {
                   ),
                   // solucionado
                   SizedBox(
-                    height: 220, // alto de los cards
+                    height: Responsive.isMobile(context) ? 220 : 300, // alto de los cards
                     child: BlocBuilder<ProductBloc, ProductState>(
                       builder: (context, state) {
                         if (state is ProductLoading) {
@@ -110,7 +111,7 @@ class ShoppingCartView extends StatelessWidget {
                               added: false,
                               // isFavorite: false,
                               context: context,
-                              isShowAdd: false, // mostrar opciones
+                              quantity: false, // mostrar opciones
                               isShowFavorite: false, // mostrar opcion fav
                               onTap: () {},
                             );

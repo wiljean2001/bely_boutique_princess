@@ -36,13 +36,15 @@ dependencies:
   url_launcher: ^6.1.2
   flutter_settings_ui: ^2.0.1
   multi_select_flutter: ^4.1.2
-  fl_chart: ^0.36.1
+  # fl_chart: ^0.36.1
   data_table_2: ^2.0.3
   flutter_svg: ^0.22.0
   flutter_custom_dialog: ^1.2.0
   flutter_dropdown: ^1.0.0+hotfix.1
   flutter_localized_locales: ^2.0.3
-  loading_animations: "^2.1.0"
+  # loading_animations: "^2.1.0"
+  flutter_map: ^1.1.1
+  
 
 dev_dependencies:
   flutter_test:

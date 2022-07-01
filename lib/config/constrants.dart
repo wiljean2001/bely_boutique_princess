@@ -28,7 +28,11 @@ const Duration kButtonAnimationDuration = Duration(milliseconds: 600);
 const Duration kCardAnimationDuration = Duration(milliseconds: 400);
 const Duration kRippleAnimationDuration = Duration(milliseconds: 400);
 const Duration kLoginAnimationDuration = Duration(milliseconds: 1500);
+// MapBox
+const MAPBOX_ACCESS_TOKEN =
+    'pk.eyJ1IjoiYmVseXByaW5jZXNzIiwiYSI6ImNsNTI1emhjeTBjaXkzaW56d3FneWp4aXcifQ.x7wlSVd91GPVjK--0bQPwA';
+const mapBoxStyle = 'mapbox/dark-v10';
+const mapBoxColor = Color(0xFF3DC5A7);
 
-// Assets
-// const String kGoogleLogoPath = 'assets/images/google_logo.png';
-// const String kLogoPath = 'assets/logo_white.png';
+const markerSizeExpanded = 55.0;
+const markerSizeShrinked = 38.0;

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:loading_animations/loading_animations.dart';
 
 import '../config/responsive.dart';
 import '../generated/assets.dart';
@@ -13,7 +12,7 @@ class CustomCardProduct extends StatelessWidget {
     required this.added,
     // required this.isFavorite,
     required this.context,
-    this.isShowAdd = true,
+    this.quantity = true,
     this.isShowFavorite = true,
     required this.onTap,
   }) : super(key: key);
@@ -23,7 +22,7 @@ class CustomCardProduct extends StatelessWidget {
   final String imgPath;
   final bool added;
   // final bool isFavorite;
-  final bool isShowAdd;
+  final bool quantity;
   final bool isShowFavorite;
   final BuildContext context;
   final Function onTap;
@@ -52,8 +51,10 @@ class CustomCardProduct extends StatelessWidget {
             ],
             color: Theme.of(context).scaffoldBackgroundColor,
           ), //Colors.white
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          child: Wrap(
+            alignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               // isShowFavorite
               //     ? Padding(
@@ -105,15 +106,16 @@ class CustomCardProduct extends StatelessWidget {
                   style: const TextStyle(
                       color: Color(0xFFCC8053), fontSize: 14.0)),
               Text(name,
-                  style: const TextStyle(
-                      color: Color(0xFF575E67), fontSize: 14.0)),
-              isShowAdd
+                  style:
+                      const TextStyle(color: Color(0xFF575E67), fontSize: 14.0),
+                  textAlign: TextAlign.center),
+              quantity
                   ? Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
                           color: const Color(0xFFEBEBEB), height: 1.0))
                   : const SizedBox(),
-              isShowAdd
+              quantity
                   ? Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
