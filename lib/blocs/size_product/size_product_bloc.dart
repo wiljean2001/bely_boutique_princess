@@ -31,8 +31,8 @@ class SizeProductBloc extends Bloc<SizeProductEvent, SizeProductState> {
     _sizeProductSubscription?.cancel();
     _sizeProductSubscription =
         _sizeProductRepository.getAllSizeProducts().listen(
-              (typProducts) => add(
-                UpdateSizeProducts(typProducts),
+              (listSizeProducts) => add(
+                UpdateSizeProducts(listSizeProducts, true),
               ),
             );
   }
@@ -44,8 +44,8 @@ class SizeProductBloc extends Bloc<SizeProductEvent, SizeProductState> {
     _sizeProductSubscription?.cancel();
     _sizeProductSubscription =
         _sizeProductRepository.getSizeProducts(event.typeProductId!).listen(
-              (typProducts) => add(
-                UpdateSizeProducts(typProducts),
+              (listSizeProducts) => add(
+                UpdateSizeProducts(listSizeProducts, false),
               ),
             );
   }
@@ -54,7 +54,11 @@ class SizeProductBloc extends Bloc<SizeProductEvent, SizeProductState> {
     UpdateSizeProducts event,
     Emitter<SizeProductState> emit,
   ) {
-    emit(SizeProductsLoaded(sizeProducts: event.sizeProducts));
+    if (event.allSize) {
+      emit(SizeAllProductsLoaded(sizeProducts: event.sizeProducts));
+    } else {
+      emit(SizeProductsLoaded(sizeProducts: event.sizeProducts));
+    }
   }
 
   void _onAddSizeProduct(

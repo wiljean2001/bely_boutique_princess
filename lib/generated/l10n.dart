@@ -659,16 +659,6 @@ class S {
       args: [],
     );
   }
-
-  /// `Actualizar producto`
-  String get title_update_user_screen {
-    return Intl.message(
-      'Editar Usuario',
-      name: 'title_update_user_screen',
-      desc: '',
-      args: [],
-    );
-  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

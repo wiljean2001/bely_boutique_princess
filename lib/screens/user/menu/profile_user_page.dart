@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bely_boutique_princess/models/user_model.dart';
 
 import '../../../blocs/blocs.dart';
+import '../../../generated/assets.dart';
 import '../../../generated/l10n.dart';
 import '../../../repositories/auth/auth_repository.dart';
 import '../../setting_screen.dart';
@@ -72,7 +73,7 @@ class getProfileLoaded extends StatelessWidget {
                     fit: BoxFit.fitHeight,
                     alignment: Alignment.center,
                   )
-                : Image.asset('assets/images/profile_pic.png'),
+                : Image.asset(Assets.imagesLogoTextoRosa),
             title: '@${usuario.name}',
             extent: Responsive.isMobile(context) ? 280 : 500,
           ),
@@ -180,7 +181,6 @@ class _BodyState extends State<Body> {
         title: 'Cerrar Sesion',
         onPressed: () {
           context.read<AuthBloc>().add(const AuthUserChanged(user: null));
-          context.read<OnboardingBloc>().add(const StartOnboarding());
           Navigator.pushNamedAndRemoveUntil(
             context,
             '/',

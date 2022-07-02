@@ -160,10 +160,11 @@ class MyApp extends StatelessWidget {
             )..add(LoadTypeProducts()),
           ),
           BlocProvider(
-            create: (context) => SizeProductBloc(
-              sizeProductRepository: SizeProductRepository(),
-            )..add(const LoadSizeProducts()),
-          ),
+              create: (context) => SizeProductBloc(
+                    sizeProductRepository: SizeProductRepository(),
+                  )..add(const LoadSizeProducts())
+              ..add(LoadAllSizeProducts()),
+              ),
           BlocProvider(
             create: (context) => OrderBloc(
               authBloc: BlocProvider.of<AuthBloc>(context),

@@ -29,11 +29,11 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       // backgroundColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(.2),
       body: BlocBuilder<ProductBloc, ProductState>(
-        builder: (context, state) {
-          if (state is ProductLoading) {
+        builder: (context, stateProduct) {
+          if (stateProduct is ProductLoading) {
             return const CustomLoadingScreen();
           }
-          if (state is ProductsLoaded) {
+          if (stateProduct is ProductsLoaded) {
             return CustomScrollView(
               physics: const BouncingScrollPhysics(),
               slivers: <Widget>[
@@ -44,7 +44,7 @@ class _HomeViewState extends State<HomeView> {
                       context: context,
                       delegate: ProductSearchDelegate(
                         history,
-                        products: state.products,
+                        products: stateProduct.products,
                       ),
                     );
                   },
@@ -57,104 +57,48 @@ class _HomeViewState extends State<HomeView> {
                 //           : isShowProducts = true;
                 //     }),
                 //     child: Text('Ver productos normales'),
-                //   ),
+                //   ),w
                 // ),
                 // isShowProducts?
-                SliverGrid.count(
-                  crossAxisCount: 2,
-                  childAspectRatio: Responsive.isMobile(context) ? 0.75 : 1,
-                  children: state.products.isNotEmpty
-                      ? state.products
-                          .map(
-                            (product) => Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: CustomCardProduct(
-                                context: context,
-                                added: true,
-                                imgPath: product.imageUrls.isNotEmpty
-                                    ? product.imageUrls[0]
-                                    : 'https://api.lorem.space/image/shoes?w=150&h=150',
-                                // isFavorite: false,
-                                name: product.title,
-                                price: 'S/ ${product.prices.toString()}',
-                                onTap: () => Navigator.of(context).pushNamed(
-                                  ProductScreen.routeName,
-                                  arguments: product,
-                                ),
-                              ),
-                            ),
-                          )
-                          .toList()
-                      : [const SizedBox()],
+                BlocBuilder<SizeProductBloc, SizeProductState>(
+                  builder: (context, stateSizesProduct) {
+                    if (stateSizesProduct is SizeAllProductsLoaded) {
+                      return SliverGrid.count(
+                        crossAxisCount: 2,
+                        childAspectRatio:
+                            Responsive.isMobile(context) ? 0.75 : 1,
+                        children: stateProduct.products.isNotEmpty
+                            ? stateProduct.products
+                                .map(
+                                  (product) => Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: CustomCardProduct(
+                                      context: context,
+                                      added: true,
+                                      imgPath: product.imageUrls.isNotEmpty
+                                          ? product.imageUrls[0]
+                                          : 'https://api.lorem.space/image/shoes?w=150&h=150',
+                                      // isFavorite: false,
+                                      name: product.title,
+                                      price: 'S/ ${product.prices.toString()}',
+                                      onTap: () =>
+                                          Navigator.of(context).pushNamed(
+                                        ProductScreen.routeName,
+                                        arguments: ProductScreenArguments(
+                                            product,
+                                            stateSizesProduct.sizeProducts),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                                .toList()
+                            : [const SizedBox()],
+                      );
+                    }
+                    return const SliverToBoxAdapter(
+                        child: Center(child: CircularProgressIndicator()));
+                  },
                 )
-                //   delegate: SliverChildBuilderDelegate(
-                //     (context, index) {
-                //       Product product = Product(
-                //         title: 'Vestido blanco',
-                //         descript: 'Vestido blanco',
-                //         imageUrls: [
-                //           'https://api.lorem.space/image/shoes?w=${150 + index}&h=${150 + index}'
-                //         ],
-                //         sizes: const ['19.50'],
-                //         price: 59.20,
-                //         categories: [],
-                //       );
-                //       return Padding(
-                //         padding: const EdgeInsets.all(8.0),
-                //         child: CustomCardProduct(
-                //           context: context,
-                //           added: true,
-                //           imgPath: product.imageUrls[0],
-                //           isFavorite: false,
-                //           name: product.title,
-                //           price: product.sizes[0],
-                //           onTap: () => Navigator.of(context).pushNamed(
-                //               ProductScreen.routeName,
-                //               arguments: product),
-                //         ),
-                //       );
-                //     },
-                //     childCount: 20,
-                //   ),
-                //   gridDelegate:
-                //       const SliverGridDelegateWithFixedCrossAxisCount(
-                //     crossAxisCount: 2,
-                //     mainAxisSpacing: 0,
-                //     crossAxisSpacing: 0,
-                //     childAspectRatio: 1.1,
-                //   ),
-                // )
-                // : SliverGrid(
-                //     delegate: SliverChildBuilderDelegate(
-                //       (context, index) {
-                //         return Padding(
-                //           padding: const EdgeInsets.all(8.0),
-                //           child: CustomCardProduct(
-                //             context: context,
-                //             added: false,
-                //             imgPath: state
-                //                     .products[index].imageUrls.isNotEmpty
-                //                 ? state.products[index].imageUrls[0]
-                //                 : 'https://api.lorem.space/image/shoes?w=${150 + index}&h=${150 + index}',
-                //             // isFavorite: false,
-                //             name: state.products[index].title,
-                //             price: 'S/ ${state.products[index].price}',
-                //             onTap: () => Navigator.of(context).pushNamed(
-                //                 ProductScreen.routeName,
-                //                 arguments: state.products[index]),
-                //           ),
-                //         );
-                //       },
-                //       childCount: state.products.length,
-                //     ),
-                //     gridDelegate:
-                //         const SliverGridDelegateWithFixedCrossAxisCount(
-                //       crossAxisCount: 2,
-                //       // mainAxisSpacing: 0,
-                //       // crossAxisSpacing: 0,
-                //       childAspectRatio: 0.65,
-                //     ),
-                //   ),
               ],
             );
           }
@@ -164,171 +108,3 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 }
-
-/***
- * SliverPadding(
-                    padding: EdgeInsets.all(8.0),
-                    sliver: SliverFillRemaining(
-                      // CustomAppBar(title: S.of(context).AppTitle, hasActions: true),
-                      child: Wrap(
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width / 2,
-                            height: MediaQuery.of(context).size.height / 2,
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColor),
-                              child: Row(
-                                children: [Text('SliverFillRemaining')],
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width / 2,
-                            height: MediaQuery.of(context).size.height / 2,
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColor),
-                              child: Row(
-                                children: [Text('SliverFillRemaining')],
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width / 2,
-                            height: MediaQuery.of(context).size.height / 2,
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColor),
-                              child: Row(
-                                children: [Text('SliverFillRemaining')],
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width / 2,
-                            height: MediaQuery.of(context).size.height / 2,
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColor),
-                              child: Row(
-                                children: [Text('SliverFillRemaining')],
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width / 2,
-                            height: MediaQuery.of(context).size.height / 2,
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColor),
-                              child: Row(
-                                children: [Text('SliverFillRemaining')],
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width / 2,
-                            height: MediaQuery.of(context).size.height / 2,
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColor),
-                              child: Row(
-                                children: [Text('SliverFillRemaining')],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-
-                      // child: SliverGrid(
-                      //   delegate: SliverChildBuilderDelegate(
-                      //     (context, index) => Card(
-                      //       child: DecoratedBox(
-                      //         decoration: BoxDecoration(
-                      //             color: Theme.of(context).primaryColor),
-                      //         child: Row(),
-                      //       ),
-                      //     ),
-                      //     childCount: 4,
-                      //   ),
-                      //   gridDelegate:
-                      //       const SliverGridDelegateWithFixedCrossAxisCount(
-                      //     crossAxisCount: 2,
-                      //     mainAxisSpacing: 12.0,
-                      //     crossAxisSpacing: 12.0,
-                      //     childAspectRatio: 1.5,
-                      //   ),
-                      // ),
-                    ),
-                  ),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-isShowProducts
-                    ? SliverGrid(
-                        delegate: SliverChildBuilderDelegate(
-                          (context, index) {
-                            Product product = Product(
-                              title: 'Vestido blanco',
-                              descript: 'Vestido blanco',
-                              imageUrls: [
-                                'https://api.lorem.space/image/shoes?w=${150 + index}&h=${150 + index}'
-                              ],
-                              sizes: const ['19.50'],
-                              price: 59.20,
-                              categories: [],
-                            );
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: CustomCardProduct(
-                                context: context,
-                                added: true,
-                                imgPath: product.imageUrls[0],
-                                isFavorite: false,
-                                name: product.title,
-                                price: product.sizes[0],
-                                onTap: () => Navigator.of(context).pushNamed(
-                                    ProductScreen.routeName,
-                                    arguments: product),
-                              ),
-                            );
-                          },
-                          childCount: 20,
-                        ),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 0,
-                          crossAxisSpacing: 0,
-                          childAspectRatio: 1.1,
-                        ),
-                      )
-                    :
- */
-
-

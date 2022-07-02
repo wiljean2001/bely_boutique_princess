@@ -1,8 +1,14 @@
+import 'package:bely_boutique_princess/utils/custom_alert_dialog.dart';
 import 'package:bely_boutique_princess/utils/show_alert.dart';
 import 'package:bely_boutique_princess/widgets/custom_carousel_sliders%20copy.dart';
+import 'package:bely_boutique_princess/widgets/custom_multi_dropdown.dart';
 import 'package:carousel_slider/carousel_controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
+import 'package:flutter_dropdown/flutter_dropdown.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:pinch_zoom_image_last/pinch_zoom_image_last.dart';
 
 import '../../blocs/blocs.dart';
@@ -19,37 +25,47 @@ import '../../widgets/custom_carousel_sliders.dart';
 class ProductScreen extends StatefulWidget {
   static const String routeName = '/product'; //route
 
-  static Route route({required Product product}) {
+  static Route route({
+    required ProductScreenArguments productArguments,
+  }) {
     return MaterialPageRoute(
       settings: const RouteSettings(name: routeName),
       builder: (context) {
         // print the status user with the authbloc
-        return ProductScreen(product: product);
+        return ProductScreen(
+          productArguments: productArguments,
+        );
       },
     );
   }
 
-  final Product product;
+  final ProductScreenArguments productArguments;
   // pruebas:
   // final
   const ProductScreen({
     Key? key,
-    required this.product,
+    required this.productArguments,
   }) : super(key: key);
 
   @override
   ProductScreenState createState() {
-    return ProductScreenState(product);
+    return ProductScreenState(
+        productArguments.product, productArguments.sizeProduct);
   }
 }
 
 class ProductScreenState extends State<ProductScreen> {
   final Product product;
-  ProductScreenState(this.product);
+  final List<SizeProduct> sizesProduct;
+  ProductScreenState(this.product, this.sizesProduct);
 
   final controller = CarouselController();
   @override
   Widget build(BuildContext context) {
+    print(sizesProduct);
+    // print(context.read<AuthBloc>().state.user!.uid);
+    // print(context.read<AuthBloc>().state.user!.email);
+    // print(context.read<AuthBloc>().state.user!.reauthenticateWithCredential(AuthCredential(providerId: providerId, signInMethod: signInMethod)));
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
@@ -164,13 +180,19 @@ class CustomExtraProducts extends StatelessWidget {
   }
 }
 
-class CustomInfoProduct extends StatelessWidget {
+class CustomInfoProduct extends StatefulWidget {
   final Product product;
   const CustomInfoProduct({
     Key? key,
     required this.product,
   }) : super(key: key);
 
+  @override
+  State<CustomInfoProduct> createState() => _CustomInfoProductState();
+}
+
+class _CustomInfoProductState extends State<CustomInfoProduct> {
+  int quantity = 0;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -185,48 +207,56 @@ class CustomInfoProduct extends StatelessWidget {
           // const Divider(height: 10),
           // Text(product.title, style: const TextStyle(fontSize: 22)),
           Text(
-            product.descript,
+            widget.product.descript,
             style: const TextStyle(fontSize: 18),
             textAlign: TextAlign.center,
           ),
           const Text(
-            'Precios:',
+            'Precios: ',
             style: TextStyle(fontSize: 18),
           ),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: product.prices
-                .map(
-                  (e) => Text(
-                    'S/ $e',
-                    style: const TextStyle(fontSize: 18),
-                    textAlign: TextAlign.center,
-                  ),
-                )
-                .toList(),
+          Text(
+            'S/ ${widget.product.prices[0]}',
+            style: const TextStyle(fontSize: 18),
+            textAlign: TextAlign.center,
           ),
           const Text(
-            'Tallas:',
+            ' - ',
             style: TextStyle(fontSize: 18),
+            textAlign: TextAlign.center,
+          ),
+          Text(
+            'S/ ${widget.product.prices[1]}',
+            style: const TextStyle(fontSize: 18),
+            textAlign: TextAlign.center,
           ),
           Row(
-            mainAxisSize: MainAxisSize.min,
-            children: product.sizes
-                .map(
-                  (e) => Text(
-                    '$e ',
-                    style: const TextStyle(fontSize: 18),
-                    textAlign: TextAlign.center,
-                  ),
-                )
-                .toList(),
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Tallas:',
+                style: TextStyle(fontSize: 18),
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: widget.product.sizes
+                    .map(
+                      (e) => Text(
+                        '$e ',
+                        style: const TextStyle(fontSize: 18),
+                        textAlign: TextAlign.center,
+                      ),
+                    )
+                    .toList(),
+              ),
+            ],
           ),
 
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal:
                     Responsive.isMobile(context) ? kPaddingS : kPaddingL),
-            child: CustomCarouselSliders2(itImages: product.imageUrls),
+            child: CustomCarouselSliders2(itImages: widget.product.imageUrls),
           ),
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
@@ -238,7 +268,71 @@ class CustomInfoProduct extends StatelessWidget {
                   minHeight: Responsive.isMobile(context) ? 45 : 50,
                 ),
                 child: ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    CustomAlertDialog.contentButtonAndTitleWithouthAnimation(
+                      context: context,
+                      gravity: Gravity.bottom,
+                      content: StatefulBuilder(
+                        builder: (context, setState) {
+                          return Container(
+                            height: 200,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: kPaddingM),
+                            child: Wrap(
+                              children: [
+                                const Text("Cantidad:"),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Slider(
+                                        value: quantity.toDouble(),
+                                        onChanged: (value) {
+                                          setState(() {
+                                            quantity = value.round();
+                                          });
+                                        },
+                                        min: 0,
+                                        max: 50,
+                                      ),
+                                    ),
+                                    Text(quantity.toString()),
+                                  ],
+                                ),
+                                const Text("Talla:"),
+                                DropDown(
+                                  isExpanded: true,
+                                  items: widget.product.sizes,
+                                  customWidgets: widget.product.sizes
+                                      .map((e) => Text(e))
+                                      .toList(),
+                                  hint: const Text('Seleccionar Talla'),
+                                ),
+                                Container(
+                                  alignment: AlignmentDirectional.topEnd,
+                                  child: Container(
+                                    constraints: BoxConstraints(
+                                      minWidth: Responsive.isMobile(context)
+                                          ? 100
+                                          : 200,
+                                      minHeight: Responsive.isMobile(context)
+                                          ? 45
+                                          : 50,
+                                    ),
+                                    child: ElevatedButton.icon(
+                                      onPressed: () {},
+                                      label: const Text("Solicitar"),
+                                      icon: const Icon(Icons.add_shopping_cart),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                      title: Text(''),
+                    );
+                  },
                   label: const Text("Solicitar"),
                   icon: const Icon(Icons.add_shopping_cart),
                 ),
@@ -266,4 +360,11 @@ class _CustomMiniProduct extends StatelessWidget {
       ],
     );
   }
+}
+
+class ProductScreenArguments {
+  final Product product;
+  final List<SizeProduct> sizeProduct;
+
+  ProductScreenArguments(this.product, this.sizeProduct);
 }

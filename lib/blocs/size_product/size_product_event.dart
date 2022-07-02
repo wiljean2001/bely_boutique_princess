@@ -24,11 +24,12 @@ class LoadSizeProducts extends SizeProductEvent {
 
 class UpdateSizeProducts extends SizeProductEvent {
   final List<SizeProduct> sizeProducts;
+  final bool allSize;
 
-  const UpdateSizeProducts(this.sizeProducts);
+  const UpdateSizeProducts(this.sizeProducts, this.allSize);
 
   @override
-  List<Object> get props => [sizeProducts];
+  List<Object> get props => [sizeProducts, allSize];
 }
 
 class AddSizeProduct extends SizeProductEvent {

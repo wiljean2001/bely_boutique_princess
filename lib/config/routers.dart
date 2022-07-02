@@ -30,7 +30,8 @@ class Routers {
       case OnboardingScreen.routeName:
         return OnboardingScreen.route();
       case ProductScreen.routeName:
-        return ProductScreen.route(product: settings.arguments as Product);
+        return ProductScreen.route(
+            productArguments: settings.arguments as ProductScreenArguments);
       case CreateProductScreen.routeName:
         return CreateProductScreen.route();
       case MapScreen.routeName:

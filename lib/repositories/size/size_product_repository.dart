@@ -12,8 +12,8 @@ class SizeProductRepository extends BaseSizeProductRepository {
     return _firebaseFirestore
         .collection('sizeProducts')
         .snapshots()
-        .map((snapshot) {
-      return snapshot.docs.map((doc) => SizeProduct.fromSnapshot(doc)).toList();
+        .map((snap) {
+      return snap.docs.map((doc) => SizeProduct.fromSnapshot(doc)).toList();
     });
   }
 
