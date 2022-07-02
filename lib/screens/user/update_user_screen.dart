@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
+import '../../blocs/profile/profile_bloc.dart';
+import '../../config/constrants.dart';
+import '../../config/responsive.dart';
 import '../../generated/l10n.dart';
+import '../../models/user_model.dart';
+import '../../utils/validators.dart';
+import '../../widgets/custom_image_container.dart';
 import '../../widgets/custom_sliver_app_bar.dart';
 
 class UpdateUserScreen extends StatefulWidget {
@@ -20,6 +28,25 @@ class UpdateUserScreen extends StatefulWidget {
 }
 
 class _UpdateUserState extends State<UpdateUserScreen> {
+  XFile? xfile;
+  String? _name;
+  String? _locale;
+  String? _birth;
+
+  DateTime? picked;
+  // date picker
+  Future<void> _showDatePicker(DateTime? fecha) async {
+    picked = await showDatePicker(
+      context: context,
+      initialDate: fecha != null ? fecha : DateTime((DateTime.now().year - 18)),
+      firstDate: DateTime(1900),
+      lastDate: DateTime(DateTime.now().year - 18),
+      locale: const Locale('es', 'ES'),
+      // (2101)
+    );
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +58,145 @@ class _UpdateUserState extends State<UpdateUserScreen> {
             hasActions: false,
             hasIcon: false,
             isTextCenter: false,
+          ),
+          SliverToBoxAdapter(
+            // TODO: PROFILEBLOC
+            child: BlocBuilder<ProfileBloc, ProfileState>(
+              builder: (context, stateProfile) {
+                if (stateProfile is ProfileLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (stateProfile is ProfileLoaded) {
+                  picked = DateTime.tryParse(
+                      stateProfile.user.dateOfBirth!.toDate().toString());
+                  return Padding(
+                    padding: const EdgeInsets.all(30),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Elije tu imagen\n",
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        SizedBox(
+                          height: 200,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Container(
+                                constraints: BoxConstraints(
+                                  maxWidth:
+                                      Responsive.isMobile(context) ? 200 : 450,
+                                  maxHeight:
+                                      Responsive.isMobile(context) ? 200 : 400,
+                                ),
+                                child: CustomImageContainer(
+                                  imageUrl: stateProfile.user.image,
+                                ),
+                              ),
+                              const Icon(Icons.roundabout_right_sharp),
+                              Container(
+                                constraints: BoxConstraints(
+                                  maxWidth:
+                                      Responsive.isMobile(context) ? 200 : 450,
+                                  maxHeight:
+                                      Responsive.isMobile(context) ? 200 : 400,
+                                ),
+                                child: CustomImageContainer(
+                                  onPressed: (XFile _file) {
+                                    print('imagen');
+                                    xfile = null;
+
+                                    setState(() {
+                                      xfile = _file;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: kPaddingS),
+                        TextFormField(
+                            initialValue: stateProfile.user.name,
+                            textInputAction: TextInputAction.next,
+                            keyboardType: TextInputType.multiline,
+                            maxLines: null,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Nombre',
+                            ),
+                            validator: (value) =>
+                                Validators.isValidateOnlyTextMinMax(
+                                  text: value!,
+                                  minCaracter: 3,
+                                  maxCarater: 100,
+                                  messageError: 'Nombre no valido.',
+                                ),
+                            onSaved: (value) => setState(() {
+                                  _name = value;
+                                })),
+                        const SizedBox(height: kPaddingS),
+                        TextFormField(
+                            initialValue: stateProfile.user.location,
+                            textInputAction: TextInputAction.next,
+                            keyboardType: TextInputType.multiline,
+                            maxLines: null,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Ubicación',
+                            ),
+                            validator: (value) =>
+                                Validators.isValidateOnlyTextMinMax(
+                                  text: value!,
+                                  minCaracter: 3,
+                                  maxCarater: 100,
+                                  messageError: 'Ubicación no valido.',
+                                ),
+                            onSaved: (value) => setState(() {
+                                  _locale = value;
+                                })),
+                        const SizedBox(height: kPaddingS),
+                        Row(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.grey)),
+                              child: Text(
+                                picked!.toString(),
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ),
+                            IconButton(
+                                color: Theme.of(context).primaryColor,
+                                onPressed: () => _showDatePicker(
+                                    DateTime.tryParse(stateProfile
+                                        .user.dateOfBirth!
+                                        .toDate()
+                                        .toString())),
+                                icon: const Icon(Icons.edit_calendar)),
+                          ],
+                        )
+                        /*MaterialButton(
+                          color: Theme.of(context).primaryColor,
+                          textColor: Theme.of(context).primaryColorLight,
+                          onPressed: () => _showDatePicker(DateTime.tryParse(
+                              stateProfile.user.dateOfBirth!
+                                  .toDate()
+                                  .toString())),
+                          child: Icon(Icons.edit_calendar),
+                        )*/
+                      ],
+                    ),
+                  );
+                }
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              },
+            ),
           ),
         ],
       ),
