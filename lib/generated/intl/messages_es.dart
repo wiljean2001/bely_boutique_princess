@@ -98,6 +98,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Actualizar categoría"),
         "title_update_product_screen":
             MessageLookupByLibrary.simpleMessage("Actualizar producto"),
+        "title_update_user_screen":
+            MessageLookupByLibrary.simpleMessage("Editar Usuario"),
         "title_user_error_location":
             MessageLookupByLibrary.simpleMessage("Ubicación no valido"),
         "title_user_error_name":

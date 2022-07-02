@@ -59,5 +59,6 @@
   "title_categories": "Categorías",
   "title_create_category_screen": "Crear categoría",
   "title_update_category_screen": "Actualizar categoría",
-  "title_show_categories_screen": "Ver categorias"
+  "title_show_categories_screen": "Ver categorias",
+  "title_update_user_screen": "Editar Usuario"
 }
