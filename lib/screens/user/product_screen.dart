@@ -3,6 +3,7 @@ import 'package:bely_boutique_princess/widgets/custom_carousel_sliders%20copy.da
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pinch_zoom_image_last/pinch_zoom_image_last.dart';
 
 import '../../blocs/blocs.dart';
 import '../../config/constrants.dart';
@@ -53,12 +54,28 @@ class ProductScreenState extends State<ProductScreen> {
       body: CustomScrollView(
         slivers: <Widget>[
           TransitionAppBar(
-            avatar: Image.network(
-              product.imageUrls.isNotEmpty
-                  ? product.imageUrls[0]
-                  : 'https://api.lorem.space/image/shoes?w=150&h=150',
-              fit: BoxFit.fitWidth,
-              alignment: Alignment.center,
+            // avatar:  Image.network(
+            //   product.imageUrls.isNotEmpty
+            //       ? product.imageUrls[0]
+            //       : 'https://api.lorem.space/image/shoes?w=150&h=150',
+            //   fit: BoxFit.fitWidth,
+            //   alignment: Alignment.center,
+            // ),
+            avatar: PinchZoomImage(
+              image: Image.network(
+                product.imageUrls.isNotEmpty
+                    ? product.imageUrls[0]
+                    : 'https://api.lorem.space/image/shoes?w=150&h=150',
+                fit: BoxFit.fitWidth,
+                alignment: Alignment.center,
+                width: double.infinity,
+              ),
+              // onZoomStart: () {
+              //   print('Zoom started');
+              // },
+              // onZoomEnd: () {
+              //   print('Zoom finished');
+              // },
             ),
             withIcon: true,
             title: product.title,
@@ -146,64 +163,6 @@ class CustomExtraProducts extends StatelessWidget {
     );
   }
 }
-// //
-// class CustomInfoMiniProduct extends StatelessWidget {
-//   const CustomInfoMiniProduct({
-//     Key? key,
-//   }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return SizedBox(
-//       height: 150,
-//       child: Padding(
-//         padding: const EdgeInsets.symmetric(horizontal: 15),
-//         child: Column(
-//           children: [
-//             Row(
-//               crossAxisAlignment: CrossAxisAlignment.center,
-//               mainAxisAlignment: MainAxisAlignment.center,
-//               children: <Widget>[
-//                 const Icon(
-//                   Icons.keyboard_arrow_left,
-//                   size: 55,
-//                 ),
-//                 ConstrainedBox(
-//                   constraints: const BoxConstraints(maxWidth: 270),
-//                   child: SingleChildScrollView(
-//                     scrollDirection: Axis.horizontal,
-//                     primary: true,
-//                     child: Row(
-//                       children: const [
-//                         _CustomMiniProduct(icon: Icons.shopping_bag),
-//                         _CustomMiniProduct(icon: Icons.shopping_bag),
-//                         _CustomMiniProduct(icon: Icons.shopping_bag),
-//                         _CustomMiniProduct(icon: Icons.shopping_bag),
-//                       ],
-//                     ),
-//                   ),
-//                 ),
-//                 const Icon(
-//                   Icons.keyboard_arrow_right,
-//                   size: 55,
-//                 ),
-//               ],
-//             ),
-//             Container(
-//               alignment: AlignmentDirectional.topEnd,
-//               child: ElevatedButton.icon(
-//                 onPressed: () {},
-//                 label: const Text("Solicitar"),
-//                 icon: const Icon(Icons.add_shopping_cart),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//       // color: Colors.blue,
-//     );
-//   }
-// }
 
 class CustomInfoProduct extends StatelessWidget {
   final Product product;
@@ -217,17 +176,52 @@ class CustomInfoProduct extends StatelessWidget {
     return Container(
       height: Responsive.isMobile(context) ? 340 : 400,
       padding: const EdgeInsets.all(10),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+      child: Wrap(
+        crossAxisAlignment: WrapCrossAlignment.center,
+        alignment: WrapAlignment.center,
+        runAlignment: WrapAlignment.spaceAround,
+        // mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          const Divider(height: 10),
+          // const Divider(height: 10),
           // Text(product.title, style: const TextStyle(fontSize: 22)),
-          Text(product.descript, style: const TextStyle(fontSize: 18)),
-          Text('S/ ${product.prices}', style: const TextStyle(fontSize: 18)),
           Text(
-            'Tallas: ${product.sizes.map((e) => e)}',
+            product.descript,
             style: const TextStyle(fontSize: 18),
+            textAlign: TextAlign.center,
           ),
+          const Text(
+            'Precios:',
+            style: TextStyle(fontSize: 18),
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: product.prices
+                .map(
+                  (e) => Text(
+                    'S/ $e',
+                    style: const TextStyle(fontSize: 18),
+                    textAlign: TextAlign.center,
+                  ),
+                )
+                .toList(),
+          ),
+          const Text(
+            'Tallas:',
+            style: TextStyle(fontSize: 18),
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: product.sizes
+                .map(
+                  (e) => Text(
+                    '$e ',
+                    style: const TextStyle(fontSize: 18),
+                    textAlign: TextAlign.center,
+                  ),
+                )
+                .toList(),
+          ),
+
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal:

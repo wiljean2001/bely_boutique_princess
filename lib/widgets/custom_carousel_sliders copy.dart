@@ -1,6 +1,6 @@
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:pinch_zoom_image_last/pinch_zoom_image_last.dart';
 
 class CustomCarouselSliders2 extends StatefulWidget {
   const CustomCarouselSliders2({
@@ -44,7 +44,20 @@ class _CustomCarouselSlidersState extends State<CustomCarouselSliders2> {
                             return Column(
                               children: [
                                 Expanded(
-                                  child: Image.network(e),
+                                  child: widget.onTap != null
+                                      ? Image.network(e)
+                                      : PinchZoomImage(
+                                          image: Image.network(e),
+                                          zoomedBackgroundColor: const Color.fromRGBO(
+                                              240, 240, 240, 1.0),
+                                          // hideStatusBarWhileZooming: true,
+                                          // onZoomStart: () {
+                                          //   print('Zoom started');
+                                          // },
+                                          // onZoomEnd: () {
+                                          //   print('Zoom finished');
+                                          // },
+                                        ),
                                 ),
                               ],
                             );

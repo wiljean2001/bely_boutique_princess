@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../../../../config/constrants.dart';
 import '../../../../models/map_market.dart';
 
-
 class MyPageViewItem extends StatelessWidget {
   const MyPageViewItem({
     Key? key,
@@ -54,18 +53,18 @@ class MyPageViewItem extends StatelessWidget {
                 ],
               ),
             ),
-            MaterialButton(
-              padding: EdgeInsets.zero,
-              elevation: 6,
-              color: mapBoxColor,
-              onPressed: () {
-                print('Marker tapped: ${mapMarker.title}');
-              },
-              child: const Text(
-                'CALL',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
+            // MaterialButton(
+            //   padding: EdgeInsets.zero,
+            //   elevation: 6,
+            //   color: mapBoxColor,
+            //   onPressed: () {
+            //     print('Marker tapped: ${mapMarker.title}');
+            //   },
+            //   child: const Text(
+            //     'CALL',
+            //     style: TextStyle(fontWeight: FontWeight.bold),
+            //   ),
+            // ),
           ],
         ),
       ),

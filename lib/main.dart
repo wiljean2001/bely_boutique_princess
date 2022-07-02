@@ -26,16 +26,7 @@ import 'package:bely_boutique_princess/screens/screens.dart';
 /// Metodo main de la aplicacion flutter
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // web controller
-  // FirebaseOptions firebaseConfig = FirebaseOptions(
-  //   apiKey: "AIzaSyBkzutMzpfzvVZaOnmCfenchdn9LwI-BMg",
-  //   authDomain: "belyapp-87679.firebaseapp.com",
-  //   projectId: "belyapp-87679",
-  //   storageBucket: "belyapp-87679.appspot.com",
-  //   messagingSenderId: "394573783744",
-  //   appId: "1:394573783744:web:fad8afd4afe7d92dec4325",
-  //   measurementId: "G-ZHGRNBD7H7",
-  // );
+
   await Firebase.initializeApp(); //options: firebaseConfig
 
   final preferencesRepository = PreferencesRepositoryImpl();

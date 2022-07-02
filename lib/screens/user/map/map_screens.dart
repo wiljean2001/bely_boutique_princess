@@ -8,9 +8,20 @@ import 'widgets/map_widgets.dart';
 
 const keyMapBox = MAPBOX_ACCESS_TOKEN;
 
-final myLocation = LatLng(12.12364648688805, -86.26523041760257);
+final myLocation = LatLng(-5.197277446244993, -80.62909056749594);
 
+// -5.197277446244993, -80.62909056749594
 class MapScreen extends StatefulWidget {
+  static const String routeName = '/bely_map'; //route
+
+  static Route route() {
+    return MaterialPageRoute(
+        settings: const RouteSettings(name: routeName),
+        builder: (context) {
+          return const MapScreen();
+        });
+  }
+
   const MapScreen({Key? key}) : super(key: key);
 
   @override
@@ -89,8 +100,8 @@ class _MapScreenState extends State<MapScreen>
           FlutterMap(
             options: MapOptions(
               minZoom: 5,
-              maxZoom: 16,
-              zoom: 13,
+              maxZoom: 18,
+              zoom: 15,
               center: myLocation,
             ),
             nonRotatedLayers: [

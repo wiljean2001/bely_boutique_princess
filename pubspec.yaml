@@ -1,7 +1,7 @@
 name: bely_boutique_princess
 description: A new Flutter project.
 
-publish_to: 'none' 
+publish_to: 'none'
 
 version: 1.0.0+1
 
@@ -19,8 +19,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_bloc: ^8.0.1
-  firebase_auth: ^3.3.16
-  firebase_core: ^1.16.0
+  firebase_auth: ^3.4.1
+  firebase_core: ^1.19.1
   fluttertoast: ^8.0.9
   intl:
   carousel_slider: ^4.1.1
@@ -32,7 +32,7 @@ dependencies:
   # animated_splash_screen: ^1.2.0
   # smooth_page_indicator: ^1.0.0+2
   animations: ^2.0.3
-  pinch_zoom: ^1.0.0
+  pinch_zoom_image_last: ^0.4.1
   url_launcher: ^6.1.2
   flutter_settings_ui: ^2.0.1
   multi_select_flutter: ^4.1.2
@@ -44,7 +44,6 @@ dependencies:
   flutter_localized_locales: ^2.0.3
   # loading_animations: "^2.1.0"
   flutter_map: ^1.1.1
-  
 
 dev_dependencies:
   flutter_test:

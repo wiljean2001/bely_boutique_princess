@@ -1,3 +1,4 @@
+import 'package:bely_boutique_princess/screens/user/map/map_screens.dart';
 import 'package:flutter/material.dart';
 
 import '/screens/setting_screen.dart';
@@ -31,6 +32,8 @@ class Routers {
         return ProductScreen.route(product: settings.arguments as Product);
       case CreateProductScreen.routeName:
         return CreateProductScreen.route();
+      case MapScreen.routeName:
+        return MapScreen.route();
       case OpenContainerTransformDemo.routeName:
         return OpenContainerTransformDemo.route();
       default:

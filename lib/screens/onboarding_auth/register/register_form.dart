@@ -1,3 +1,4 @@
+import 'package:bely_boutique_princess/utils/show_alert.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../blocs/blocs.dart';
@@ -109,6 +110,13 @@ class _RegisterFormState extends State<RegisterForm> {
                     if (!_formKeyReg.currentState!.validate()) return;
                     // SignUp
                     await _contextRegister.signUpWithCredentials();
+                    if (_contextRegister.state.user == null) {
+                      ShowAlert.showErrorSnackBar(context,
+                          message:
+                              'Ocurrió un problema con la base de datos, intenta inciar sesión de otro modo.');
+                      return;
+                    }
+                    ;
                     User user = User(
                       // created a empty user
                       id: _contextRegister.state.user!.uid,

@@ -1,11 +1,11 @@
 import 'package:bely_boutique_princess/blocs/theme.dart';
 import 'package:bely_boutique_princess/config/responsive.dart';
+import 'package:bely_boutique_princess/screens/user/map/map_screens.dart';
 import 'package:bely_boutique_princess/utils/open_all.dart';
 import 'package:bely_boutique_princess/widgets/custom_app_bar_avatar.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pinch_zoom/pinch_zoom.dart';
 
 import 'package:bely_boutique_princess/models/user_model.dart';
 
@@ -145,7 +145,7 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     List<ButtonProfile> listButtons = [
       ButtonProfile(
-        title: 'Visitanos',
+        title: 'Búcanos como',
         onPressed: () async => await showDialog(
           context: context,
           // barrierColor: Colors.transparent,
@@ -163,9 +163,9 @@ class _BodyState extends State<Body> {
         onPressed: () => Navigator.pushNamed(context, SettingScreen.routeName),
       ),
       ButtonProfile(
-        title: 'Ayuda',
+        title: 'Ubícanos',
         onPressed: () {
-          Navigator.pushNamed(context, OpenContainerTransformDemo.routeName);
+          Navigator.pushNamed(context, MapScreen.routeName);
           // Fluttertoast.showToast(
           // msg: "Tap a ayuda",
           // toastLength: Toast.LENGTH_SHORT,
@@ -179,8 +179,8 @@ class _BodyState extends State<Body> {
       ButtonProfile(
         title: 'Cerrar Sesion',
         onPressed: () {
-          RepositoryProvider.of<AuthRepository>(context).signOut();
           context.read<AuthBloc>().add(const AuthUserChanged(user: null));
+          context.read<OnboardingBloc>().add(const StartOnboarding());
           Navigator.pushNamedAndRemoveUntil(
             context,
             '/',
