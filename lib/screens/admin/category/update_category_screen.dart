@@ -343,7 +343,6 @@ class _UpdateCategoryScreenState extends State<UpdateCategoryScreen> {
                     style: Theme.of(context).textTheme.headline6,
                   ),
                 ),
-                // YYNoticeDialog(category),
                 child: const Text(
                   'Editar',
                   style: TextStyle(fontSize: 10),

@@ -1,6 +1,7 @@
 // final theme = Provider.of<ThemeChanger>(context);
 
 import 'package:bely_boutique_princess/generated/l10n.dart';
+import 'package:bely_boutique_princess/screens/user/update_user_screen.dart';
 import 'package:bely_boutique_princess/utils/custom_alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -181,7 +182,9 @@ class _SettingScreenState extends State<SettingScreen> {
               SettingsTile(
                 title: 'Editar perfil',
                 leading: const Icon(Icons.edit_outlined),
-                onPressed: (BuildContext context) {},
+                onPressed: (BuildContext context) {
+                  Navigator.pushNamed(context, UpdateUserScreen.routeName);
+                },
               ),
               SettingsTile(
                 title: 'Cambiar contraseña',
