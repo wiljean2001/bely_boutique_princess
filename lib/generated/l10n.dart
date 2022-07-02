@@ -660,7 +660,7 @@ class S {
     );
   }
 
-  /// `Actualizar producto`
+  /// `Editar Usuario`
   String get title_update_user_screen {
     return Intl.message(
       'Editar Usuario',
