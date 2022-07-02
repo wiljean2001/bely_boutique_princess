@@ -1,5 +1,7 @@
 // final theme = Provider.of<ThemeChanger>(context);
 
+import 'dart:html';
+
 import 'package:bely_boutique_princess/generated/l10n.dart';
 import 'package:bely_boutique_princess/screens/user/update_user_screen.dart';
 import 'package:bely_boutique_princess/utils/custom_alert_dialog.dart';
@@ -43,6 +45,8 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     themesAll? _character = themesAll.deffault;
@@ -189,7 +193,23 @@ class _SettingScreenState extends State<SettingScreen> {
               SettingsTile(
                 title: 'Cambiar contraseña',
                 leading: const Icon(Icons.password_outlined),
-                onPressed: (BuildContext context) {},
+                onPressed: (BuildContext context) {
+                  return CustomAlertDialog.contentButtonAndTitle(
+                      context: context,
+                      content: Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              TextField(
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Contraseña',
+                                ),
+                              )
+                            ],
+                          )),
+                      title: const Text("Actualizar contraseña"));
+                },
               ),
             ],
           ),

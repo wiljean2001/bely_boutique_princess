@@ -24,6 +24,7 @@ class SizeScreen extends StatefulWidget {
 class _SizeScreenState extends State<SizeScreen> {
   String? titlesizeProduct;
   TypeProduct? typeProduct;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
