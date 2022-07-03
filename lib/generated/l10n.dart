@@ -270,10 +270,10 @@ class S {
     );
   }
 
-  /// `Contraseña`
+  /// `Nueva contraseña`
   String get password {
     return Intl.message(
-      'Contraseña',
+      'Nueva contraseña',
       name: 'password',
       desc: '',
       args: [],

@@ -96,8 +96,6 @@ class _HomeScreenState extends State<MenuAdminScreen> {
                       return const HomeScreen();
                     }
                   }
-                  // });
-                  print('///');
                   return const CustomLoadingScreen();
                 });
               } else {

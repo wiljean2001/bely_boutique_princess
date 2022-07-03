@@ -102,9 +102,11 @@ class CustomCardProduct extends StatelessWidget {
                 image: NetworkImage(imgPath),
               ),
               const SizedBox(height: 7.0),
-              Text(price,
-                  style: const TextStyle(
-                      color: Color(0xFFCC8053), fontSize: 14.0)),
+              Center(
+                child: Text(price,
+                    style: const TextStyle(
+                        color: Color(0xFFCC8053), fontSize: 14.0)),
+              ),
               Text(name,
                   style:
                       const TextStyle(color: Color(0xFF575E67), fontSize: 14.0),

@@ -180,7 +180,7 @@ class _BodyState extends State<Body> {
       ButtonProfile(
         title: 'Cerrar Sesion',
         onPressed: () {
-          context.read<AuthBloc>().add(const AuthUserChanged(user: null));
+          context.read<AuthRepository>().signOut();
           Navigator.pushNamedAndRemoveUntil(
             context,
             '/',

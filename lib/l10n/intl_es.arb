@@ -21,7 +21,7 @@
   "title_sign_in": "INICIAR SESIÓN",
   "email": "Correo electrónico",
   "validator_email_error": "Correo no válido",
-  "password": "Contraseña",
+  "password": "Nueva contraseña",
   "validator_password_error": "Contraseña no válida\n(Mínimo 8 caracteres, 1 letra mayúscula,\n1 carácter especial, 1 número).",
   "bttn_register": "Registrarse",
   "title_register_screen": "Registrar",

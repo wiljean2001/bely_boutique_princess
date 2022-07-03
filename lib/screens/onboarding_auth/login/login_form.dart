@@ -122,12 +122,22 @@ class _LoginFormState extends State<LoginForm> {
                     }
                     await _contextSignUp.signInWithCredentials();
                     if (_contextSignUp.state.status == SignupStatus.success) {
+                      context.read<ProfileBloc>().add(
+                            LoadProfile(
+                              userId: _contextSignUp.state.user!.uid,
+                            ),
+                          );
+                      context.read<HomePageBloc>().add(
+                            const HomeTabChangeEvent(),
+                          );
+                      // print(_contextSignUp.state.user);
                       // go to home screen
                       Navigator.pushNamedAndRemoveUntil(
                         context,
                         '/',
                         (route) => false,
                       );
+                      return;
                     }
                     ShowAlert.showErrorSnackBar(
                       context,

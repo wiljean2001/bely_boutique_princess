@@ -1,6 +1,7 @@
 import 'package:bely_boutique_princess/screens/home_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../blocs/blocs.dart';
 import '../../../../blocs/profile/profile_bloc.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,8 @@ import '../../../../config/responsive.dart';
 import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
 import 'package:provider/provider.dart';
+
+import '../../../../repositories/repositories.dart';
 
 class HomeDrawer extends StatefulWidget {
   const HomeDrawer(
@@ -282,7 +285,8 @@ class _HomeDrawerState extends State<HomeDrawer> {
   }
 
   void onTapped() {
-    print('Haciendo algo...'); // Print to console.
+    print('Cerrando sesión...'); // Print to console.
+    context.read<AuthRepository>().signOut();
     Navigator.of(context).pushNamedAndRemoveUntil(
       '/',
       (route) => false,

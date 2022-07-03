@@ -98,7 +98,7 @@ class _HomeViewState extends State<HomeView> {
                 // isShowProducts?
                 SliverFillRemaining(
                   child: LiquidPullToRefresh(
-                    // key: _refreshIndicatorKey, // key if you want to add
+                    key: _refreshIndicatorKey, // key if you want to add
                     onRefresh: _handleRefresh, // refresh callback
                     showChildOpacityTransition: false,
                     child: BlocBuilder<SizeProductBloc, SizeProductState>(
@@ -106,6 +106,7 @@ class _HomeViewState extends State<HomeView> {
                         if (stateSizesProduct is SizeAllProductsLoaded) {
                           return GridView.count(
                             crossAxisCount: 2,
+                            padding: const EdgeInsets.only(top: kPaddingS),
                             childAspectRatio:
                                 Responsive.isMobile(context) ? 0.85 : 1,
                             children: stateProduct.products.isNotEmpty
@@ -116,8 +117,8 @@ class _HomeViewState extends State<HomeView> {
                                         price += 'S/ $element ';
                                       }
                                       return Padding(
-                                        padding:
-                                            const EdgeInsets.all(kPaddingS),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: kPaddingS),
                                         child: CustomCardProduct(
                                           context: context,
                                           added: true,

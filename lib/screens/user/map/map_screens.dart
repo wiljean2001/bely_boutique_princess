@@ -8,7 +8,9 @@ import 'widgets/map_widgets.dart';
 
 const keyMapBox = MAPBOX_ACCESS_TOKEN;
 
-final myLocation = LatLng(-5.197277446244993, -80.62909056749594);
+final myLocation = LatLng(-5.194888653491863, -80.62801801724427);
+
+// -5.194865288717798, -80.62801388156396
 
 // -5.197277446244993, -80.62909056749594
 class MapScreen extends StatefulWidget {

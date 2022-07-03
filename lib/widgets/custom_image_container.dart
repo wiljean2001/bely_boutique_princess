@@ -65,12 +65,12 @@ class _CustomImageContainerState extends State<CustomImageContainer> {
 
                     if (_image != null) {
                       if (widget.onPressed == null) {
+                        BlocProvider.of<OnboardingBloc>(context).add(
+                          UpdateUserImages(image: _image),
+                        );
                         ShowAlert.showAlertSnackBar(
                           context,
                           message: S.of(context).image_uploading,
-                        );
-                        BlocProvider.of<OnboardingBloc>(context).add(
-                          UpdateUserImages(image: _image),
                         );
                       } else {
                         widget.onPressed!(_image);

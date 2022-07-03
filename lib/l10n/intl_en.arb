@@ -21,7 +21,7 @@
   "title_sign_in": "SIGN IN",
   "email": "Email",
   "validator_email_error": "Invalid email",
-  "password": "Password",
+  "password": "New password",
   "validator_password_error": "Invalid password\n(Minimum 8 characters, 1 capital letter,\n1 special character, 1 number).",
   "bttn_register": "Record",
   "title_register_screen": "Register",

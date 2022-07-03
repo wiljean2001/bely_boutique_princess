@@ -220,6 +220,7 @@ class _CustomInfoProductState extends State<CustomInfoProduct> {
             child: Text(
               widget.product.descript,
               style: const TextStyle(fontSize: 18),
+              textAlign: TextAlign.center,
             ),
           ),
           const Text(

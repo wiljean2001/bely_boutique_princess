@@ -59,7 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "menu_appbar_item3": MessageLookupByLibrary.simpleMessage("Ayuda"),
         "menu_appbar_item4":
             MessageLookupByLibrary.simpleMessage("Cerrar sesión"),
-        "password": MessageLookupByLibrary.simpleMessage("Contraseña"),
+        "password": MessageLookupByLibrary.simpleMessage("Nueva contraseña"),
         "register_error_desc":
             MessageLookupByLibrary.simpleMessage("Usuario existente"),
         "register_error_title":

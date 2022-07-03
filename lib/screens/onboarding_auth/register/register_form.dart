@@ -116,7 +116,6 @@ class _RegisterFormState extends State<RegisterForm> {
                               'Ocurrió un problema con la base de datos, intenta inciar sesión de otro modo.');
                       return;
                     }
-                    ;
                     User user = User(
                       // created a empty user
                       id: _contextRegister.state.user!.uid,
@@ -128,10 +127,21 @@ class _RegisterFormState extends State<RegisterForm> {
                       interests: const [],
                       location: '',
                     );
+                    // Load start onboarding
                     context.read<OnboardingBloc>().add(
                           StartOnboarding(
                             user: user,
                           ),
+                        );
+                        // Load profile
+                    context.read<ProfileBloc>().add(
+                          LoadProfile(
+                            userId: _contextRegister.state.user!.uid,
+                          ),
+                        );
+                        // Load Navigator
+                    context.read<HomePageBloc>().add(
+                          const HomeTabChangeEvent(),
                         );
                     return widget.tabController
                         .animateTo(widget.tabController.index + 1);
