@@ -53,7 +53,6 @@ class FormCreateCategory extends StatefulWidget {
 
 class _FormCreateCategoryState extends State<FormCreateCategory> {
   String? nameCategory;
-
   TypeProduct? typeProduct;
 
   final GlobalKey<FormState> _keyForm = GlobalKey<FormState>();

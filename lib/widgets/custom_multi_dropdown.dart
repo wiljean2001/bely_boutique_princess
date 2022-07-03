@@ -5,6 +5,7 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 //
 class CustomDropDown<T> extends StatelessWidget {
   final List<MultiSelectItem<T>> listItems;
+  final List<T>? listInitialValue;
   final Function(List<T> values) onConfirm;
   final Function(List<T> values) validator;
   final Text buttonText;
@@ -13,6 +14,7 @@ class CustomDropDown<T> extends StatelessWidget {
   const CustomDropDown({
     Key? key,
     required this.listItems,
+    this.listInitialValue,
     required this.onConfirm,
     required this.validator,
     required this.buttonText,
@@ -24,19 +26,21 @@ class CustomDropDown<T> extends StatelessWidget {
     return Wrap(
       children: [
         MultiSelectDialogField(
-            items: listItems,
-            // onSaved: (values){values?.clear();},
-            onConfirm: (List<T> values) => onConfirm(values),
-            // validator: ,
-            cancelText: const Text('CANCELAR'),
-            confirmText: const Text('ACEPTAR'),
-            buttonText: buttonText,
-            buttonIcon: const Icon(Icons.keyboard_arrow_down_outlined),
-            dialogHeight: listItems.length * 55,
-            validator: (List<T>? value) => value != null
-                ? validator(value)
-                : 'Selecciona al menos una opción.',
-            title: title),
+          items: listItems,
+          // onSaved: (values){values?.clear();},
+          onConfirm: (List<T> values) => onConfirm(values),
+          // validator: ,
+          initialValue: listInitialValue ?? listInitialValue,
+          cancelText: const Text('CANCELAR'),
+          confirmText: const Text('ACEPTAR'),
+          buttonText: buttonText,
+          buttonIcon: const Icon(Icons.keyboard_arrow_down_outlined),
+          dialogHeight: listItems.length * 55,
+          validator: (List<T>? value) => value != null
+              ? validator(value)
+              : 'Selecciona al menos una opción.',
+          title: title,
+        ),
       ],
     );
   }

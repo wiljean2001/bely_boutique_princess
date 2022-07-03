@@ -62,7 +62,6 @@ class ProductScreenState extends State<ProductScreen> {
   final controller = CarouselController();
   @override
   Widget build(BuildContext context) {
-    print(sizesProduct);
     // print(context.read<AuthBloc>().state.user!.uid);
     // print(context.read<AuthBloc>().state.user!.email);
     // print(context.read<AuthBloc>().state.user!.reauthenticateWithCredential(AuthCredential(providerId: providerId, signInMethod: signInMethod)));
@@ -110,7 +109,8 @@ class ProductScreenState extends State<ProductScreen> {
                   BoxConstraints(minHeight: MediaQuery.of(context).size.height),
               child: Column(
                 children: <Widget>[
-                  CustomInfoProduct(product: product),
+                  CustomInfoProduct(
+                      product: product, sizesProduct: sizesProduct),
                   // const CustomInfoMiniProduct(),
 
                   const Divider(
@@ -182,19 +182,29 @@ class CustomExtraProducts extends StatelessWidget {
 
 class CustomInfoProduct extends StatefulWidget {
   final Product product;
+  final List<SizeProduct> sizesProduct;
   const CustomInfoProduct({
     Key? key,
     required this.product,
+    required this.sizesProduct,
   }) : super(key: key);
-
   @override
   State<CustomInfoProduct> createState() => _CustomInfoProductState();
 }
 
 class _CustomInfoProductState extends State<CustomInfoProduct> {
   int quantity = 0;
+  String sizesProductString = '';
   @override
   Widget build(BuildContext context) {
+    // Get Sizes product
+    sizesProductString = '';
+    for (var productColl in widget.product.sizes) {
+      for (var sizeProductCall in widget.sizesProduct) {
+        if (sizeProductCall.id == productColl)
+          sizesProductString += '${sizeProductCall.size}, ';
+      }
+    }
     return Container(
       height: Responsive.isMobile(context) ? 340 : 400,
       padding: const EdgeInsets.all(10),
@@ -233,21 +243,14 @@ class _CustomInfoProductState extends State<CustomInfoProduct> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
-                'Tallas:',
+              Text(
+                'Tallas: ${sizesProductString.substring(
+                  0,
+                  sizesProductString.length > 2
+                      ? sizesProductString.length - 2
+                      : null,
+                )}',
                 style: TextStyle(fontSize: 18),
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: widget.product.sizes
-                    .map(
-                      (e) => Text(
-                        '$e ',
-                        style: const TextStyle(fontSize: 18),
-                        textAlign: TextAlign.center,
-                      ),
-                    )
-                    .toList(),
               ),
             ],
           ),
