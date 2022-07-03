@@ -1,6 +1,5 @@
 // final theme = Provider.of<ThemeChanger>(context);
 
-
 import 'package:bely_boutique_princess/generated/l10n.dart';
 import 'package:bely_boutique_princess/screens/user/update_user_screen.dart';
 import 'package:bely_boutique_princess/utils/custom_alert_dialog.dart';
@@ -192,23 +191,7 @@ class _SettingScreenState extends State<SettingScreen> {
               SettingsTile(
                 title: 'Cambiar contraseña',
                 leading: const Icon(Icons.password_outlined),
-                onPressed: (BuildContext context) {
-                  return CustomAlertDialog.contentButtonAndTitle(
-                      context: context,
-                      content: Form(
-                          key: _formKey,
-                          child: Column(
-                            children: [
-                              TextField(
-                                decoration: const InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  labelText: 'Contraseña',
-                                ),
-                              )
-                            ],
-                          )),
-                      title: const Text("Actualizar contraseña"));
-                },
+                onPressed: (BuildContext context) => _changePassword(context),
               ),
             ],
           ),
@@ -248,5 +231,23 @@ class _SettingScreenState extends State<SettingScreen> {
       );
       return localeString!;
     }
+  }
+
+  _changePassword(BuildContext context) {
+    CustomAlertDialog.contentButtonAndTitle(
+        context: context,
+        content: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                TextField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Contraseña actual',
+                  ),
+                )
+              ],
+            )),
+        title: const Text("Cambiar contraseña"));
   }
 }
