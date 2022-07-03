@@ -243,7 +243,7 @@ class _SettingScreenState extends State<SettingScreen> {
                 TextField(
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Contraseña',
+                    labelText: 'Contraseña actual',
                   ),
                 )
               ],
