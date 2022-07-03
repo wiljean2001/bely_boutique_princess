@@ -60,6 +60,7 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    context.read<SizeProductBloc>().add(LoadAllSizeProducts());
     return Scaffold(
       // backgroundColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(.2),
       key: _scaffoldKey,
@@ -95,16 +96,15 @@ class _HomeViewState extends State<HomeView> {
                 //   ),w
                 // ),
                 // isShowProducts?
-                BlocBuilder<SizeProductBloc, SizeProductState>(
-                  builder: (context, stateSizesProduct) {
-                    if (stateSizesProduct is SizeAllProductsLoaded) {
-                      return SliverFillRemaining(
-                        fillOverscroll: true,
-                        child: LiquidPullToRefresh(
-                          key: _refreshIndicatorKey, // key if you want to add
-                          onRefresh: _handleRefresh, // refresh callback
-                          showChildOpacityTransition: false,
-                          child: GridView.count(
+                SliverFillRemaining(
+                  child: LiquidPullToRefresh(
+                    // key: _refreshIndicatorKey, // key if you want to add
+                    onRefresh: _handleRefresh, // refresh callback
+                    showChildOpacityTransition: false,
+                    child: BlocBuilder<SizeProductBloc, SizeProductState>(
+                      builder: (context, stateSizesProduct) {
+                        if (stateSizesProduct is SizeAllProductsLoaded) {
+                          return GridView.count(
                             crossAxisCount: 2,
                             childAspectRatio:
                                 Responsive.isMobile(context) ? 0.85 : 1,
@@ -140,44 +140,43 @@ class _HomeViewState extends State<HomeView> {
                                     },
                                   ).toList()
                                 : [const SizedBox()],
-                          ), // scroll view
-                        ),
-                      );
-                      // return SliverGrid.count(
-                      //   crossAxisCount: 2,
-                      //   childAspectRatio:
-                      //       Responsive.isMobile(context) ? 0.75 : 1,
-                      //   children: stateProduct.products.isNotEmpty
-                      //       ? stateProduct.products
-                      //           .map(
-                      //             (product) => Padding(
-                      //               padding: const EdgeInsets.all(kPaddingS),
-                      //               child: CustomCardProduct(
-                      //                 context: context,
-                      //                 added: true,
-                      //                 imgPath: product.imageUrls.isNotEmpty
-                      //                     ? product.imageUrls[0]
-                      //                     : 'https://api.lorem.space/image/shoes?w=150&h=150',
-                      //                 // isFavorite: false,
-                      //                 name: product.title,
-                      //                 price: 'S/ ${product.prices.toString()}',
-                      //                 onTap: () =>
-                      //                     Navigator.of(context).pushNamed(
-                      //                   ProductScreen.routeName,
-                      //                   arguments: ProductScreenArguments(
-                      //                       product,
-                      //                       stateSizesProduct.sizeProducts),
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //           )
-                      //           .toList()
-                      //       : [const SizedBox()],
-                      // );
-                    }
-                    return const SliverToBoxAdapter(
-                        child: Center(child: CircularProgressIndicator()));
-                  },
+                          );
+                          // return SliverGrid.count(
+                          //   crossAxisCount: 2,
+                          //   childAspectRatio:
+                          //       Responsive.isMobile(context) ? 0.75 : 1,
+                          //   children: stateProduct.products.isNotEmpty
+                          //       ? stateProduct.products
+                          //           .map(
+                          //             (product) => Padding(
+                          //               padding: const EdgeInsets.all(kPaddingS),
+                          //               child: CustomCardProduct(
+                          //                 context: context,
+                          //                 added: true,
+                          //                 imgPath: product.imageUrls.isNotEmpty
+                          //                     ? product.imageUrls[0]
+                          //                     : 'https://api.lorem.space/image/shoes?w=150&h=150',
+                          //                 // isFavorite: false,
+                          //                 name: product.title,
+                          //                 price: 'S/ ${product.prices.toString()}',
+                          //                 onTap: () =>
+                          //                     Navigator.of(context).pushNamed(
+                          //                   ProductScreen.routeName,
+                          //                   arguments: ProductScreenArguments(
+                          //                       product,
+                          //                       stateSizesProduct.sizeProducts),
+                          //                 ),
+                          //               ),
+                          //             ),
+                          //           )
+                          //           .toList()
+                          //       : [const SizedBox()],
+                          // );
+                        }
+                        return const Center(child: CircularProgressIndicator());
+                      },
+                    ),
+                  ),
                 )
               ],
             );

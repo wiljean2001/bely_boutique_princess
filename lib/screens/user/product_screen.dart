@@ -216,27 +216,18 @@ class _CustomInfoProductState extends State<CustomInfoProduct> {
         children: [
           // const Divider(height: 10),
           // Text(product.title, style: const TextStyle(fontSize: 22)),
-          Text(
-            widget.product.descript,
-            style: const TextStyle(fontSize: 18),
-            textAlign: TextAlign.center,
+          Center(
+            child: Text(
+              widget.product.descript,
+              style: const TextStyle(fontSize: 18),
+            ),
           ),
           const Text(
             'Precios: ',
             style: TextStyle(fontSize: 18),
           ),
           Text(
-            'S/ ${widget.product.prices[0]}',
-            style: const TextStyle(fontSize: 18),
-            textAlign: TextAlign.center,
-          ),
-          const Text(
-            ' - ',
-            style: TextStyle(fontSize: 18),
-            textAlign: TextAlign.center,
-          ),
-          Text(
-            'S/ ${widget.product.prices[1]}',
+            'S/ ${widget.product.prices.join(' S/')}',
             style: const TextStyle(fontSize: 18),
             textAlign: TextAlign.center,
           ),
@@ -250,7 +241,7 @@ class _CustomInfoProductState extends State<CustomInfoProduct> {
                       ? sizesProductString.length - 2
                       : null,
                 )}',
-                style: TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 18),
               ),
             ],
           ),

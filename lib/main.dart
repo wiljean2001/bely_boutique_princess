@@ -163,7 +163,7 @@ class MyApp extends StatelessWidget {
               create: (context) => SizeProductBloc(
                     sizeProductRepository: SizeProductRepository(),
                   )..add(const LoadSizeProducts())
-              ..add(LoadAllSizeProducts()),
+              // ..add(LoadAllSizeProducts()),
               ),
           BlocProvider(
             create: (context) => OrderBloc(
@@ -197,7 +197,7 @@ class MyApp extends StatelessWidget {
                 initialRoute: SplashScreen.routeName,
               );
             }
-            return SizedBox();
+            return const SizedBox();
           },
         ),
       ),

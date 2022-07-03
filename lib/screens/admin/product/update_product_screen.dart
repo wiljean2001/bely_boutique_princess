@@ -48,9 +48,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
               child: BlocBuilder<TypeProductBloc, TypeProductState>(
                 builder: (context, stateSizeProduct) {
                   if (stateSizeProduct is TypeProductLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    return const Center(child: CircularProgressIndicator());
                   }
                   if (stateSizeProduct is TypeProductsLoaded) {
                     return DropDown(
@@ -490,8 +488,8 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                           buttonText: const Text('Seleccionar tallas'),
                           listItems: lista,
                           onConfirm: (List<SizeProduct> values) {
-                            sizesProduct = [];
-                            values.map((e) => sizesProduct!.add(e.id)).toList();
+                            // sizesProduct = [];
+                            // values.map((e) => sizesProduct!.add(e.id)).toList();
                           },
                           title: const Text('Tallas'),
                           validator: (value) {
