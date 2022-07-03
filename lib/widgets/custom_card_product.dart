@@ -109,27 +109,27 @@ class CustomCardProduct extends StatelessWidget {
                   style:
                       const TextStyle(color: Color(0xFF575E67), fontSize: 14.0),
                   textAlign: TextAlign.center),
-              quantity
-                  ? Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                          color: const Color(0xFFEBEBEB), height: 1.0))
-                  : const SizedBox(),
-              quantity
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // Count restant
-                        const Text('¡Quedan '),
-                        Text(
-                          '20',
-                          style:
-                              TextStyle(color: Theme.of(context).primaryColor),
-                        ),
-                        const Text(' disponibles!'),
-                      ],
-                    )
-                  : const SizedBox(),
+              // quantity
+              //     ? Padding(
+              //         padding: const EdgeInsets.all(8.0),
+              //         child: Container(
+              //             color: const Color(0xFFEBEBEB), height: 1.0))
+              //     : const SizedBox(),
+              // quantity
+              //     ? Row(
+              //         mainAxisAlignment: MainAxisAlignment.center,
+              //         children: [
+              //           // Count restant
+              //           const Text('¡Quedan '),
+              //           Text(
+              //             '20',
+              //             style:
+              //                 TextStyle(color: Theme.of(context).primaryColor),
+              //           ),
+              //           const Text(' disponibles!'),
+              //         ],
+              //       )
+              //     : const SizedBox(),
             ],
           ),
         ),

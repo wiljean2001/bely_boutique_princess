@@ -29,21 +29,22 @@ dependencies:
   firebase_storage: ^10.0.3
   cloud_firestore: ^3.1.14
   uuid: ^3.0.5
-  # animated_splash_screen: ^1.2.0
-  # smooth_page_indicator: ^1.0.0+2
   animations: ^2.0.3
   pinch_zoom_image_last: ^0.4.1
   url_launcher: ^6.1.2
   flutter_settings_ui: ^2.0.1
   multi_select_flutter: ^4.1.2
-  # fl_chart: ^0.36.1
   data_table_2: ^2.0.3
   flutter_svg: ^0.22.0
   flutter_custom_dialog: ^1.2.0
   flutter_dropdown: ^1.0.0+hotfix.1
   flutter_localized_locales: ^2.0.3
-  # loading_animations: "^2.1.0"
+  liquid_pull_to_refresh: ^3.0.1
   flutter_map: ^1.1.1
+  # loading_animations: "^2.1.0"
+  # animated_splash_screen: ^1.2.0
+  # smooth_page_indicator: ^1.0.0+2
+  # fl_chart: ^0.36.1
 
 dev_dependencies:
   flutter_test:

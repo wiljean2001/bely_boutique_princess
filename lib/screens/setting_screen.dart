@@ -1,6 +1,5 @@
 // final theme = Provider.of<ThemeChanger>(context);
 
-import 'dart:html';
 
 import 'package:bely_boutique_princess/generated/l10n.dart';
 import 'package:bely_boutique_princess/screens/user/update_user_screen.dart';
