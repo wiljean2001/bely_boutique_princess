@@ -7,6 +7,7 @@ import '../../config/constrants.dart';
 import '../../config/responsive.dart';
 import '../../generated/l10n.dart';
 import '../../models/user_model.dart';
+import '../../utils/custom_alert_dialog.dart';
 import '../../utils/validators.dart';
 import '../../widgets/custom_image_container.dart';
 import '../../widgets/custom_sliver_app_bar.dart';
@@ -72,7 +73,7 @@ class _UpdateUserState extends State<UpdateUserScreen> {
                   picked = DateTime.tryParse(
                       stateProfile.user.dateOfBirth!.toDate().toString());
                   return Padding(
-                    padding: const EdgeInsets.all(30),
+                    padding: const EdgeInsets.all(38),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -80,43 +81,40 @@ class _UpdateUserState extends State<UpdateUserScreen> {
                           "Elije tu imagen\n",
                           style: const TextStyle(fontSize: 16),
                         ),
-                        SizedBox(
-                          height: 200,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Container(
-                                constraints: BoxConstraints(
-                                  maxWidth:
-                                      Responsive.isMobile(context) ? 200 : 450,
-                                  maxHeight:
-                                      Responsive.isMobile(context) ? 200 : 400,
-                                ),
-                                child: CustomImageContainer(
-                                  imageUrl: stateProfile.user.image,
-                                ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              constraints: BoxConstraints(
+                                maxWidth:
+                                    Responsive.isMobile(context) ? 150 : 450,
+                                maxHeight:
+                                    Responsive.isMobile(context) ? 150 : 400,
                               ),
-                              const Icon(Icons.roundabout_right_sharp),
-                              Container(
-                                constraints: BoxConstraints(
-                                  maxWidth:
-                                      Responsive.isMobile(context) ? 200 : 450,
-                                  maxHeight:
-                                      Responsive.isMobile(context) ? 200 : 400,
-                                ),
-                                child: CustomImageContainer(
-                                  onPressed: (XFile _file) {
-                                    print('imagen');
-                                    xfile = null;
+                              child: CustomImageContainer(
+                                imageUrl: stateProfile.user.image,
+                              ),
+                            ),
+                            const Icon(Icons.roundabout_right_sharp),
+                            Container(
+                              constraints: BoxConstraints(
+                                maxWidth:
+                                    Responsive.isMobile(context) ? 150 : 450,
+                                maxHeight:
+                                    Responsive.isMobile(context) ? 150 : 400,
+                              ),
+                              child: CustomImageContainer(
+                                onPressed: (XFile _file) {
+                                  print('imagen');
+                                  xfile = null;
 
-                                    setState(() {
-                                      xfile = _file;
-                                    });
-                                  },
-                                ),
+                                  setState(() {
+                                    xfile = _file;
+                                  });
+                                },
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                         const SizedBox(height: kPaddingS),
                         TextFormField(
@@ -159,35 +157,42 @@ class _UpdateUserState extends State<UpdateUserScreen> {
                                   _locale = value;
                                 })),
                         const SizedBox(height: kPaddingS),
-                        Row(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey)),
-                              child: Text(
-                                picked!.toString(),
-                                style: TextStyle(fontSize: 16),
-                              ),
-                            ),
-                            IconButton(
-                                color: Theme.of(context).primaryColor,
-                                onPressed: () => _showDatePicker(
-                                    DateTime.tryParse(stateProfile
-                                        .user.dateOfBirth!
-                                        .toDate()
-                                        .toString())),
-                                icon: const Icon(Icons.edit_calendar)),
-                          ],
-                        )
-                        /*MaterialButton(
-                          color: Theme.of(context).primaryColor,
-                          textColor: Theme.of(context).primaryColorLight,
-                          onPressed: () => _showDatePicker(DateTime.tryParse(
+                        ListTile(
+                          title: Text("Fecha seleccionada"),
+                          subtitle: Text(
+                            picked!.toString().substring(0, 10),
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          onTap: () => _showDatePicker(DateTime.tryParse(
                               stateProfile.user.dateOfBirth!
                                   .toDate()
                                   .toString())),
-                          child: Icon(Icons.edit_calendar),
-                        )*/
+                          leading: Icon(
+                            Icons.edit_calendar,
+                            color: Theme.of(context).primaryColor,
+                            size: 34.0,
+                          ),
+                        ),
+                        MaterialButton(
+                          textColor: Theme.of(context).primaryColorLight,
+                          color: Theme.of(context).primaryColor,
+                          splashColor: Theme.of(context).primaryColorLight,
+                          elevation: 10,
+                          onPressed: () {},
+                          child: SizedBox(
+                            width: 100,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Icon(Icons.save_as),
+                                Text(
+                                  "Guardar",
+                                  style: TextStyle(fontSize: 14),
+                                )
+                              ],
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   );
