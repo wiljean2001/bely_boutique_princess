@@ -1,13 +1,16 @@
+import 'package:bely_boutique_princess/blocs/order_detail/order_detail_bloc.dart';
 import 'package:bely_boutique_princess/utils/custom_alert_dialog.dart';
 import 'package:bely_boutique_princess/utils/show_alert.dart';
 import 'package:bely_boutique_princess/widgets/custom_carousel_sliders%20copy.dart';
 import 'package:bely_boutique_princess/widgets/custom_multi_dropdown.dart';
 import 'package:carousel_slider/carousel_controller.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:pinch_zoom_image_last/pinch_zoom_image_last.dart';
 
@@ -193,16 +196,22 @@ class CustomInfoProduct extends StatefulWidget {
 }
 
 class _CustomInfoProductState extends State<CustomInfoProduct> {
-  int quantity = 0;
   String sizesProductString = '';
+  List<SizeProduct> listSizesShow = [];
+  int quantity = 0; // quantity products
+  SizeProduct? listSizes; // sizes product
+
   @override
   Widget build(BuildContext context) {
     // Get Sizes product
     sizesProductString = '';
+    listSizesShow.clear();
     for (var productColl in widget.product.sizes) {
       for (var sizeProductCall in widget.sizesProduct) {
-        if (sizeProductCall.id == productColl)
+        if (sizeProductCall.id == productColl) {
           sizesProductString += '${sizeProductCall.size}, ';
+          listSizesShow.add(sizeProductCall);
+        }
       }
     }
     return Container(
@@ -296,11 +305,14 @@ class _CustomInfoProductState extends State<CustomInfoProduct> {
                                 const Text("Talla:"),
                                 DropDown(
                                   isExpanded: true,
-                                  items: widget.product.sizes,
-                                  customWidgets: widget.product.sizes
-                                      .map((e) => Text(e))
+                                  items: listSizesShow,
+                                  customWidgets: listSizesShow
+                                      .map((e) => Text(e.size))
                                       .toList(),
                                   hint: const Text('Seleccionar Talla'),
+                                  onChanged: (SizeProduct? values) {
+                                    listSizes = values;
+                                  },
                                 ),
                                 Container(
                                   alignment: AlignmentDirectional.topEnd,
@@ -314,9 +326,42 @@ class _CustomInfoProductState extends State<CustomInfoProduct> {
                                           : 50,
                                     ),
                                     child: ElevatedButton.icon(
-                                      onPressed: () {},
                                       label: const Text("Solicitar"),
                                       icon: const Icon(Icons.add_shopping_cart),
+                                      onPressed: () {
+                                        // read
+                                        if (quantity > 0 && listSizes != null) {
+                                          OrderDetails orderDetails =
+                                              OrderDetails(
+                                            productId: widget.product.id!,
+                                            userId: context
+                                                .read<AuthBloc>()
+                                                .state
+                                                .user!
+                                                .uid,
+                                            quantify: quantity,
+                                            orderDate: Timestamp.fromDate(
+                                                DateTime.now()),
+                                          );
+                                          BlocProvider.of<OrderDetailBloc>(
+                                                  context)
+                                              .add(AddOrderDetail(
+                                                  order: orderDetails));
+                                          ShowAlert.showMessage(
+                                            msg:
+                                                'Agregado al carrito excitosamente!.',
+                                            backGroundColor:
+                                                Colors.green.shade400,
+                                          );
+                                          return;
+                                        }
+                                        ShowAlert.showMessage(
+                                          msg: 'Por favor completas el pedido.',
+                                          backGroundColor: Colors.pink,
+                                          textColor: Colors.white,
+                                        );
+                                        return;
+                                      },
                                     ),
                                   ),
                                 ),

@@ -114,10 +114,10 @@ class _HomeViewState extends State<HomeView> {
                             children: stateProduct.products.isNotEmpty
                                 ? stateProduct.products.map(
                                     (product) {
-                                      String price = '';
-                                      for (var element in product.prices) {
-                                        price += 'S/ $element ';
-                                      }
+                                      // String price = '';
+                                      // for (var element in product.prices) {
+                                      //   price += 'S/ $element ';
+                                      // }
                                       return Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: kPaddingS),
@@ -129,7 +129,8 @@ class _HomeViewState extends State<HomeView> {
                                               : 'https://api.lorem.space/image/shoes?w=150&h=150',
                                           // isFavorite: false,
                                           name: product.title,
-                                          price: price,
+                                          price:
+                                              'S/ ${product.prices.join(' S/ ')}',
                                           onTap: () =>
                                               Navigator.of(context).pushNamed(
                                             ProductScreen.routeName,

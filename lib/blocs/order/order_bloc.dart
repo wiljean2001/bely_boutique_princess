@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:bely_boutique_princess/models/models.dart';
 import 'package:bely_boutique_princess/models/order_model.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -23,8 +24,9 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
         super(OrderLoading()) {
     on<LoadOrderById>(_onLoadOrderById);
     on<LoadAllOrder>(_onLoadAllOrders);
+    on<AddOrder>(_onAddOrder);
     on<UpdateHome>(_onUpdateHome);
-    on<UpdateOrder>(_onUpdateOrder);
+    // on<UpdateOrder>(_onUpdateOrder);
 
     _authSubscription = _authBloc.stream.listen((state) {
       if (state.user is AuthUserChanged) {
@@ -56,6 +58,16 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     Emitter<OrderState> emit,
   ) {}
 
+  Future<void> _onAddOrder(
+    AddOrder event,
+    Emitter<OrderState> emit,
+  ) async {
+    final state = this.state;
+    if (state is OrdersLoaded) {
+      await _orderRepository.createOrder(event.order); // add order
+    }
+  }
+
   void _onUpdateHome(
     UpdateHome event,
     Emitter<OrderState> emit,
@@ -66,9 +78,4 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
       emit(OrderError());
     }
   }
-
-  void _onUpdateOrder(
-    UpdateOrder event,
-    Emitter<OrderState> emit,
-  ) {}
 }

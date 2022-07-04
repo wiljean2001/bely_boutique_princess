@@ -1,4 +1,7 @@
+import 'package:bely_boutique_princess/blocs/order_detail/order_detail_bloc.dart';
 import 'package:bely_boutique_princess/config/constrants.dart';
+import 'package:bely_boutique_princess/models/models.dart';
+import 'package:bely_boutique_princess/utils/open_all.dart';
 import 'package:bely_boutique_princess/widgets/Custom_loading_screen.dart';
 import 'package:bely_boutique_princess/widgets/custom_card_product.dart';
 import 'package:bely_boutique_princess/widgets/custom_card_shopping.dart';
@@ -9,6 +12,7 @@ import '../../../blocs/blocs.dart';
 import '../../../blocs/order/order_bloc.dart';
 import '../../../config/responsive.dart';
 import '../../../models/order_model.dart';
+import '../product_screen.dart';
 
 // falta cambiar los textos a dinamicos
 
@@ -38,19 +42,29 @@ class ShoppingCartView extends StatelessWidget {
                   ),
                   SizedBox(
                     height: 300,
-                    child: BlocBuilder<OrderBloc, OrderState>(
+                    child: BlocBuilder<OrderDetailBloc, OrderDetailState>(
                       builder: (context, state) {
-                        if (state is OrderLoading) {
+                        if (state is OrderDetailLoading) {
                           return const Center(
                               child: CircularProgressIndicator());
                         }
-                        if (state is OrdersLoaded) {
+                        if (state is OrderDetailsLoaded) {
                           if (state.orders.isNotEmpty) {
-                            return CustomShowOrders(orders: state.orders);
+                            // when orders is not empty
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                SizedBox(
+                                  height: 250,
+                                  child: CustomShowOrders(orders: state.orders),
+                                ),
+                                SalesLoading(orders: state.orders),
+                              ],
+                            );
                           }
                           return const _CustomProductSpace();
                         }
-                        return const Center(child: CircularProgressIndicator());
+                        return const SizedBox();
                       },
                     ),
                   ),
@@ -67,59 +81,8 @@ class ShoppingCartView extends StatelessWidget {
                       style: TextStyle(fontSize: 16),
                     ),
                   ),
-                  SizedBox(
-                    height: 220,
-                    child: BlocBuilder<ProductBloc, ProductState>(
-                      builder: (context, state) {
-                        if (state is ProductLoading) {
-                          return const CustomLoadingScreen();
-                        }
-                        return ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 10,
-                          itemBuilder: (BuildContext context, int index) {
-                            return CustomCardShopping(
-                                name: "Vestidos de temporada",
-                                price: "2.00",
-                                imgPath:
-                                    'https://api.lorem.space/image/shoes?w=${150 + index}&h=${150 + index}',
-                                added: false,
-                                isFavorite: false,
-                                context: context);
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                  // solucionado
-                  SizedBox(
-                    height: Responsive.isMobile(context) ? 220 : 300, // alto de los cards
-                    child: BlocBuilder<ProductBloc, ProductState>(
-                      builder: (context, state) {
-                        if (state is ProductLoading) {
-                          return const CustomLoadingScreen();
-                        }
-                        return ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 10,
-                          itemBuilder: (BuildContext context, int index) {
-                            return CustomCardProduct(
-                              name: "blusas",
-                              price: "2.00",
-                              imgPath:
-                                  'https://api.lorem.space/image/shoes?w=${150 + index}&h=${150 + index}',
-                              added: false,
-                              // isFavorite: false,
-                              context: context,
-                              quantity: false, // mostrar opciones
-                              isShowFavorite: false, // mostrar opcion fav
-                              onTap: () {},
-                            );
-                          },
-                        );
-                      },
-                    ),
-                  ),
+                  const ListViewShowProducts(),
+                  const ListViewShowProducts(),
                 ],
               ),
             ),
@@ -130,8 +93,108 @@ class ShoppingCartView extends StatelessWidget {
   }
 }
 
+class SalesLoading extends StatelessWidget {
+  final List<OrderDetails> orders;
+  const SalesLoading({Key? key, required this.orders}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 50,
+      padding: const EdgeInsets.only(right: kPaddingM),
+      child: OutlinedButton(
+        onPressed: () {
+          // OrderDetails orderDetails =
+          String mensaje = 'Hola, quiero consultar estos productos:\n';
+          for (var order in orders) {
+            for (var productShopping in _LIST_PRODUCT_SHOPPING_CART) {
+              if (order.productId == productShopping.id) {
+                mensaje +=
+                    'ID Producto: ${productShopping.id}\nProducto: ${productShopping.title}\nCantidad: ${order.quantify}';
+              }
+            }
+          }
+          //     // 'ORD-A001' +
+          //     // 'SOY @JUAN' +
+          //     '${_LIST_PRODUCT_SHOPPING_CART.map(
+          //               (e) =>
+          //                   'Cantidad: ${orders.where((element) => element.productId == e.id).}',
+          //             ).join('/n')}'
+          //         'CANTIDAD: 1' +
+          //     'VESTIDO DE PROMOCIÓN ROSA: ' +
+          //     'PRECIO: S/200.0, S/250.0,' +
+          //     'TALLA: M>' +
+          //     ' CANTIDAD: 2' +
+          //     'VESTIDO DE BAUTIZO BLANCO: ' +
+          //     'PRECIO S/165.0, S/170.0,' +
+          //     'TALLA: XS, S>' +
+          //     '<23:12, 3-07-2022>';
+          OpenAll.openwhatsapp(whatsapp: '+51953433761', message: mensaje);
+        },
+        child: const Text('Finalizar pedido'),
+      ),
+    );
+  }
+}
+
+class ListViewShowProducts extends StatelessWidget {
+  const ListViewShowProducts({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 220,
+      child: BlocBuilder<ProductBloc, ProductState>(
+        builder: (context, state) {
+          if (state is ProductLoading) {
+            return const CustomLoadingScreen();
+          }
+          if (state is ProductsLoaded) {
+            return ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: state.products.length,
+              itemBuilder: (BuildContext context, int index) {
+                return BlocBuilder<SizeProductBloc, SizeProductState>(
+                  builder: (context, stateSizesProduct) {
+                    if (stateSizesProduct is SizeAllProductsLoaded) {
+                      return CustomCardProduct(
+                        context: context,
+                        added: true,
+                        imgPath: state.products[index].imageUrls.isNotEmpty
+                            ? state.products[index].imageUrls[0]
+                            : 'https://api.lorem.space/image/shoes?w=150&h=150',
+                        // isFavorite: false,
+                        name: state.products[index].title,
+                        price:
+                            'S/ ${state.products[index].prices.join(' S/ ')}',
+                        onTap: () => Navigator.of(context).pushNamed(
+                          ProductScreen.routeName,
+                          arguments: ProductScreenArguments(
+                            state.products[index],
+                            stateSizesProduct.sizeProducts,
+                          ),
+                        ),
+                      );
+                    }
+                    return const SizedBox();
+                  },
+                );
+              },
+            );
+          }
+          return const SizedBox();
+        },
+      ),
+    );
+  }
+}
+
+List<Product> _LIST_PRODUCT_SHOPPING_CART = [];
+
 class CustomShowOrders extends StatelessWidget {
-  final List<Order> orders;
+  final List<OrderDetails> orders;
   const CustomShowOrders({
     Key? key,
     required this.orders,
@@ -139,12 +202,32 @@ class CustomShowOrders extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: orders
-            .map((e) => ListTile(title: Text(e.orderDate.toString())))
-            .toList(),
-      ),
+    return BlocBuilder<ProductBloc, ProductState>(
+      builder: (context, state) {
+        if (state is ProductsLoaded) {
+          _LIST_PRODUCT_SHOPPING_CART.clear();
+          return ListView.builder(
+            itemCount: orders.length,
+            itemBuilder: (BuildContext context, int index) {
+              Product product = state.products.firstWhere(
+                  (element) => element.id == orders[index].productId);
+              _LIST_PRODUCT_SHOPPING_CART.add(product);
+              return ListTile(
+                title: Text(product.title),
+                subtitle: Text(
+                  'Cantidad solicitada: ${orders[index].quantify}',
+                ),
+                leading: product.imageUrls[0] != null
+                    ? Image.network(product.imageUrls[0])
+                    : const SizedBox(),
+              );
+            },
+          );
+        }
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
     );
   }
 }

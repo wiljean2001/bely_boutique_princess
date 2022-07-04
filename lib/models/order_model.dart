@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 class Order extends Equatable {
   final String? id; // identificador - PK
   final String userId; // titulo o nombre de la talla del producto
-  final String orderDetailId; // titulo o nombre de la talla del producto
+  final List<String> orderDetailId; // titulo o nombre de la talla del producto
   final bool status; // titulo o nombre de la talla del producto
   final Timestamp orderDate; // titulo o nombre de la talla del producto
 
@@ -50,7 +50,7 @@ class Order extends Equatable {
   Order copyWith({
     String? id,
     String? userId,
-    String? orderDetailId,
+    List<String>? orderDetailId,
     bool? status,
     Timestamp? orderDate,
   }) {

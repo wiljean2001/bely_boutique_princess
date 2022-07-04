@@ -7,6 +7,8 @@ abstract class OrderEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class LoadAllOrder extends OrderEvent {}
+
 class LoadOrderById extends OrderEvent {
   final String userId;
 
@@ -14,6 +16,15 @@ class LoadOrderById extends OrderEvent {
 
   @override
   List<Object> get props => [userId];
+}
+
+class AddOrder extends OrderEvent {
+  final Order order;
+
+  const AddOrder({required this.order});
+
+  @override
+  List<Object> get props => [order];
 }
 
 class UpdateHome extends OrderEvent {
@@ -25,9 +36,7 @@ class UpdateHome extends OrderEvent {
   @override
   List<Object> get props => [orders!, userId!];
 }
-
-class LoadAllOrder extends OrderEvent {}
-
+//
 class UpdateOrder extends OrderEvent {
   final Order order;
 

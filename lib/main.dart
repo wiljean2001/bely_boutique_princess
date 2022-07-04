@@ -1,4 +1,5 @@
 import 'package:bely_boutique_princess/blocs/order/order_bloc.dart';
+import 'package:bely_boutique_princess/blocs/order_detail/order_detail_bloc.dart';
 import 'package:bely_boutique_princess/blocs/type_product/type_product_bloc.dart';
 import 'package:bely_boutique_princess/repositories/type_product/type_product_repository.dart';
 import 'package:flutter/material.dart';
@@ -171,6 +172,16 @@ class MyApp extends StatelessWidget {
               orderRepository: OrderRepository(),
             )..add(
                 LoadOrderById(
+                  userId: BlocProvider.of<AuthBloc>(context).state.user!.uid,
+                ),
+              ),
+          ),
+          BlocProvider(
+            create: (context) => OrderDetailBloc(
+              authBloc: BlocProvider.of<AuthBloc>(context),
+              orderRepository: OrderRepository(),
+            )..add(
+                LoadOrderDetailById(
                   userId: BlocProvider.of<AuthBloc>(context).state.user!.uid,
                 ),
               ),

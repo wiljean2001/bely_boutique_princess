@@ -29,7 +29,7 @@ abstract class OpenAll {
       }
       if (Platform.isAndroid) {
         var whatsappURlAndroid =
-            Uri.parse("whatsapp://send?phone=" + whatsapp + "&text=hola");
+            Uri.parse("whatsapp://send?phone=" + whatsapp + "&text=$message");
         if (!await launchUrl(whatsappURlAndroid,
             mode: LaunchMode.externalNonBrowserApplication)) {
           throw 'Could not launch $whatsappURlAndroid';
