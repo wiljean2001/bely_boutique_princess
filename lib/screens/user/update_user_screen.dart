@@ -178,9 +178,7 @@ class _UpdateUserState extends State<UpdateUserScreen> {
                           color: Theme.of(context).primaryColor,
                           splashColor: Theme.of(context).primaryColorLight,
                           elevation: 10,
-                          onPressed: () async {
-                            
-                          },
+                          onPressed: () async {},
                           child: SizedBox(
                             width: 100,
                             child: Row(
@@ -188,7 +186,7 @@ class _UpdateUserState extends State<UpdateUserScreen> {
                               children: [
                                 Icon(Icons.save_as),
                                 Text(
-                                  "Guardar",
+                                  "Actualizar",
                                   style: TextStyle(fontSize: 14),
                                 )
                               ],
