@@ -328,7 +328,7 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
             validator: (value) => Validators.isValidateOnlyTextMinMax(
               text: value!,
               minCaracter: 3,
-              maxCarater: 35,
+              maxCarater: 50,
               messageError: 'Nombre no valido.',
             ),
             onSaved: (value) => setState(() {
