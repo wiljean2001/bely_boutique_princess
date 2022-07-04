@@ -30,6 +30,7 @@ class UpdateProductScreen extends StatefulWidget {
 class _UpdateProductScreenState extends State<UpdateProductScreen> {
   @override
   Widget build(BuildContext context) {
+    showProducts.clear();
     return Scaffold(
       // backgroundColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(.2),
       body: CustomScrollView(
@@ -66,6 +67,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                         context.read<CategoryBloc>().add(
                               LoadCategories(typeProductId: typeP.id),
                             );
+                        setState(() {});
                       },
                       hint: const Text('Tipo de producto'),
                     );
@@ -88,22 +90,20 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                   return BlocBuilder<CategoryBloc, CategoryState>(
                     builder: (context, stateCategory) {
                       if (stateCategory is CategoryLoaded) {
-                        print(typeProduct);
-                        if (typeProduct != null) {
-                          return BlocBuilder<SizeProductBloc, SizeProductState>(
-                            builder: (context, stateSizeProduct) {
-                              if (stateSizeProduct is SizeProductsLoaded) {
+                        return BlocBuilder<SizeProductBloc, SizeProductState>(
+                          builder: (context, stateSizeProduct) {
+                            if (stateSizeProduct is SizeProductsLoaded) {
+                              if (typeProduct != null) {
                                 return _customDataTable(stateProduct, contIndex,
                                     stateCategory, stateSizeProduct, context);
                               }
-                              return const Center(
-                                  child: CircularProgressIndicator());
-                            },
-                          );
-                        }
-                        return const SizedBox();
+                              return const SizedBox();
+                            }
+                            return const SizedBox();
+                          },
+                        );
                       }
-                      return const Center(child: CircularProgressIndicator());
+                      return const SizedBox();
                     },
                   );
                 }

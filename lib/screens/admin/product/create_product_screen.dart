@@ -47,7 +47,10 @@ class _CreateProductScreenState extends State<CreateProductScreen> {
   @override
   void initState() {
     context.read<SizeProductBloc>().add(
-          LoadSizeProducts(typeProductId: ""),
+          LoadSizeProducts(),
+        );
+    context.read<CategoryBloc>().add(
+          LoadCategories(),
         );
     super.initState();
   }
