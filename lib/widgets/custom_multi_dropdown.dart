@@ -26,8 +26,9 @@ class CustomDropDown<T> extends StatelessWidget {
     return Wrap(
       children: [
         MultiSelectDialogField(
+          separateSelectedItems: true,
+          searchable: true,
           items: listItems,
-          // onSaved: (values){values?.clear();},
           onConfirm: (List<T> values) => onConfirm(values),
           // validator: ,
           initialValue: listInitialValue ?? listInitialValue,

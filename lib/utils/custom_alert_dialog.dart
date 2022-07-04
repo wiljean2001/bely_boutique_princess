@@ -8,12 +8,13 @@ class CustomAlertDialog {
     required BuildContext context,
     required Widget content,
     required Widget title,
+    double? maxHeight,
     Function? onShowCallBack,
     Function? onDismissCallBack,
   }) {
     return YYDialog().build(context)
       // ..width =
-      // ..height = 110
+      // ..height = maxHeight ?? maxHeight
       ..margin = const EdgeInsets.symmetric(horizontal: kPaddingM)
       ..backgroundColor =
           Theme.of(context).scaffoldBackgroundColor.withOpacity(1)
@@ -35,7 +36,10 @@ class CustomAlertDialog {
       ..widget(
         Padding(
           padding: const EdgeInsets.all(kPaddingM),
-          child: content,
+          child: SizedBox(
+            height: maxHeight ?? null,
+            child: content,
+          ),
         ),
       )
       ..animatedFunc = (child, animation) {

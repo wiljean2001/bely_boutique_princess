@@ -1,6 +1,7 @@
 import 'package:bely_boutique_princess/models/models.dart';
 import 'package:bely_boutique_princess/utils/custom_alert_dialog.dart';
 import 'package:bely_boutique_princess/utils/show_alert.dart';
+import 'package:bely_boutique_princess/widgets/custom_image_container.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -116,7 +117,10 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
     );
   }
 
+  // TypeProduct of the DataTable and show products
+  TypeProduct? typeProduct;
   List<Product> showProducts = [];
+  // Widget Data Table
   Widget _customDataTable(
       ProductsLoaded stateProduct,
       int contIndex,
@@ -279,9 +283,9 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                                     DeleteProduct(product: e),
                                   );
                                 },
-                                child: Text('Confirmar'),
+                                child: const Text('Confirmar'),
                               ),
-                              title: Text('Confirmar eliminación'),
+                              title: const Text('Confirmar eliminación'),
                             );
                           },
                           child: const Text(
@@ -301,19 +305,16 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
   String? title;
   String? description;
   List<double>? price = [];
-  TypeProduct? typeProduct;
+  TypeProduct? editTypeProduct;
   List<String?>? sizesProduct = [];
+  List<String>? categoryProduct = [];
+  //
+  String textButton = 'Actualizar lista existente';
+  List<SizeProduct> listaSizeProductInitial = [];
+  List<Category> listaCategoryInitial = [];
   MaterialButton _updateProductDIalog(BuildContext context, Product e) {
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-    // e.prices.map((e) => price!.insert(0, ));
-    // e.prices.insertAll(0, e.prices);
     price = [];
-    // context.read<SizeProductBloc>().add(
-    //       LoadSizeProducts(typeProductId: e.typeProductId),
-    //     );
-    // context.read<CategoryBloc>().add(
-    //       LoadCategories(typeProductId: e.typeProductId),
-    //     );
     return MaterialButton(
       textColor: Theme.of(context).primaryColorLight,
       color: Theme.of(context).primaryColor,
@@ -321,222 +322,283 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
       elevation: 10,
       onPressed: () => CustomAlertDialog.contentButtonAndTitle(
         context: context,
-        content: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              BlocBuilder<TypeProductBloc, TypeProductState>(
-                builder: (context, stateSizeProduct) {
-                  if (stateSizeProduct is TypeProductLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  if (stateSizeProduct is TypeProductsLoaded) {
-                    typeProduct = stateSizeProduct.typeProducts.firstWhere(
-                      (typeProduct) => typeProduct.id == e.typeProductId,
-                    );
-                    return DropDown(
-                      // TODO: falta iniciar y registrar
-                      initialValue: typeProduct,
-                      isExpanded: true,
-                      items: stateSizeProduct.typeProducts,
-                      customWidgets: stateSizeProduct.typeProducts
-                          .map((e) => Text(e.title))
-                          .toList(),
-                      onChanged: (TypeProduct? typeP) {
-                        typeProduct = typeP;
-                      },
-                      hint: const Text('Tipo de producto'),
-                    );
-                  }
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                },
-              ),
-              TextFormField(
-                initialValue: e.title,
-                textInputAction: TextInputAction.next,
-                keyboardType: TextInputType.text,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Nombre',
-                ),
-                validator: (value) => Validators.isValidateOnlyTextMinMax(
-                  text: value!,
-                  minCaracter: 3,
-                  maxCarater: 35,
-                  messageError: 'Nombre no valido.',
-                ),
-                onSaved: (value) => setState(() {
-                  title = value;
-                }),
-              ),
-              const SizedBox(height: kPaddingS),
-              TextFormField(
-                  initialValue: e.descript,
-                  textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.multiline,
-                  maxLines: null,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Descripción',
-                  ),
-                  validator: (value) => Validators.isValidateOnlyTextMinMax(
-                        text: value!,
-                        minCaracter: 3,
-                        maxCarater: 100,
-                        messageError: 'Descripción no valido.',
-                      ),
-                  onSaved: (value) => setState(() {
-                        description = value;
-                      })),
-              const SizedBox(height: 10),
-              TextFormField(
-                textInputAction: TextInputAction.next,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Precio Max',
-                  suffixText: 'Soles',
-                  prefixText: 'S/',
-                ),
-                validator: (value) => Validators.isValidateOnlyTextMinMax(
-                  text: value!,
-                  minCaracter: 1,
-                  maxCarater: 6,
-                  messageError: 'Costo no valido.',
-                ),
-                initialValue: e.prices.first.toString(),
-                onSaved: (value) => setState(() {
-                  price!.insert(0, double.parse(value!));
-                }),
-              ),
-              const SizedBox(height: 10),
-              TextFormField(
-                textInputAction: TextInputAction.next,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Precio Min',
-                  suffixText: 'Soles',
-                  prefixText: 'S/',
-                ),
-                validator: (value) => Validators.isValidateOnlyTextMinMax(
-                  text: value!,
-                  minCaracter: 1,
-                  maxCarater: 6,
-                  messageError: 'Costo no valido.',
-                ),
-                initialValue: e.prices.last.toString(),
-                onSaved: (value) => setState(() {
-                  price!.insert(1, double.parse(value!));
-                }),
-                // TODO : FALTA ACTUALIZAR CATEGORIAS, TALLAS E IMAGENES
-              ),
-              BlocBuilder<SizeProductBloc, SizeProductState>(
-                builder: (context, state) {
-                  if (state is SizeProductLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  if (state is SizeProductsLoaded) {
-                    String textButton = 'Actualizar lista existente';
-                    // Only Sizes from products
-                    List<MultiSelectItem<SizeProduct>> lista = [];
-
-                    for (var sizeProduct in state.sizeProducts) {
-                      for (var e in e.sizes) {
-                        if (sizeProduct.id == e) {
-                          lista.add(
-                            MultiSelectItem(sizeProduct, sizeProduct.size),
+        maxHeight: MediaQuery.of(context).size.height - 200,
+        content: StatefulBuilder(
+          builder: (context, setState) {
+            return Form(
+              key: _formKey,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    BlocBuilder<TypeProductBloc, TypeProductState>(
+                      builder: (context, stateSizeProduct) {
+                        if (stateSizeProduct is TypeProductLoading) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
                           );
                         }
-                      }
-                    }
-                    return Column(
-                      children: [
-                        OutlinedButton(
-                          onPressed: () {
-                            if (textButton == 'Actualizar lista existente') {
-                              textButton = 'Agregar otros tallas';
-                              // All sizes
-                              lista = state.sizeProducts
-                                  .map((e) => MultiSelectItem(e, e.size))
-                                  .toList();
-                            } else {
-                              textButton = 'Actualizar lista existente';
-                              lista.clear();
-                              for (var sizeProduct in state.sizeProducts) {
-                                for (var e in e.sizes) {
-                                  if (sizeProduct.id == e) {
-                                    lista.add(
-                                      MultiSelectItem(
-                                          sizeProduct, sizeProduct.size),
-                                    );
-                                  }
-                                }
+                        if (stateSizeProduct is TypeProductsLoaded) {
+                          typeProduct =
+                              stateSizeProduct.typeProducts.firstWhere(
+                            (typeProduct) => typeProduct.id == e.typeProductId,
+                          );
+                          return DropDown(
+                            // TODO: falta iniciar y registrar
+                            initialValue: typeProduct,
+                            isExpanded: true,
+                            items: stateSizeProduct.typeProducts,
+                            customWidgets: stateSizeProduct.typeProducts
+                                .map((e) => Text(e.title))
+                                .toList(),
+                            onChanged: (TypeProduct? typeP) {
+                              print(typeP!);
+                              editTypeProduct = typeP;
+                              context.read<SizeProductBloc>().add(
+                                    LoadSizeProducts(typeProductId: typeP.id),
+                                  );
+                              context.read<CategoryBloc>().add(
+                                    LoadCategories(typeProductId: typeP.id),
+                                  );
+                            },
+                            hint: const Text('Tipo de producto'),
+                          );
+                        }
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      },
+                    ),
+                    TextFormField(
+                      initialValue: e.title,
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.text,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Nombre',
+                      ),
+                      validator: (value) => Validators.isValidateOnlyTextMinMax(
+                        text: value!,
+                        minCaracter: 3,
+                        maxCarater: 35,
+                        messageError: 'Nombre no valido.',
+                      ),
+                      onSaved: (value) => setState(() {
+                        title = value;
+                      }),
+                    ),
+                    const SizedBox(height: kPaddingS),
+                    TextFormField(
+                        initialValue: e.descript,
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.multiline,
+                        maxLines: null,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'Descripción',
+                        ),
+                        validator: (value) =>
+                            Validators.isValidateOnlyTextMinMax(
+                              text: value!,
+                              minCaracter: 3,
+                              maxCarater: 100,
+                              messageError: 'Descripción no valido.',
+                            ),
+                        onSaved: (value) => setState(() {
+                              description = value;
+                            })),
+                    const SizedBox(height: 10),
+                    TextFormField(
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Precio Max',
+                        suffixText: 'Soles',
+                        prefixText: 'S/',
+                      ),
+                      validator: (value) => Validators.isValidateOnlyTextMinMax(
+                        text: value!,
+                        minCaracter: 1,
+                        maxCarater: 6,
+                        messageError: 'Costo no valido.',
+                      ),
+                      initialValue: e.prices.first.toString(),
+                      onSaved: (value) => setState(() {
+                        price!.insert(0, double.parse(value!));
+                      }),
+                    ),
+                    const SizedBox(height: 10),
+                    TextFormField(
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Precio Min',
+                        suffixText: 'Soles',
+                        prefixText: 'S/',
+                      ),
+                      validator: (value) => Validators.isValidateOnlyTextMinMax(
+                        text: value!,
+                        minCaracter: 1,
+                        maxCarater: 6,
+                        messageError: 'Costo no valido.',
+                      ),
+                      initialValue: e.prices.last.toString(),
+                      onSaved: (value) => setState(() {
+                        price!.insert(1, double.parse(value!));
+                      }),
+                      // TODO : FALTA ACTUALIZAR CATEGORIAS, TALLAS E IMAGENES
+                    ),
+                    BlocBuilder<SizeProductBloc, SizeProductState>(
+                      builder: (context, state) {
+                        if (state is SizeProductLoading) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        if (state is SizeProductsLoaded) {
+                          // Only Sizes from products
+                          listaSizeProductInitial.clear();
+                          for (var sizeProduct in state.sizeProducts) {
+                            for (var e in e.sizes) {
+                              if (sizeProduct.id == e) {
+                                listaSizeProductInitial.add(sizeProduct);
                               }
                             }
-                            setState(() {});
-                          },
-                          child: Text(textButton),
-                        ),
-                        CustomDropDown(
-                          buttonText: const Text('Seleccionar tallas'),
-                          listItems: lista,
-                          onConfirm: (List<SizeProduct> values) {
-                            // sizesProduct = [];
-                            // values.map((e) => sizesProduct!.add(e.id)).toList();
-                          },
-                          title: const Text('Tallas'),
-                          validator: (value) {
-                            if (value.isNotEmpty) {
-                              return null;
-                            } else {
-                              return 'Selecciona al menos una opción.';
-                            }
-                          },
-                        ),
-                      ],
-                    );
-                  }
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                },
-              ),
-              OutlinedButton(
-                onPressed: () {
-                  if (!_formKey.currentState!.validate()) return;
-                  _formKey.currentState!.save();
-                  BlocProvider.of<ProductBloc>(context).add(
-                    UpdateProduct(
-                      product: e.copyWith(
-                          title: title,
-                          descript: description,
-                          prices: price,
-                          // sizes:
-                          typeProductId: typeProduct!.id
-                          // categories:
-                          // imageUrls:
-                          ),
+                          }
+                          return CustomDropDown(
+                            buttonText: const Text('Seleccionar tallas'),
+                            listInitialValue: listaSizeProductInitial,
+                            listItems: state.sizeProducts
+                                .map((e) => MultiSelectItem(e, e.size))
+                                .toList(),
+                            onConfirm: (List<SizeProduct> values) {
+                              sizesProduct = [];
+                              values
+                                  .map((e) => sizesProduct!.add(e.id))
+                                  .toList();
+                            },
+                            title: const Text('Tallas'),
+                            validator: (value) {
+                              if (value.isNotEmpty) {
+                                return null;
+                              } else {
+                                return 'Selecciona al menos una opción.';
+                              }
+                            },
+                          );
+                        }
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      },
                     ),
-                  );
-                  Navigator.pop(context);
-                  ShowAlert.showSuccessSnackBar(
-                    context,
-                    message: '¡Actualización realizado exitosamente!',
-                  );
-                },
-                child: Text('Actualizar'),
+                    BlocBuilder<CategoryBloc, CategoryState>(
+                      builder: (context, state) {
+                        if (state is CategoryLoading) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        if (state is CategoryLoaded) {
+                          // Only Sizes from products
+                          listaCategoryInitial.clear();
+                          for (var sizeProduct in state.categories) {
+                            for (var e in e.categories) {
+                              if (sizeProduct.id == e) {
+                                listaCategoryInitial.add(sizeProduct);
+                              }
+                            }
+                          }
+                          return CustomDropDown(
+                            buttonText: const Text('Seleccionar Categorías'),
+                            listInitialValue: listaCategoryInitial,
+                            listItems: state.categories
+                                .map((e) => MultiSelectItem(e, e.name))
+                                .toList(),
+                            onConfirm: (List<Category> values) {
+                              sizesProduct = [];
+                              values
+                                  .map((e) => sizesProduct!.add(e.id))
+                                  .toList();
+                            },
+                            title: const Text('Tallas'),
+                            validator: (value) {
+                              if (value.isNotEmpty) {
+                                return null;
+                              } else {
+                                return 'Selecciona al menos una opción.';
+                              }
+                            },
+                          );
+                        }
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      },
+                    ),
+                    Table(
+                      defaultVerticalAlignment:
+                          TableCellVerticalAlignment.middle,
+                      children: [
+                        TableRow(children: [
+                          CustomImageContainer(
+                            imageUrl:
+                                e.imageUrls.length > 0 ? e.imageUrls[0] : null,
+                          ),
+                          const Icon(Icons.change_circle_outlined),
+                          CustomImageContainer()
+                        ]),
+                        TableRow(children: [
+                          CustomImageContainer(
+                            imageUrl:
+                                e.imageUrls.length > 1 ? e.imageUrls[1] : null,
+                          ),
+                          const Icon(Icons.change_circle_outlined),
+                          CustomImageContainer()
+                        ]),
+                        TableRow(children: [
+                          CustomImageContainer(
+                            imageUrl:
+                                e.imageUrls.length > 2 ? e.imageUrls[2] : null,
+                          ),
+                          const Icon(Icons.change_circle_outlined),
+                          CustomImageContainer()
+                        ]),
+                      ],
+                    ),
+                    OutlinedButton(
+                      onPressed: () {
+                        if (!_formKey.currentState!.validate()) return;
+                        _formKey.currentState!.save();
+                        BlocProvider.of<ProductBloc>(context).add(
+                          UpdateProduct(
+                            product: e.copyWith(
+                                title: title,
+                                descript: description,
+                                prices: price,
+                                // sizes:
+                                typeProductId: typeProduct!.id
+                                // categories:
+                                // imageUrls:
+                                ),
+                          ),
+                        );
+                        Navigator.pop(context);
+                        ShowAlert.showSuccessSnackBar(
+                          context,
+                          message: '¡Actualización realizado exitosamente!',
+                        );
+                      },
+                      child: const Text('Actualizar'),
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
+            );
+          },
         ),
-        title: Text('Actualizar producto'),
+        title: const Text('Actualizar producto'),
       ),
       // YYNoticeDialog(e),
       child: const Text(

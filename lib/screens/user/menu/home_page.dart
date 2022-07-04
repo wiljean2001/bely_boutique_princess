@@ -71,7 +71,7 @@ class _HomeViewState extends State<HomeView> {
           }
           if (stateProduct is ProductsLoaded) {
             return CustomScrollView(
-              physics: const BouncingScrollPhysics(),
+              // physics: const BouncingScrollPhysics(),
               slivers: <Widget>[
                 CustomSliverAppBar(
                   title: S.of(context).AppTitle,
@@ -106,7 +106,9 @@ class _HomeViewState extends State<HomeView> {
                         if (stateSizesProduct is SizeAllProductsLoaded) {
                           return GridView.count(
                             crossAxisCount: 2,
-                            padding: const EdgeInsets.only(top: kPaddingS),
+                            physics: BouncingScrollPhysics(),
+                            padding: const EdgeInsets.only(
+                                top: kPaddingS, bottom: 65),
                             childAspectRatio:
                                 Responsive.isMobile(context) ? 0.85 : 1,
                             children: stateProduct.products.isNotEmpty
@@ -178,7 +180,7 @@ class _HomeViewState extends State<HomeView> {
                       },
                     ),
                   ),
-                )
+                ),
               ],
             );
           }
