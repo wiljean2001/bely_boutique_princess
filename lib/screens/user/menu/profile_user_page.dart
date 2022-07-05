@@ -278,7 +278,7 @@ class PagesVisit extends StatelessWidget {
           descript: 'Visítanos en Whatsapp dandole click al botón',
           icon: const Icon(Icons.whatsapp),
           image: 'assets/images/whatsapp_64.png',
-          whatsapp: "+51953433761",
+          whatsapp: "+51945455261",
           whatsappMessage: "Hola",
         ),
       ),

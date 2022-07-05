@@ -689,6 +689,26 @@ class S {
       args: [],
     );
   }
+
+  /// `¿No estas registrado?`
+  String get title_registration_question {
+    return Intl.message(
+      '¿No estas registrado?',
+      name: 'title_registration_question',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Terminos y condiciones`
+  String get title_terms_conditions {
+    return Intl.message(
+      'Terminos y condiciones',
+      name: 'title_terms_conditions',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

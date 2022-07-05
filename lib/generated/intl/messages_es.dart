@@ -86,6 +86,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "title_products": MessageLookupByLibrary.simpleMessage("Productos"),
         "title_register_screen":
             MessageLookupByLibrary.simpleMessage("Registrar"),
+        "title_registration_question":
+            MessageLookupByLibrary.simpleMessage("¿No estas registrado?"),
         "title_roles": MessageLookupByLibrary.simpleMessage("Roles"),
         "title_show_as_user":
             MessageLookupByLibrary.simpleMessage("Vista de usuario"),
@@ -95,6 +97,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ver producto"),
         "title_sign_in": MessageLookupByLibrary.simpleMessage("INICIAR SESIÓN"),
         "title_size_screen": MessageLookupByLibrary.simpleMessage("Tallas"),
+        "title_terms_conditions":
+            MessageLookupByLibrary.simpleMessage("Terminos y condiciones"),
         "title_type_product":
             MessageLookupByLibrary.simpleMessage("Tipo de productos"),
         "title_update_category_screen":

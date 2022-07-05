@@ -114,7 +114,7 @@ class SalesLoading extends StatelessWidget {
               }
             }
           }
-          OpenAll.openwhatsapp(whatsapp: '+51953433761', message: mensaje);
+          OpenAll.openwhatsapp(whatsapp: '+51945455261', message: mensaje);
         },
         child: const Text('Finalizar pedido'),
       ),
