@@ -3,6 +3,7 @@
 import 'package:bely_boutique_princess/generated/l10n.dart';
 import 'package:bely_boutique_princess/screens/user/update_user_screen.dart';
 import 'package:bely_boutique_princess/utils/custom_alert_dialog.dart';
+import 'package:bely_boutique_princess/utils/terms_conditions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
@@ -192,6 +193,13 @@ class _SettingScreenState extends State<SettingScreen> {
                 title: 'Cambiar contraseña',
                 leading: const Icon(Icons.password_outlined),
                 onPressed: (BuildContext context) => _changePassword(context),
+              ),
+              SettingsTile(
+                title: 'Terminos y condiciones',
+                leading: const Icon(Icons.text_snippet_outlined),
+                onPressed: (BuildContext context) {
+                  Navigator.pushNamed(context, TermsConditions.routeName);
+                },
               ),
             ],
           ),
