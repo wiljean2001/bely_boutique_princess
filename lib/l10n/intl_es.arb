@@ -62,5 +62,7 @@
   "title_show_categories_screen": "Ver categorias",
   "title_update_user_screen": "Editar Usuario",
   "COMMENT4": " // SETTINGS SCREENS ",
-  "title_map_screen": "Ubícanos"
+  "title_map_screen": "Ubícanos",
+  "title_registration_question": "¿No estas registrado?",
+  "title_terms_conditions": "Terminos y condiciones"
 }
