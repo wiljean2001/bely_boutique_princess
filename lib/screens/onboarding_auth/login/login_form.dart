@@ -149,6 +149,10 @@ class _LoginFormState extends State<LoginForm> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 30),
+                      child: Text(S.of(context).title_registration_question),
+                    ),
                     TextButton(
                       onPressed: () => widget.tabController
                           .animateTo(widget.tabController.index + 1),
