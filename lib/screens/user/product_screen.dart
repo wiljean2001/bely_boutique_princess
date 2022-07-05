@@ -340,6 +340,7 @@ class _CustomInfoProductState extends State<CustomInfoProduct> {
                                                 .user!
                                                 .uid,
                                             quantify: quantity,
+                                            sizeProduct: listSizes!.size,
                                             orderDate: Timestamp.fromDate(
                                                 DateTime.now()),
                                           );

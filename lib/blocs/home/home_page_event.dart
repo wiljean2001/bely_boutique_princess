@@ -10,7 +10,7 @@ abstract class HomePageEvent extends Equatable {
 class HomeTabChangeEvent extends HomePageEvent {
   final int newIndex;
 
-  const HomeTabChangeEvent({this.newIndex = 0});
+  const HomeTabChangeEvent({this.newIndex = 1});
 
   // Para que equatable identifique que sean clases iguales
   @override

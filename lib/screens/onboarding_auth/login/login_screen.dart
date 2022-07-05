@@ -80,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
               margin: EdgeInsets.only(
                 top: Responsive.isMobile(context) ? 355 : 500,
               ),
-              height: Responsive.isMobile(context) ? 350 : 400,
+              height: Responsive.isMobile(context) ? 400 : 420,
               // constraints: BoxConstraints(ma),
               child: LoginForm(
                 tabController: tabController,

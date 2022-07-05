@@ -8,6 +8,11 @@ abstract class BaseStorageRepository {
   // products
   Future<void> uploadImageProduct(List<XFile> image, String productid);
   Future<String> getDownloadURLProduct(String imageName, String productid);
+  Future<void> uploadImageProductOnlyUpdate(
+    List<XFile> images,
+    List<String> noUpdateImages,
+    String productid,
+  );
   // categories
   Future<void> uploadImageCategory(XFile image, String categoryId);
   Future<String> getDownloadURLCategory(String imageName, String categoryId);

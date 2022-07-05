@@ -3,6 +3,7 @@ import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../../../config/constrants.dart';
+import '../../../generated/l10n.dart';
 import '../../../models/map_market.dart';
 import 'widgets/map_widgets.dart';
 
@@ -89,7 +90,7 @@ class _MapScreenState extends State<MapScreen>
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: const Text('Map Screen'),
+        title: Text(S.of(context).title_map_screen),
         actions: [
           IconButton(
             icon: const Icon(Icons.filter_alt_outlined),

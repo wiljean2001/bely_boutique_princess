@@ -84,7 +84,11 @@ class _CustomImageContainerState extends State<CustomImageContainer> {
                 ),
               )
             : widget.imageUrlLocal == null
-                ? Image.network(widget.imageUrl!, fit: BoxFit.cover)
+                ? widget.imageUrl != 'empty'
+                    ? Image.network(widget.imageUrl!, fit: BoxFit.cover)
+                    : Center(
+                        child: Text('Sin imagen'),
+                      )
                 : Image.file(File(widget.imageUrlLocal!.path),
                     fit: BoxFit.cover),
       ),

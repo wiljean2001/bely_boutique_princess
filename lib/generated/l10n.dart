@@ -669,6 +669,26 @@ class S {
       args: [],
     );
   }
+
+  /// ` // SETTINGS SCREENS `
+  String get COMMENT4 {
+    return Intl.message(
+      ' // SETTINGS SCREENS ',
+      name: 'COMMENT4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ubícanos`
+  String get title_map_screen {
+    return Intl.message(
+      'Ubícanos',
+      name: 'title_map_screen',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

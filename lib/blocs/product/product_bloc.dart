@@ -67,7 +67,15 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   ) async {
     final state = this.state;
     if (state is ProductsLoaded) {
-      await _productRepository.updateProduct(event.product);
+      await _productRepository.updateProduct(event.product).then(
+        (value) async {
+          await _storageRepository.uploadImageProductOnlyUpdate(
+            event.images,
+            event.imagesNoUpdate,
+            event.product.id!,
+          );
+        },
+      );
     }
   }
 

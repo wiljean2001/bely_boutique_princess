@@ -31,6 +31,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(" // ONBOARDING SCREENS "),
         "COMMENT3":
             MessageLookupByLibrary.simpleMessage(" // ADMIN BOARDING SCREENS "),
+        "COMMENT4":
+            MessageLookupByLibrary.simpleMessage(" // SETTINGS SCREENS "),
         "Error_displaying_interaces": MessageLookupByLibrary.simpleMessage(
             "Error al cargar las interfaces"),
         "bttn_date_birth": MessageLookupByLibrary.simpleMessage(
@@ -78,6 +80,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Agregar producto"),
         "title_dashboard_screen":
             MessageLookupByLibrary.simpleMessage("Panel de administración"),
+        "title_map_screen": MessageLookupByLibrary.simpleMessage("Ubícanos"),
         "title_picture_screen":
             MessageLookupByLibrary.simpleMessage("Seleccionar foto de perfil"),
         "title_products": MessageLookupByLibrary.simpleMessage("Productos"),

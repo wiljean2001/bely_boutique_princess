@@ -64,4 +64,14 @@ class ProductRepository extends BaseProductRepository {
       // 'imageUrls': downloadUrl
     });
   }
+
+  Future<void> updateProductPicturesOnlyUpdate(
+    List<String> imageNames,
+    String productId,
+  ) async {
+    return _firebaseFirestore.collection('products').doc(productId).update({
+      'imageUrls': imageNames,
+      // 'imageUrls': downloadUrl
+    });
+  }
 }

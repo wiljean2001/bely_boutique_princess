@@ -33,13 +33,16 @@ class AddProduct extends ProductEvent {
 
 class UpdateProduct extends ProductEvent {
   final Product product;
-
+  final List<XFile> images;
+  final List<String> imagesNoUpdate;
   const UpdateProduct({
     required this.product,
+    required this.images,
+    required this.imagesNoUpdate,
   });
 
   @override
-  List<Object> get props => [product];
+  List<Object> get props => [product, images];
 }
 
 class UpdateProductImages extends ProductEvent {

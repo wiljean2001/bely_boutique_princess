@@ -31,6 +31,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(" // ONBOARDING SCREENS "),
         "COMMENT3":
             MessageLookupByLibrary.simpleMessage(" // ADMIN BOARDING SCREEN "),
+        "COMMENT4":
+            MessageLookupByLibrary.simpleMessage(" // SETTINGS SCREENS "),
         "Error_displaying_interaces":
             MessageLookupByLibrary.simpleMessage("Error loading interfaces"),
         "bttn_date_birth":
@@ -78,6 +80,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Add Product"),
         "title_dashboard_screen":
             MessageLookupByLibrary.simpleMessage("Dashboard"),
+        "title_map_screen": MessageLookupByLibrary.simpleMessage("Ubícanos"),
         "title_picture_screen":
             MessageLookupByLibrary.simpleMessage("Select Profile Picture."),
         "title_products": MessageLookupByLibrary.simpleMessage("Products"),
@@ -91,6 +94,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Show Product"),
         "title_sign_in": MessageLookupByLibrary.simpleMessage("SIGN IN"),
         "title_size_screen": MessageLookupByLibrary.simpleMessage("Sizes"),
+        "title_type_product":
+            MessageLookupByLibrary.simpleMessage("Types product"),
         "title_update_category_screen":
             MessageLookupByLibrary.simpleMessage("Update category"),
         "title_update_product_screen":

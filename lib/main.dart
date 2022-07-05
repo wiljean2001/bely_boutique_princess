@@ -124,6 +124,7 @@ class MyApp extends StatelessWidget {
             create: (context) => ProfileBloc(
               authBloc: BlocProvider.of<AuthBloc>(context),
               databaseRepository: context.read<DatabaseRepository>(),
+              storageRepository: context.read<StorageRepository>(),
               // una vez es instanciado se inyectara el metodo add
             )..add(
                 LoadProfile(

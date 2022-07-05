@@ -40,9 +40,6 @@ class StorageRepository extends BaseStorageRepository {
   Future<void> uploadImageProduct(List<XFile> images, String productid) async {
     try {
       for (var image in images) {
-        print("Imagenes - uploadImageProduct:");
-        print(image.name);
-        print(image.path);
         await storage
             .ref('product/$productid/${image.name}')
             .putFile(File(image.path))
@@ -53,6 +50,41 @@ class StorageRepository extends BaseStorageRepository {
               ),
             );
       }
+    } catch (err) {
+      print(err);
+    }
+  }
+
+  @override
+  Future<void> uploadImageProductOnlyUpdate(
+    List<XFile> images,
+    List<String> noUpdateImages,
+    String productid,
+  ) async {
+    try {
+      List<String> listNewImages = [];
+      for (var image in images) {
+        await storage
+            .ref('product/$productid/${image.name}')
+            .putFile(File(image.path))
+            .then(
+          (p0) {
+            listNewImages.add(image.name); // insert image name for the list
+          },
+        );
+      }
+      List<String> listNewImagesStrings = [];
+      listNewImagesStrings.addAll(noUpdateImages);
+      for (var imageName in listNewImages) {
+        listNewImagesStrings.add(
+          await getDownloadURLProduct(imageName, productid),
+        );
+      }
+      await ProductRepository().updateProductPicturesOnlyUpdate(
+        listNewImagesStrings,
+        productid,
+      );
+      // return listNewImagesStrings;
     } catch (err) {
       print(err);
     }

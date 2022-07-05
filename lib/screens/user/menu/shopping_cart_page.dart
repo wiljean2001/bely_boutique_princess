@@ -110,25 +110,10 @@ class SalesLoading extends StatelessWidget {
             for (var productShopping in _LIST_PRODUCT_SHOPPING_CART) {
               if (order.productId == productShopping.id) {
                 mensaje +=
-                    'ID Producto: ${productShopping.id}\nProducto: ${productShopping.title}\nCantidad: ${order.quantify}';
+                    'ID Producto: ${productShopping.id}\nProducto: ${productShopping.title}\nCantidad: ${order.quantify}\n';
               }
             }
           }
-          //     // 'ORD-A001' +
-          //     // 'SOY @JUAN' +
-          //     '${_LIST_PRODUCT_SHOPPING_CART.map(
-          //               (e) =>
-          //                   'Cantidad: ${orders.where((element) => element.productId == e.id).}',
-          //             ).join('/n')}'
-          //         'CANTIDAD: 1' +
-          //     'VESTIDO DE PROMOCIÓN ROSA: ' +
-          //     'PRECIO: S/200.0, S/250.0,' +
-          //     'TALLA: M>' +
-          //     ' CANTIDAD: 2' +
-          //     'VESTIDO DE BAUTIZO BLANCO: ' +
-          //     'PRECIO S/165.0, S/170.0,' +
-          //     'TALLA: XS, S>' +
-          //     '<23:12, 3-07-2022>';
           OpenAll.openwhatsapp(whatsapp: '+51953433761', message: mensaje);
         },
         child: const Text('Finalizar pedido'),

@@ -86,9 +86,9 @@ class _SettingScreenState extends State<SettingScreen> {
                                 // BlocProvider.of<LanguageBloc>(context)
                                 //     .add(ChangeLocale(e));
                                 print('CLICK');
-                                context
-                                    .read<LanguageBloc>()
-                                    .add(ChangeLocale(e));
+                                context.read<LanguageBloc>().add(
+                                      ChangeLocale(e),
+                                    );
                               },
                             ),
                           )

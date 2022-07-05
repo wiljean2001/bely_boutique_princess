@@ -24,3 +24,13 @@ class UpdateProfile extends ProfileEvent {
   @override
   List<Object> get props => [user];
 }
+
+class UpdateUserProfile extends ProfileEvent {
+  final User user;
+  final XFile? image;
+
+  const UpdateUserProfile({required this.user, this.image});
+
+  @override
+  List<Object> get props => [user];
+}

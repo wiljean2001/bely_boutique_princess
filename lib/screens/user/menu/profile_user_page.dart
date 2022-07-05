@@ -164,7 +164,7 @@ class _BodyState extends State<Body> {
         onPressed: () => Navigator.pushNamed(context, SettingScreen.routeName),
       ),
       ButtonProfile(
-        title: 'Ubícanos',
+        title: S.of(context).title_map_screen,
         onPressed: () {
           Navigator.pushNamed(context, MapScreen.routeName);
           // Fluttertoast.showToast(
@@ -252,51 +252,6 @@ class CustomButtonProfile extends StatelessWidget {
     );
   }
 }
-// SliverAppBar(
-//   pinned: true,
-//   snap: false,
-//   // backgroundColor: Colors.transparent,
-//   floating: false,
-//   // brightness: ,
-//   expandedHeight: 280,
-//   flexibleSpace: FlexibleSpaceBar(
-//     centerTitle: true,
-//     title: Text(
-//       '@${usuario.name}',
-//       style: Theme.of(context).textTheme.titleMedium?.copyWith(
-//         fontSize: 16,
-//         shadows: [
-//           Shadow(
-//               color: Theme.of(context).primaryColor, blurRadius: 10)
-//         ],
-//       ),
-//     ),
-//     // collapseMode: CollapseMode.none,
-//     background: Image.network(
-//       usuario.imageUrls[0],
-//       fit: BoxFit.fitWidth,
-//       alignment: Alignment.center,
-//     ),
-//   ),
-// ),
-// actions: <Widget>[
-//   TextButton(
-//     onPressed: () => Navigator.pop(context, 'Cancel'),
-//     child: const Text('Cancel'),
-//   ),
-//   TextButton(
-//     onPressed: () => Navigator.pop(context, 'OK'),
-//     child: const Text('OK'),
-//   ),
-// ],
-// Fluttertoast.showToast(
-//     msg: "Tab a visitanos",
-//     toastLength: Toast.LENGTH_SHORT,
-//     gravity: ToastGravity.BOTTOM,
-//     timeInSecForIosWeb: 1,
-//     backgroundColor: Colors.grey,
-//     textColor: Colors.white,
-//     fontSize: 16.0);
 
 class PagesVisit extends StatelessWidget {
   const PagesVisit({Key? key}) : super(key: key);

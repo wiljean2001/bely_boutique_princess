@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
 
 import '../../../blocs/blocs.dart';
@@ -307,11 +308,16 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
   List<double>? price = [];
   TypeProduct? editTypeProduct;
   List<String?>? sizesProduct = [];
-  List<String>? categoryProduct = [];
+  List<String?>? categoryProduct = [];
   //
   String textButton = 'Actualizar lista existente';
   List<SizeProduct> listaSizeProductInitial = [];
   List<Category> listaCategoryInitial = [];
+
+  XFile? firstNewImage;
+  XFile? secondNewImage;
+  XFile? thirstyNewImage;
+
   MaterialButton _updateProductDIalog(BuildContext context, Product e) {
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
     price = [];
@@ -459,10 +465,12 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                         if (state is SizeProductsLoaded) {
                           // Only Sizes from products
                           listaSizeProductInitial.clear();
-                          for (var sizeProduct in state.sizeProducts) {
+                          sizesProduct!.clear();
+                          for (var sizeP in state.sizeProducts) {
                             for (var e in e.sizes) {
-                              if (sizeProduct.id == e) {
-                                listaSizeProductInitial.add(sizeProduct);
+                              if (sizeP.id == e) {
+                                sizesProduct!.add(sizeP.id);
+                                listaSizeProductInitial.add(sizeP);
                               }
                             }
                           }
@@ -503,10 +511,12 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                         if (state is CategoryLoaded) {
                           // Only Sizes from products
                           listaCategoryInitial.clear();
-                          for (var sizeProduct in state.categories) {
+                          categoryProduct!.clear();
+                          for (var catProduct in state.categories) {
                             for (var e in e.categories) {
-                              if (sizeProduct.id == e) {
-                                listaCategoryInitial.add(sizeProduct);
+                              if (catProduct.id == e) {
+                                categoryProduct!.add(catProduct.id);
+                                listaCategoryInitial.add(catProduct);
                               }
                             }
                           }
@@ -517,9 +527,9 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                                 .map((e) => MultiSelectItem(e, e.name))
                                 .toList(),
                             onConfirm: (List<Category> values) {
-                              sizesProduct = [];
+                              categoryProduct = [];
                               values
-                                  .map((e) => sizesProduct!.add(e.id))
+                                  .map((e) => categoryProduct!.add(e.id))
                                   .toList();
                             },
                             title: const Text('Tallas'),
@@ -547,7 +557,9 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                                 e.imageUrls.length > 0 ? e.imageUrls[0] : null,
                           ),
                           const Icon(Icons.change_circle_outlined),
-                          CustomImageContainer()
+                          CustomImageContainer(onPressed: (XFile xFile) {
+                            firstNewImage = xFile;
+                          }),
                         ]),
                         TableRow(children: [
                           CustomImageContainer(
@@ -555,7 +567,9 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                                 e.imageUrls.length > 1 ? e.imageUrls[1] : null,
                           ),
                           const Icon(Icons.change_circle_outlined),
-                          CustomImageContainer()
+                          CustomImageContainer(onPressed: (XFile xFile) {
+                            secondNewImage = xFile;
+                          }),
                         ]),
                         TableRow(children: [
                           CustomImageContainer(
@@ -563,7 +577,9 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                                 e.imageUrls.length > 2 ? e.imageUrls[2] : null,
                           ),
                           const Icon(Icons.change_circle_outlined),
-                          CustomImageContainer()
+                          CustomImageContainer(onPressed: (XFile xFile) {
+                            thirstyNewImage = xFile;
+                          }),
                         ]),
                       ],
                     ),
@@ -571,24 +587,52 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                       onPressed: () {
                         if (!_formKey.currentState!.validate()) return;
                         _formKey.currentState!.save();
-                        BlocProvider.of<ProductBloc>(context).add(
-                          UpdateProduct(
-                            product: e.copyWith(
+                        try {
+                          List<XFile> newImages = [];
+                          List<String> noUpdateImages = [];
+                          firstNewImage != null
+                              ? newImages.add(firstNewImage!)
+                              : noUpdateImages.add(e.imageUrls[0]);
+                          secondNewImage != null
+                              ? newImages.add(secondNewImage!)
+                              : noUpdateImages.add(e.imageUrls[1]);
+                          thirstyNewImage != null
+                              ? newImages.add(thirstyNewImage!)
+                              : noUpdateImages.add(e.imageUrls[2]);
+                          // firstNewImage
+                          // secondNewImage
+                          // thirstyNewImage
+                          // e.imageUrls[0]
+                          // e.imageUrls[1]
+                          // e.imageUrls[2]
+
+                          BlocProvider.of<ProductBloc>(context).add(
+                            UpdateProduct(
+                              product: e.copyWith(
                                 title: title,
                                 descript: description,
                                 prices: price,
-                                // sizes:
-                                typeProductId: typeProduct!.id
-                                // categories:
-                                // imageUrls:
-                                ),
-                          ),
-                        );
-                        Navigator.pop(context);
-                        ShowAlert.showSuccessSnackBar(
-                          context,
-                          message: '¡Actualización realizado exitosamente!',
-                        );
+                                sizes: sizesProduct,
+                                typeProductId: typeProduct!.id,
+                                categories: categoryProduct,
+                              ),
+                              images: newImages,
+                              imagesNoUpdate: noUpdateImages,
+                            ),
+                          );
+                          Navigator.pop(context);
+                          ShowAlert.showSuccessSnackBar(
+                            context,
+                            message: '¡Actualización realizado exitosamente!',
+                          );
+                          return;
+                        } catch (e) {
+                          ShowAlert.showErrorSnackBar(
+                            context,
+                            message: 'Ocurrió algo inesperado.',
+                          );
+                          return;
+                        }
                       },
                       child: const Text('Actualizar'),
                     ),

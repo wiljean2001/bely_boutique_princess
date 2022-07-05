@@ -44,17 +44,17 @@ class _HomeViewState extends State<HomeView> {
       refreshNum = Random().nextInt(100);
     });
     return completer.future.then<void>((_) {
-      ScaffoldMessenger.of(_scaffoldKey.currentState!.context).showSnackBar(
-        SnackBar(
-          content: const Text('Refresh complete'),
-          action: SnackBarAction(
-            label: 'RETRY',
-            onPressed: () {
-              _refreshIndicatorKey.currentState!.show();
-            },
-          ),
-        ),
-      );
+      //   ScaffoldMessenger.of(_scaffoldKey.currentState!.context).showSnackBar(
+      //     SnackBar(
+      //       content: const Text('Refresh complete'),
+      //       action: SnackBarAction(
+      //         label: 'RETRY',
+      //         onPressed: () {
+      //           _refreshIndicatorKey.currentState!.show();
+      //         },
+      //       ),
+      //     ),
+      //   );
     });
   }
 
@@ -96,21 +96,25 @@ class _HomeViewState extends State<HomeView> {
                 //   ),w
                 // ),
                 // isShowProducts?
+                
                 SliverFillRemaining(
                   child: LiquidPullToRefresh(
                     key: _refreshIndicatorKey, // key if you want to add
                     onRefresh: _handleRefresh, // refresh callback
+                    color: Theme.of(context).primaryColor,
                     showChildOpacityTransition: false,
                     child: BlocBuilder<SizeProductBloc, SizeProductState>(
                       builder: (context, stateSizesProduct) {
                         if (stateSizesProduct is SizeAllProductsLoaded) {
                           return GridView.count(
                             crossAxisCount: 2,
-                            physics: BouncingScrollPhysics(),
+                            physics: const BouncingScrollPhysics(),
                             padding: const EdgeInsets.only(
-                                top: kPaddingS, bottom: 65),
+                              top: kPaddingS,
+                              bottom: 65,
+                            ),
                             childAspectRatio:
-                                Responsive.isMobile(context) ? 0.85 : 1,
+                                Responsive.isMobile(context) ? 0.85 : 1.2,
                             children: stateProduct.products.isNotEmpty
                                 ? stateProduct.products.map(
                                     (product) {

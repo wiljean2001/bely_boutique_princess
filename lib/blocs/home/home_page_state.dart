@@ -13,7 +13,7 @@ class HomePageInitial extends HomePageState {}
 class BottomNavigationInitial extends HomePageState {
   final int indexBottomNav;
 
-  const BottomNavigationInitial({this.indexBottomNav = 0});
+  const BottomNavigationInitial({this.indexBottomNav = 1});
 
   @override
   List<Object> get props => [indexBottomNav];
