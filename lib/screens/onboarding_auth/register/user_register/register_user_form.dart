@@ -1,11 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 
 import '../../../../blocs/blocs.dart';
 import '../../../../config/responsive.dart';
 import '../../../../generated/l10n.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../utils/custom_alert_dialog.dart';
+import '../../../../utils/show_alert.dart';
+import '../../../../utils/terms_conditions.dart';
 import '../../../../utils/validators.dart';
 import '../../../../widgets/custom_button_gradiant.dart';
 
@@ -21,6 +25,8 @@ class RegisterUserForm extends StatefulWidget {
 
 class _RegisterUserFormState extends State<RegisterUserForm> {
   String? dropdownValue;
+  bool aceptTerm = false;
+  String dateTime = '';
   // String? name;
   final GlobalKey<FormState> _formKeyUser = GlobalKey<FormState>();
 
@@ -39,10 +45,18 @@ class _RegisterUserFormState extends State<RegisterUserForm> {
               lastDate: DateTime(DateTime.now().year - 18),
               locale: const Locale('es', 'ES'),
               // (2101)
+              initialEntryMode: DatePickerEntryMode.calendarOnly,
+              // initialDatePickerMode: DatePickerMode.year,
+              keyboardType: TextInputType.datetime,
             );
+
             // Date ->
             try {
               if (picked != null) {
+                setState(() {
+                  dateTime =
+                      '${picked!.day} / ${picked!.month} / ${picked!.year}';
+                });
                 context.read<OnboardingBloc>().add(UpdateUser(
                       user: state.user.copyWith(
                         dateOfBirth: Timestamp.fromDate(picked!),
@@ -114,28 +128,50 @@ class _RegisterUserFormState extends State<RegisterUserForm> {
                   ),
                   // Intertar mas secciones
                   // const SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.date_range, size: 45),
-                      const SizedBox(width: 25),
-                      Expanded(
-                        child: MaterialButton(
-                          height: 55,
-                          child: Text(
-                            S.of(context).bttn_date_birth,
-                            style: Responsive.isMobile(context)
-                                ? null
-                                : Theme.of(context).textTheme.headline6,
-                          ),
-                          onPressed: _showDatePicker,
-                          color: const Color.fromARGB(225, 242, 203, 208),
-                        ),
-                      ),
-                    ],
+                  ListTile(
+                    dense: true,
+                    autofocus: true,
+                    iconColor: Theme.of(context).primaryColor,
+                    leading: const Icon(Icons.date_range, size: 45),
+                    title: Text(
+                      S.of(context).bttn_date_birth,
+                      style: Responsive.isMobile(context)
+                          ? null
+                          : Theme.of(context).textTheme.headline6,
+                    ),
+                    subtitle: Text('Fecha seleccionada: $dateTime'),
+                    onTap: _showDatePicker,
+                    selectedTileColor: Theme.of(context).primaryColor,
+                    focusColor: Theme.of(context).primaryColor,
+                    hoverColor: Theme.of(context).primaryColor,
                   ),
                   const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Checkbox(
+                          value: aceptTerm,
+                          onChanged: (value) {
+                            setState(() {
+                              aceptTerm = value!;
+                            });
+                          }),
+                      const Text('Aceptar los'),
+                      TextButton(
+                        child: const Text('términos y condiciones.',
+                            softWrap: true),
+                        onPressed: () {
+                          CustomAlertDialog
+                              .contentButtonAndTitleWithouthAnimation(
+                            context: context,
+                            gravity: Gravity.right,
+                            maxHeight: MediaQuery.of(context).size.height,
+                            content: TermsConditions(),
+                          );
+                        },
+                      ),
+                      // const Text(', leí.'),
+                    ],
+                  ),
                   //
                   CustomButtonGradiant(
                     height: Responsive.isMobile(context) ? 45 : 55,
@@ -155,8 +191,13 @@ class _RegisterUserFormState extends State<RegisterUserForm> {
                               ),
                     ),
                     onPressed: () async {
-                      if (!_formKeyUser.currentState!.validate() &&
+                      if (!_formKeyUser.currentState!.validate() ||
                           picked == null) return;
+                      if (!aceptTerm) {
+                        ShowAlert.showErrorSnackBar(context,
+                            message: 'Aceptar los términos y condiciones');
+                        return;
+                      }
                       widget.tabController.animateTo(
                         widget.tabController.index + 1,
                         curve: Curves.elasticIn,

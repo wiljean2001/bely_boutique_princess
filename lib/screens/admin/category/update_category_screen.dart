@@ -55,13 +55,13 @@ class _UpdateCategoryScreenState extends State<UpdateCategoryScreen> {
           ),
           SliverToBoxAdapter(
             child: BlocBuilder<TypeProductBloc, TypeProductState>(
-              builder: (context, stateSizeProduct) {
-                if (stateSizeProduct is TypeProductLoading) {
+              builder: (context, stateTypeProduct) {
+                if (stateTypeProduct is TypeProductLoading) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
                 }
-                if (stateSizeProduct is TypeProductsLoaded) {
+                if (stateTypeProduct is TypeProductsLoaded) {
                   return Column(
                     children: [
                       Padding(
@@ -69,8 +69,8 @@ class _UpdateCategoryScreenState extends State<UpdateCategoryScreen> {
                             horizontal: kPaddingL, vertical: kPaddingS),
                         child: DropDown(
                           isExpanded: true,
-                          items: stateSizeProduct.typeProducts,
-                          customWidgets: stateSizeProduct.typeProducts
+                          items: stateTypeProduct.typeProducts,
+                          customWidgets: stateTypeProduct.typeProducts
                               .map((category) => Text(category.title))
                               .toList(),
                           onChanged: (TypeProduct? typeP) {
@@ -167,18 +167,6 @@ class _UpdateCategoryScreenState extends State<UpdateCategoryScreen> {
     nameCategory = category.name;
     return DataRow2(
       cells: [
-        // DataCell(
-        //   Row(
-        //     children: [
-        //       IconButton(
-        //           onPressed: () {},
-        //           icon: Icon(Icons.edit_outlined)),
-        //       IconButton(
-        //           onPressed: () {},
-        //           icon: Icon(Icons.delete_outline))
-        //     ],
-        //   ),
-        // ),
         DataCell(Text(contIndex.toString())),
         DataCell(Text(category.name)),
         DataCell(
@@ -317,8 +305,7 @@ class _UpdateCategoryScreenState extends State<UpdateCategoryScreen> {
                                       typeProductId: typeProduct!.id,
                                     ),
                                     image: xfile != null ? xfile! : null,
-                                    historyTypeProductId:
-                                        historyTypeProduct!.id,
+                                    historyTypeProductId: typeProduct!.id,
                                   ),
                                 );
                                 Navigator.pop(context);

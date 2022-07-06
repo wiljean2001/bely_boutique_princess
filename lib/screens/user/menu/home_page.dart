@@ -70,127 +70,88 @@ class _HomeViewState extends State<HomeView> {
             return const CustomLoadingScreen();
           }
           if (stateProduct is ProductsLoaded) {
-            return CustomScrollView(
-              // physics: const BouncingScrollPhysics(),
-              slivers: <Widget>[
-                CustomSliverAppBar(
-                  title: S.of(context).AppTitle,
-                  onTapOption: () {
-                    showSearch(
-                      context: context,
-                      delegate: ProductSearchDelegate(
-                        history,
-                        products: stateProduct.products,
-                      ),
-                    );
-                  },
-                ),
-                // SliverToBoxAdapter(
-                //   child: MaterialButton(
-                //     onPressed: () => setState(() {
-                //       isShowProducts
-                //           ? isShowProducts = false
-                //           : isShowProducts = true;
-                //     }),
-                //     child: Text('Ver productos normales'),
-                //   ),w
-                // ),
-                // isShowProducts?
-                
-                SliverFillRemaining(
-                  child: LiquidPullToRefresh(
-                    key: _refreshIndicatorKey, // key if you want to add
-                    onRefresh: _handleRefresh, // refresh callback
-                    color: Theme.of(context).primaryColor,
-                    showChildOpacityTransition: false,
-                    child: BlocBuilder<SizeProductBloc, SizeProductState>(
-                      builder: (context, stateSizesProduct) {
-                        if (stateSizesProduct is SizeAllProductsLoaded) {
-                          return GridView.count(
-                            crossAxisCount: 2,
-                            physics: const BouncingScrollPhysics(),
-                            padding: const EdgeInsets.only(
-                              top: kPaddingS,
-                              bottom: 65,
+            return BlocBuilder<SizeProductBloc, SizeProductState>(
+              builder: (context, stateSizesProduct) {
+                if (stateSizesProduct is SizeAllProductsLoaded) {
+                  return CustomScrollView(
+                    // physics: const BouncingScrollPhysics(),
+                    slivers: <Widget>[
+                      CustomSliverAppBar(
+                        title: S.of(context).AppTitle,
+                        onTapOption: () {
+                          showSearch(
+                            context: context,
+                            delegate: ProductSearchDelegate(
+                              history,
+                              products: stateProduct.products,
+                              resultSizesProduct:
+                                  stateSizesProduct.sizeProducts,
                             ),
-                            childAspectRatio:
-                                Responsive.isMobile(context) ? 0.85 : 1.2,
-                            children: stateProduct.products.isNotEmpty
-                                ? stateProduct.products.map(
-                                    (product) {
-                                      // String price = '';
-                                      // for (var element in product.prices) {
-                                      //   price += 'S/ $element ';
-                                      // }
-                                      return Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: kPaddingS),
-                                        child: CustomCardProduct(
-                                          context: context,
-                                          added: true,
-                                          imgPath: product.imageUrls.isNotEmpty
-                                              ? product.imageUrls[0]
-                                              : 'https://api.lorem.space/image/shoes?w=150&h=150',
-                                          // isFavorite: false,
-                                          name: product.title,
-                                          price:
-                                              'S/ ${product.prices.join(' S/ ')}',
-                                          onTap: () =>
-                                              Navigator.of(context).pushNamed(
-                                            ProductScreen.routeName,
-                                            arguments: ProductScreenArguments(
-                                              product,
-                                              stateSizesProduct.sizeProducts,
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ).toList()
-                                : [const SizedBox()],
                           );
-                          // return SliverGrid.count(
-                          //   crossAxisCount: 2,
-                          //   childAspectRatio:
-                          //       Responsive.isMobile(context) ? 0.75 : 1,
-                          //   children: stateProduct.products.isNotEmpty
-                          //       ? stateProduct.products
-                          //           .map(
-                          //             (product) => Padding(
-                          //               padding: const EdgeInsets.all(kPaddingS),
-                          //               child: CustomCardProduct(
-                          //                 context: context,
-                          //                 added: true,
-                          //                 imgPath: product.imageUrls.isNotEmpty
-                          //                     ? product.imageUrls[0]
-                          //                     : 'https://api.lorem.space/image/shoes?w=150&h=150',
-                          //                 // isFavorite: false,
-                          //                 name: product.title,
-                          //                 price: 'S/ ${product.prices.toString()}',
-                          //                 onTap: () =>
-                          //                     Navigator.of(context).pushNamed(
-                          //                   ProductScreen.routeName,
-                          //                   arguments: ProductScreenArguments(
-                          //                       product,
-                          //                       stateSizesProduct.sizeProducts),
-                          //                 ),
-                          //               ),
-                          //             ),
-                          //           )
-                          //           .toList()
-                          //       : [const SizedBox()],
-                          // );
-                        }
-                        return const Center(child: CircularProgressIndicator());
-                      },
-                    ),
-                  ),
-                ),
-              ],
+                        },
+                      ),
+                      showAllProduct(
+                        context,
+                        stateProduct,
+                        stateSizesProduct,
+                      ), // Grid Products
+                    ],
+                  );
+                }
+                return const SizedBox();
+              },
             );
           }
           return const SizedBox();
         },
+      ),
+    );
+  }
+
+  SliverFillRemaining showAllProduct(BuildContext context,
+      ProductsLoaded stateProduct, SizeAllProductsLoaded stateSizesProduct) {
+    return SliverFillRemaining(
+      child: LiquidPullToRefresh(
+        key: _refreshIndicatorKey, // key if you want to add
+        onRefresh: _handleRefresh, // refresh callback
+        color: Theme.of(context).primaryColor,
+        showChildOpacityTransition: false,
+        child: GridView.count(
+          crossAxisCount: 2,
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.only(
+            top: kPaddingS,
+            bottom: 65,
+          ),
+          childAspectRatio: Responsive.isMobile(context) ? 0.85 : 1.2,
+          children: stateProduct.products.isNotEmpty
+              ? stateProduct.products.map(
+                  (product) {
+                    return Padding(
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: kPaddingS),
+                      child: CustomCardProduct(
+                        context: context,
+                        added: true,
+                        imgPath: product.imageUrls.isNotEmpty
+                            ? product.imageUrls[0]
+                            : 'https://api.lorem.space/image/shoes?w=150&h=150',
+                        // isFavorite: false,
+                        name: product.title,
+                        price: 'S/ ${product.prices.join(' S/ ')}',
+                        onTap: () => Navigator.of(context).pushNamed(
+                          ProductScreen.routeName,
+                          arguments: ProductScreenArguments(
+                            product,
+                            stateSizesProduct.sizeProducts,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ).toList()
+              : [const SizedBox()],
+        ),
       ),
     );
   }

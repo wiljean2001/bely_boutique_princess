@@ -36,3 +36,11 @@ class AddOrderDetail extends OrderDetailEvent {
   @override
   List<Object> get props => [order];
 }
+class DeleteOrderDetail extends OrderDetailEvent {
+  final String orderId;
+
+  const DeleteOrderDetail({required this.orderId});
+
+  @override
+  List<Object> get props => [orderId];
+}

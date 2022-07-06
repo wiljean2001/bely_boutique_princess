@@ -84,6 +84,13 @@ class OrderRepository extends BaseOrderRepository {
         );
   } // create new order detail
 
+  @override
+  Future<void> deleteOrderDetail(String orderDetailId) async {
+    await _firebaseFirestore
+        .collection('orderDetails')
+        .doc(orderDetailId)
+        .delete();
+  } // update one order detail
   // @override
   // Future<void> updateOrder(Order order, String docId) async {
   //   await _firebaseFirestore.collection('orders').doc(docId).update(

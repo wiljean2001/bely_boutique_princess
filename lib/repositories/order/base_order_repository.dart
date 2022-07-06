@@ -12,5 +12,6 @@ abstract class BaseOrderRepository {
   Stream<OrderDetails> getDetailOrder(String orderDetailId); // get one order
   Future<void> createDetailOrder(
       OrderDetails orderDetail); // create new order detail
+  Future<void> deleteOrderDetail(String orderDetailId); // update one order detail
   // Future<void> updateOrder(Order order, String docId); // update one order detail
 }

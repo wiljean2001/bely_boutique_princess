@@ -11,7 +11,8 @@ class ProductSearchDelegate extends SearchDelegate {
 
   List<Product> history = [];
   List<Product> resultProducts = <Product>[];
-  ProductSearchDelegate(this.history, {required this.products});
+  List<SizeProduct> resultSizesProduct = <SizeProduct>[];
+  ProductSearchDelegate(this.history, {required this.products, required this.resultSizesProduct});
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -61,8 +62,12 @@ class ProductSearchDelegate extends SearchDelegate {
                         name: product.title,
                         price: 'S/ ${product.prices.toString()}',
                         onTap: () => Navigator.of(context).pushNamed(
-                            ProductScreen.routeName,
-                            arguments: product),
+                          ProductScreen.routeName,
+                          arguments: ProductScreenArguments(
+                            product,
+                            resultSizesProduct,
+                          ),
+                        ),
                       ),
                     ),
                   )
@@ -76,46 +81,49 @@ class ProductSearchDelegate extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     return Container(
-      constraints: const BoxConstraints(maxWidth: 400, maxHeight: 400),
-      child: Column(
-        children: [
-          SizedBox(
-            height: 100,
-            child: BlocBuilder<CategoryBloc, CategoryState>(
-                builder: (context, state) {
-              if (state is CategoryLoaded) {
-                return Center(
-                  child: Wrap(
-                      children: state.categories.isNotEmpty
-                          ? state.categories
-                              .map(
-                                (category) => InkWell(
-                                  onTap: () {},
-                                  child: Chip(
-                                    avatar: CircleAvatar(
-                                      child: category.imageUrl.isNotEmpty
-                                          ? Image.network(category.imageUrl)
-                                          : const SizedBox(),
+      constraints:
+          const BoxConstraints(maxWidth: 400, maxHeight: double.infinity),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 100,
+              child: BlocBuilder<CategoryBloc, CategoryState>(
+                  builder: (context, state) {
+                if (state is CategoryLoaded) {
+                  return Center(
+                    child: Wrap(
+                        children: state.categories.isNotEmpty
+                            ? state.categories
+                                .map(
+                                  (category) => InkWell(
+                                    onTap: () {},
+                                    child: Chip(
+                                      avatar: CircleAvatar(
+                                        child: category.imageUrl.isNotEmpty
+                                            ? Image.network(category.imageUrl)
+                                            : const SizedBox(),
+                                      ),
+                                      label: Text(category.name),
                                     ),
-                                    label: Text(category.name),
                                   ),
-                                ),
-                              )
-                              .toList()
-                          : []),
-                );
-              }
-              return const Center(child: CircularProgressIndicator());
-            }),
-          ),
-          history.isNotEmpty
-              ? Column(children: history.map((e) => Text(e.title)).toList())
-              : Container(
-                  constraints:
-                      const BoxConstraints(maxWidth: 400, maxHeight: 200),
-                  child: const Text('Recomendaciones'),
-                )
-        ],
+                                )
+                                .toList()
+                            : []),
+                  );
+                }
+                return const Center(child: CircularProgressIndicator());
+              }),
+            ),
+            history.isNotEmpty
+                ? Column(children: history.map((e) => Text(e.title)).toList())
+                : Container(
+                    constraints:
+                        const BoxConstraints(maxWidth: 400, maxHeight: 200),
+                    child: const Text('Recomendaciones'),
+                  )
+          ],
+        ),
       ),
     );
 

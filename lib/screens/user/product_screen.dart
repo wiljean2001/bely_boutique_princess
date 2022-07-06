@@ -22,6 +22,7 @@ import '../../widgets/Custom_loading_screen.dart';
 import '../../widgets/custom_app_bar_avatar.dart';
 import '../../widgets/custom_card_product.dart';
 import '../../widgets/custom_carousel_sliders.dart';
+import '../../widgets/list_view_products.dart';
 
 // falta cambiar los textos a dinamicos
 
@@ -130,11 +131,11 @@ class ProductScreenState extends State<ProductScreen> {
                     ),
                     child: Column(
                       children: const [
-                        Expanded(child: CustomExtraProducts()),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Expanded(child: CustomExtraProducts()),
+                        ListViewShowProducts(),
+                        ListViewShowProducts(isReverse: true),
+                        // SizedBox(
+                        //   height: 10,
+                        // ),
                       ],
                     ),
                     // color: Colors.red,
@@ -145,40 +146,6 @@ class ProductScreenState extends State<ProductScreen> {
           )
         ],
       ),
-    );
-  }
-}
-
-//  Cambiarlo para recibir de la base de datos
-class CustomExtraProducts extends StatelessWidget {
-  const CustomExtraProducts({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<ProductBloc, ProductState>(
-      builder: (context, state) {
-        if (state is ProductLoading) return const CustomLoadingScreen();
-        return ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: 10,
-          itemBuilder: (BuildContext context, int index) {
-            return CustomCardProduct(
-              name: "blusas",
-              price: "2.00",
-              imgPath:
-                  'https://api.lorem.space/image/shoes?w=${150 + index}&h=${150 + index}',
-              added: false,
-              // isFavorite: false,
-              context: context,
-              quantity: false, // mostrar opciones
-              isShowFavorite: false, // mostrar opcion fav
-              onTap: () {},
-            );
-          },
-        );
-      },
     );
   }
 }

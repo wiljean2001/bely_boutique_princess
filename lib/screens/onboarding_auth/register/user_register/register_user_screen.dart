@@ -76,9 +76,9 @@ class RegisterUserScreen extends StatelessWidget {
                           : 700,
                     ),
                     margin: EdgeInsets.only(
-                      top: Responsive.isMobile(context) ? 300 : 330,
+                      top: Responsive.isMobile(context) ? 250 : 330,
                     ),
-                    height: Responsive.isMobile(context) ? 300 : 350,
+                    height: Responsive.isMobile(context) ? 350 : 350,
                     child: RegisterUserForm(tabController: tabController),
                   ),
                 ],

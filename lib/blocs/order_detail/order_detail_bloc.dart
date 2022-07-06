@@ -24,6 +24,7 @@ class OrderDetailBloc extends Bloc<OrderDetailEvent, OrderDetailState> {
     on<LoadOrderDetailById>(_onLoadOrderDetailById);
     on<LoadAllOrderDetails>(_onLoadAllOrderDetails);
     on<AddOrderDetail>(_onAddOrderDetail);
+    on<DeleteOrderDetail>(_onDeleteOrderDetail);
     on<UpdateHomeOrderDetail>(_onUpdateHomeOrderDetail);
   }
 
@@ -52,6 +53,18 @@ class OrderDetailBloc extends Bloc<OrderDetailEvent, OrderDetailState> {
     if (state is OrderDetailsLoaded) {
       await _orderRepository.createDetailOrder(
         event.order,
+      ); // add order details
+    }
+  }
+
+  void _onDeleteOrderDetail(
+    DeleteOrderDetail event,
+    Emitter<OrderDetailState> emit,
+  ) async {
+    final state = this.state;
+    if (state is OrderDetailsLoaded) {
+      await _orderRepository.deleteOrderDetail(
+        event.orderId,
       ); // add order details
     }
   }

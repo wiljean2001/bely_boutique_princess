@@ -1,4 +1,5 @@
 import 'package:bely_boutique_princess/blocs/theme.dart';
+import 'package:bely_boutique_princess/config/constrants.dart';
 import 'package:bely_boutique_princess/config/responsive.dart';
 import 'package:bely_boutique_princess/screens/user/map/map_screens.dart';
 import 'package:bely_boutique_princess/utils/open_all.dart';
@@ -146,7 +147,7 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     List<ButtonProfile> listButtons = [
       ButtonProfile(
-        title: 'Búcanos como',
+        title: 'Búscanos como...',
         onPressed: () async => await showDialog(
           context: context,
           // barrierColor: Colors.transparent,
@@ -278,8 +279,8 @@ class PagesVisit extends StatelessWidget {
           descript: 'Visítanos en Whatsapp dandole click al botón',
           icon: const Icon(Icons.whatsapp),
           image: 'assets/images/whatsapp_64.png',
-          whatsapp: "+51945455261",
-          whatsappMessage: "Hola",
+          whatsapp: PHONE_BELY,
+          whatsappMessage: "",
         ),
       ),
     ];

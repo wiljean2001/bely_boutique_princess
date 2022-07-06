@@ -1,7 +1,11 @@
+import 'package:bely_boutique_princess/utils/custom_alert_dialog.dart';
 import 'package:bely_boutique_princess/utils/show_alert.dart';
+import 'package:bely_boutique_princess/utils/terms_conditions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 
 import '../../../blocs/blocs.dart';
+import '../../../config/constrants.dart';
 import '../../../config/responsive.dart';
 import '../../../generated/l10n.dart';
 import '../../../utils/validators.dart';
@@ -87,7 +91,6 @@ class _RegisterFormState extends State<RegisterForm> {
                     _contextRegister.passwordChanged(text);
                   },
                 ),
-                // const SizedBox(height: 10),
                 CustomButtonGradiant(
                   height: Responsive.isMobile(context) ? 45 : 55,
                   width: Responsive.isMobile(context) ? 170 : 220,
@@ -133,13 +136,13 @@ class _RegisterFormState extends State<RegisterForm> {
                             user: user,
                           ),
                         );
-                        // Load profile
+                    // Load profile
                     context.read<ProfileBloc>().add(
                           LoadProfile(
                             userId: _contextRegister.state.user!.uid,
                           ),
                         );
-                        // Load Navigator
+                    // Load Navigator
                     context.read<HomePageBloc>().add(
                           const HomeTabChangeEvent(),
                         );

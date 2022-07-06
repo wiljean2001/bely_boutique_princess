@@ -36,3 +36,5 @@ const mapBoxColor = Color(0xFF3DC5A7);
 
 const markerSizeExpanded = 55.0;
 const markerSizeShrinked = 38.0;
+
+const String PHONE_BELY = '+51945455261';

@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:url_launcher/url_launcher.dart';
 
+import '../config/constrants.dart';
+
 abstract class OpenAll {
   // Open URL
   static openUrl({required String urlWeb}) async {
@@ -15,8 +17,10 @@ abstract class OpenAll {
     }
   }
 
-  static openwhatsapp(
-      {required String whatsapp, required String message}) async {
+  static openwhatsapp({
+    required String whatsapp,
+    String message = PHONE_BELY,
+  }) async {
     // var whatsapp = "+919144040888";
     try {
       if (Platform.isIOS) {

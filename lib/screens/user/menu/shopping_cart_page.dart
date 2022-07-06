@@ -12,6 +12,7 @@ import '../../../blocs/blocs.dart';
 import '../../../blocs/order/order_bloc.dart';
 import '../../../config/responsive.dart';
 import '../../../models/order_model.dart';
+import '../../../widgets/list_view_products.dart';
 import '../product_screen.dart';
 
 // falta cambiar los textos a dinamicos
@@ -82,7 +83,7 @@ class ShoppingCartView extends StatelessWidget {
                     ),
                   ),
                   const ListViewShowProducts(),
-                  const ListViewShowProducts(),
+                  const ListViewShowProducts(isReverse: true),
                 ],
               ),
             ),
@@ -110,11 +111,11 @@ class SalesLoading extends StatelessWidget {
             for (var productShopping in _LIST_PRODUCT_SHOPPING_CART) {
               if (order.productId == productShopping.id) {
                 mensaje +=
-                    'ID Producto: ${productShopping.id}\nProducto: ${productShopping.title}\nCantidad: ${order.quantify}\n';
+                    'ORDEN: ${order.id}\nID Producto: ${productShopping.id}\nProducto: ${productShopping.title}\nCantidad: ${order.quantify}\n';
               }
             }
           }
-          OpenAll.openwhatsapp(whatsapp: '+51945455261', message: mensaje);
+          OpenAll.openwhatsapp(whatsapp: PHONE_BELY, message: mensaje);
         },
         child: const Text('Finalizar pedido'),
       ),
@@ -122,59 +123,6 @@ class SalesLoading extends StatelessWidget {
   }
 }
 
-class ListViewShowProducts extends StatelessWidget {
-  const ListViewShowProducts({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 220,
-      child: BlocBuilder<ProductBloc, ProductState>(
-        builder: (context, state) {
-          if (state is ProductLoading) {
-            return const CustomLoadingScreen();
-          }
-          if (state is ProductsLoaded) {
-            return ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: state.products.length,
-              itemBuilder: (BuildContext context, int index) {
-                return BlocBuilder<SizeProductBloc, SizeProductState>(
-                  builder: (context, stateSizesProduct) {
-                    if (stateSizesProduct is SizeAllProductsLoaded) {
-                      return CustomCardProduct(
-                        context: context,
-                        added: true,
-                        imgPath: state.products[index].imageUrls.isNotEmpty
-                            ? state.products[index].imageUrls[0]
-                            : 'https://api.lorem.space/image/shoes?w=150&h=150',
-                        // isFavorite: false,
-                        name: state.products[index].title,
-                        price:
-                            'S/ ${state.products[index].prices.join(' S/ ')}',
-                        onTap: () => Navigator.of(context).pushNamed(
-                          ProductScreen.routeName,
-                          arguments: ProductScreenArguments(
-                            state.products[index],
-                            stateSizesProduct.sizeProducts,
-                          ),
-                        ),
-                      );
-                    }
-                    return const SizedBox();
-                  },
-                );
-              },
-            );
-          }
-          return const SizedBox();
-        },
-      ),
-    );
-  }
-}
 
 List<Product> _LIST_PRODUCT_SHOPPING_CART = [];
 
@@ -205,6 +153,14 @@ class CustomShowOrders extends StatelessWidget {
                 leading: product.imageUrls[0] != null
                     ? Image.network(product.imageUrls[0])
                     : const SizedBox(),
+                trailing: IconButton(
+                  onPressed: () {
+                    BlocProvider.of<OrderDetailBloc>(context).add(
+                      DeleteOrderDetail(orderId: orders[index].id!),
+                    );
+                  },
+                  icon: const Icon(Icons.clear_outlined),
+                ),
               );
             },
           );

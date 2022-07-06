@@ -54,7 +54,8 @@ class CustomAlertDialog {
   static YYDialog contentButtonAndTitleWithouthAnimation({
     required BuildContext context,
     required Widget content,
-    required Widget title,
+    Widget? title,
+    double? maxHeight,
     Function? onShowCallBack,
     Gravity? gravity,
     Function? onDismissCallBack,
@@ -75,15 +76,20 @@ class CustomAlertDialog {
         onDismissCallBack != null ? onDismissCallBack() : null;
       }
       ..widget(
-        Padding(
-          padding: const EdgeInsets.all(kPaddingS),
-          child: Align(child: title),
-        ),
+        title != null
+            ? Padding(
+                padding: const EdgeInsets.all(kPaddingS),
+                child: Align(child: title),
+              )
+            : SizedBox(),
       )
       ..widget(
         Padding(
-          padding: const EdgeInsets.all(kPaddingM),
-          child: content,
+          padding: EdgeInsets.all(maxHeight == null ? kPaddingM : 0.0),
+          child: SizedBox(
+            height: maxHeight ?? null,
+            child: content,
+          ),
         ),
       )
       ..gravity = gravity ?? Gravity.bottom
