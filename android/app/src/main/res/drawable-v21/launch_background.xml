@@ -6,9 +6,7 @@
     <!-- You can insert your own image assets here -->
     <item>
         <layer-list>
-            <item
-                android:left="50sp"
-                android:right="50sp">
+            <item>
                 <bitmap
                     android:gravity="center"
                     android:src="@mipmap/logo_texto_rosa" />
