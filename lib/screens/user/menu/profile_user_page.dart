@@ -46,7 +46,7 @@ class _UserProfilePageState extends State<UserProfileView> {
   }
 }
 
-class getProfileLoaded extends StatelessWidget {
+class getProfileLoaded extends StatefulWidget {
   const getProfileLoaded({
     Key? key,
     required this.edad,
@@ -55,6 +55,13 @@ class getProfileLoaded extends StatelessWidget {
 
   final int edad;
   final User usuario;
+
+  @override
+  State<getProfileLoaded> createState() => _getProfileLoadedState();
+}
+
+class _getProfileLoadedState extends State<getProfileLoaded> {
+  BoxFit imageBoxFit = BoxFit.fitHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -68,14 +75,24 @@ class getProfileLoaded extends StatelessWidget {
             textTheme: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontSize: 20,
                 ),
-            avatar: usuario.image.isNotEmpty
-                ? Image.network(
-                    usuario.image,
-                    fit: BoxFit.fitHeight,
-                    alignment: Alignment.center,
-                  )
-                : Image.asset(Assets.imagesLogoTextoRosa),
-            title: '@${usuario.name}',
+            avatar: GestureDetector(
+              onTap: () {
+                if (imageBoxFit == BoxFit.fitHeight) {
+                  imageBoxFit = BoxFit.fitWidth;
+                } else {
+                  imageBoxFit = BoxFit.fitHeight;
+                }
+                setState(() {});
+              },
+              child: widget.usuario.image.isNotEmpty
+                  ? Image.network(
+                      widget.usuario.image,
+                      fit: imageBoxFit,
+                      alignment: Alignment.center,
+                    )
+                  : Image.asset(Assets.imagesLogoTextoRosa),
+            ),
+            title: '@${widget.usuario.name}',
             extent: Responsive.isMobile(context) ? 280 : 500,
           ),
           SliverToBoxAdapter(
@@ -109,7 +126,7 @@ class getProfileLoaded extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                edad.toString(),
+                                widget.edad.toString(),
                                 style: const TextStyle(
                                   color: Colors.white,
                                 ),

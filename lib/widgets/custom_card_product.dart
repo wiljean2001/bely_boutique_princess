@@ -94,12 +94,17 @@ class CustomCardProduct extends StatelessWidget {
               //     Assets.imagesLogoTextoRosa,
               //   ),
               // ),
-              FadeInImage(
-                height: Responsive.isMobile(context) ? 150.0 : 250,
-                placeholder: const AssetImage(
-                  Assets.imagesLogoTextoRosa,
+              Container(
+                constraints: BoxConstraints(
+                  maxHeight: Responsive.isMobile(context) ? 150.0 : 250,
                 ),
-                image: NetworkImage(imgPath),
+                child: FadeInImage(
+                  height: Responsive.isMobile(context) ? 150.0 : 250,
+                  placeholder: const AssetImage(
+                    Assets.imagesLogoTextoRosa,
+                  ),
+                  image: NetworkImage(imgPath),
+                ),
               ),
               const SizedBox(height: 7.0),
               Center(

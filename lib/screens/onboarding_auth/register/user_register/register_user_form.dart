@@ -192,7 +192,10 @@ class _RegisterUserFormState extends State<RegisterUserForm> {
                     ),
                     onPressed: () async {
                       if (!_formKeyUser.currentState!.validate() ||
-                          picked == null) return;
+                          dateTime.isEmpty) {
+                        return;
+                      }
+                      ;
                       if (!aceptTerm) {
                         ShowAlert.showErrorSnackBar(context,
                             message: 'Aceptar los términos y condiciones');

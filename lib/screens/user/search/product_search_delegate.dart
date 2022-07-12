@@ -1,7 +1,9 @@
+import 'package:bely_boutique_princess/config/constrants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../blocs/blocs.dart';
+import '../../../config/responsive.dart';
 import '../../../models/models.dart';
 import '../../../widgets/custom_card_product.dart';
 import '../product_screen.dart';
@@ -12,7 +14,8 @@ class ProductSearchDelegate extends SearchDelegate {
   List<Product> history = [];
   List<Product> resultProducts = <Product>[];
   List<SizeProduct> resultSizesProduct = <SizeProduct>[];
-  ProductSearchDelegate(this.history, {required this.products, required this.resultSizesProduct});
+  ProductSearchDelegate(this.history,
+      {required this.products, required this.resultSizesProduct});
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -45,8 +48,8 @@ class ProductSearchDelegate extends SearchDelegate {
     return CustomScrollView(
       slivers: [
         SliverGrid.count(
-          crossAxisCount: 2,
-          childAspectRatio: 0.75,
+          crossAxisCount: Responsive.isMobile(context) ? 2 : 3,
+          childAspectRatio: Responsive.isMobile(context) ? 0.85 : 0.8,
           children: resultProducts.isNotEmpty
               ? resultProducts
                   .map(
@@ -80,52 +83,60 @@ class ProductSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return Container(
-      constraints:
-          const BoxConstraints(maxWidth: 400, maxHeight: double.infinity),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 100,
-              child: BlocBuilder<CategoryBloc, CategoryState>(
-                  builder: (context, state) {
-                if (state is CategoryLoaded) {
-                  return Center(
-                    child: Wrap(
-                        children: state.categories.isNotEmpty
-                            ? state.categories
-                                .map(
-                                  (category) => InkWell(
-                                    onTap: () {},
-                                    child: Chip(
-                                      avatar: CircleAvatar(
-                                        child: category.imageUrl.isNotEmpty
-                                            ? Image.network(category.imageUrl)
-                                            : const SizedBox(),
-                                      ),
-                                      label: Text(category.name),
-                                    ),
-                                  ),
-                                )
-                                .toList()
-                            : []),
-                  );
-                }
-                return const Center(child: CircularProgressIndicator());
-              }),
-            ),
-            history.isNotEmpty
-                ? Column(children: history.map((e) => Text(e.title)).toList())
-                : Container(
-                    constraints:
-                        const BoxConstraints(maxWidth: 400, maxHeight: 200),
-                    child: const Text('Recomendaciones'),
-                  )
-          ],
-        ),
-      ),
-    );
+    return SizedBox();
+    // return StatefulBuilder(builder: (context, setState) {
+    //   return Container(
+    //     constraints: const BoxConstraints(
+    //         maxWidth: double.infinity, maxHeight: double.infinity),
+    //     padding: const EdgeInsets.symmetric(vertical: kPaddingM),
+    //     child: SingleChildScrollView(
+    //       child: Column(
+    //         crossAxisAlignment: CrossAxisAlignment.stretch,
+    //         children: [
+    //           // SizedBox(
+    //           //   height: 100,
+    //           //   child: BlocBuilder<CategoryBloc, CategoryState>(
+    //           //       builder: (context, state) {
+    //           //     if (state is CategoryLoaded) {
+    //           //       return Center(
+    //           //         child: Wrap(
+    //           //           children: state.categories.isNotEmpty
+    //           //               ? state.categories
+    //           //                   .map(
+    //           //                     (category) => InkWell(
+    //           //                       onTap: () {},
+    //           //                       child: Chip(
+    //           //                         avatar: CircleAvatar(
+    //           //                           child: category.imageUrl.isNotEmpty
+    //           //                               ? Image.network(category.imageUrl)
+    //           //                               : const SizedBox(),
+    //           //                         ),
+    //           //                         label: Text(category.name),
+    //           //                       ),
+    //           //                     ),
+    //           //                   )
+    //           //                   .toList()
+    //           //               : [],
+    //           //         ),
+    //           //       );
+    //           //     }
+    //           //     return const Center(child: CircularProgressIndicator());
+    //           //   }),
+    //           // ),
+    //           history.isNotEmpty
+    //               ? Column(
+    //                   children:
+    //                       history.map((e) => Text('${e.title}\n')).toList())
+    //               : Container(
+    //                   constraints:
+    //                       const BoxConstraints(maxWidth: 400, maxHeight: 200),
+    //                   child: const Text('Recomendaciones'),
+    //                 )
+    //         ],
+    //       ),
+    //     ),
+    //   );
+    // });
 
     // return Container(
     //   constraints: const BoxConstraints(maxWidth: 400, maxHeight: 200),

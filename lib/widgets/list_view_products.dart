@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/blocs.dart';
+import '../config/responsive.dart';
 import '../screens/user/product_screen.dart';
 import 'Custom_loading_screen.dart';
 import 'custom_card_product.dart';
@@ -17,8 +18,10 @@ class ListViewShowProducts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 220,
+    return Container(
+      constraints: BoxConstraints(
+        maxHeight: Responsive.isMobile(context) ? 220 : 300,
+      ),
       child: BlocBuilder<ProductBloc, ProductState>(
         builder: (context, state) {
           if (state is ProductLoading) {
