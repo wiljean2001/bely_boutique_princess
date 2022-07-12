@@ -1,5 +1,6 @@
 import 'package:bely_boutique_princess/blocs/order/order_bloc.dart';
 import 'package:bely_boutique_princess/blocs/order_detail/order_detail_bloc.dart';
+import 'package:bely_boutique_princess/blocs/search_order_detail/search_order_detail_bloc.dart';
 import 'package:bely_boutique_princess/blocs/type_product/type_product_bloc.dart';
 import 'package:bely_boutique_princess/repositories/type_product/type_product_repository.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,7 @@ Future<void> main() async {
   final preferencesBloc = LanguageBloc(
     preferencesRepository: preferencesRepository,
     initialLocale: await preferencesRepository.locale,
-  )..add(ChangeLocale(await preferencesRepository.locale));
+  );
   // simple bloc observer
   BlocOverrides.runZoned(
     () async => {
@@ -167,16 +168,16 @@ class MyApp extends StatelessWidget {
                   )..add(const LoadSizeProducts())
               // ..add(LoadAllSizeProducts()),
               ),
-          BlocProvider(
-            create: (context) => OrderBloc(
-              authBloc: BlocProvider.of<AuthBloc>(context),
-              orderRepository: OrderRepository(),
-            )..add(
-                LoadOrderById(
-                  userId: BlocProvider.of<AuthBloc>(context).state.user!.uid,
-                ),
-              ),
-          ),
+          // BlocProvider(
+          //   create: (context) => OrderBloc(
+          //     authBloc: BlocProvider.of<AuthBloc>(context),
+          //     orderRepository: OrderRepository(),
+          //   )..add(
+          //       LoadOrderById(
+          //         userId: BlocProvider.of<AuthBloc>(context).state.user!.uid,
+          //       ),
+          //     ),
+          // ),
           BlocProvider(
             create: (context) => OrderDetailBloc(
               authBloc: BlocProvider.of<AuthBloc>(context),
@@ -187,10 +188,18 @@ class MyApp extends StatelessWidget {
                 ),
               ),
           ),
+          BlocProvider(
+            create: (context) => SearchOrderDetailBloc(
+              databaseRepository: context.read<DatabaseRepository>(),
+              orderRepository: OrderRepository(),
+              productRepository: ProductRepository(),
+            ),
+          ),
         ],
         child: BlocBuilder<LanguageBloc, LanguageState>(
           builder: (context, state) {
             if (state is PreferencesState) {
+              //
               return MaterialApp(
                 debugShowCheckedModeBanner: false,
                 title: 'Bely boutique princess',

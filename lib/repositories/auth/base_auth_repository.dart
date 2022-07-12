@@ -6,5 +6,6 @@ abstract class BaseAuthRepository {
     required String email,
     required String password,
   });
+  Future<bool> changePassword(String currentPassword, String newPassword);
   Future<void> signOut();
 }

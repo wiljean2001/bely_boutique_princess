@@ -91,12 +91,6 @@ class _MapScreenState extends State<MapScreen>
       appBar: AppBar(
         elevation: 0,
         title: Text(S.of(context).title_map_screen),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.filter_alt_outlined),
-            onPressed: () {},
-          ),
-        ],
       ),
       body: Stack(
         children: [
@@ -106,6 +100,7 @@ class _MapScreenState extends State<MapScreen>
               maxZoom: 18,
               zoom: 15,
               center: myLocation,
+              
             ),
             nonRotatedLayers: [
               TileLayerOptions(

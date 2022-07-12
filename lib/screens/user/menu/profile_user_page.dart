@@ -110,7 +110,7 @@ class getProfileLoaded extends StatelessWidget {
                               ),
                               Text(
                                 edad.toString(),
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                 ),
                               ),
@@ -147,7 +147,7 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     List<ButtonProfile> listButtons = [
       ButtonProfile(
-        title: 'Búscanos como...',
+        title: S.of(context).option_visit,
         onPressed: () async => await showDialog(
           context: context,
           // barrierColor: Colors.transparent,
@@ -161,25 +161,17 @@ class _BodyState extends State<Body> {
         ),
       ),
       ButtonProfile(
-        title: 'Configuraciones',
+        title: S.of(context).title_settings_screen,
         onPressed: () => Navigator.pushNamed(context, SettingScreen.routeName),
       ),
       ButtonProfile(
         title: S.of(context).title_map_screen,
         onPressed: () {
           Navigator.pushNamed(context, MapScreen.routeName);
-          // Fluttertoast.showToast(
-          // msg: "Tap a ayuda",
-          // toastLength: Toast.LENGTH_SHORT,
-          // gravity: ToastGravity.BOTTOM,
-          // timeInSecForIosWeb: 1,
-          // backgroundColor: Colors.grey,
-          // textColor: Colors.white,
-          // fontSize: 16.0);
         },
       ),
       ButtonProfile(
-        title: 'Cerrar Sesion',
+        title: S.of(context).option_sign_out,
         onPressed: () {
           context.read<AuthRepository>().signOut();
           Navigator.pushNamedAndRemoveUntil(
@@ -268,7 +260,7 @@ class PagesVisit extends StatelessWidget {
           descript: 'Visítanos en Facebook dandole click al botón',
           icon: const Icon(Icons.facebook),
           image: 'assets/images/facebook_64.png',
-          urlWeb: 'https://www.facebook.com/belyboutiqueprincess',
+          urlWeb: FACEBOOK_BELY,
         ),
       ),
       Padding(
@@ -360,8 +352,7 @@ class CardVisit extends StatelessWidget {
                     onPressed: () {
                       if (urlWeb != null) {
                         OpenAll.openUrl(
-                          urlWeb:
-                              'https://www.facebook.com/belyboutiqueprincess',
+                          urlWeb: urlWeb!,
                         );
                       } else if (whatsapp != null && whatsappMessage != null) {
                         OpenAll.openwhatsapp(

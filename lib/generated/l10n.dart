@@ -80,6 +80,26 @@ class S {
     );
   }
 
+  /// `Búscanos como...`
+  String get option_visit {
+    return Intl.message(
+      'Búscanos como...',
+      name: 'option_visit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cerrar Sesión`
+  String get option_sign_out {
+    return Intl.message(
+      'Cerrar Sesión',
+      name: 'option_sign_out',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// ` // HOME SCREENS `
   String get COMMENT1 {
     return Intl.message(
@@ -115,56 +135,6 @@ class S {
     return Intl.message(
       'Buscar',
       name: 'tooltip_bttn_search_products',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Opciones`
-  String get tooltip_bttn_options {
-    return Intl.message(
-      'Opciones',
-      name: 'tooltip_bttn_options',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Visitanos`
-  String get menu_appbar_item1 {
-    return Intl.message(
-      'Visitanos',
-      name: 'menu_appbar_item1',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Configuracion`
-  String get menu_appbar_item2 {
-    return Intl.message(
-      'Configuracion',
-      name: 'menu_appbar_item2',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Ayuda`
-  String get menu_appbar_item3 {
-    return Intl.message(
-      'Ayuda',
-      name: 'menu_appbar_item3',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Cerrar sesión`
-  String get menu_appbar_item4 {
-    return Intl.message(
-      'Cerrar sesión',
-      name: 'menu_appbar_item4',
       desc: '',
       args: [],
     );
@@ -680,6 +650,166 @@ class S {
     );
   }
 
+  /// `Configuraciones`
+  String get title_settings_screen {
+    return Intl.message(
+      'Configuraciones',
+      name: 'title_settings_screen',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `General`
+  String get subtitle_general_settings {
+    return Intl.message(
+      'General',
+      name: 'subtitle_general_settings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lenguaje`
+  String get option_language {
+    return Intl.message(
+      'Lenguaje',
+      name: 'option_language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Seleccionar un idioma`
+  String get title_select_language_option {
+    return Intl.message(
+      'Seleccionar un idioma',
+      name: 'title_select_language_option',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notificaciones`
+  String get option_notifications {
+    return Intl.message(
+      'Notificaciones',
+      name: 'option_notifications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tema`
+  String get option_theme {
+    return Intl.message(
+      'Tema',
+      name: 'option_theme',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Elegir tema`
+  String get title_theme {
+    return Intl.message(
+      'Elegir tema',
+      name: 'title_theme',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Por defecto`
+  String get title_theme_default {
+    return Intl.message(
+      'Por defecto',
+      name: 'title_theme_default',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Oscuro`
+  String get title_theme_dark {
+    return Intl.message(
+      'Oscuro',
+      name: 'title_theme_dark',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cuenta`
+  String get subtitle_account_settings {
+    return Intl.message(
+      'Cuenta',
+      name: 'subtitle_account_settings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Editar perfil`
+  String get option_edit_profile {
+    return Intl.message(
+      'Editar perfil',
+      name: 'option_edit_profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cambiar contraseña`
+  String get option_edit_password {
+    return Intl.message(
+      'Cambiar contraseña',
+      name: 'option_edit_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contraseña actual`
+  String get text_current_password {
+    return Intl.message(
+      'Contraseña actual',
+      name: 'text_current_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contraseña actual`
+  String get text_new_password {
+    return Intl.message(
+      'Contraseña actual',
+      name: 'text_new_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cambiar contraseña`
+  String get button_text_changue_password {
+    return Intl.message(
+      'Cambiar contraseña',
+      name: 'button_text_changue_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Terminos y condiciones`
+  String get option_term_conditions {
+    return Intl.message(
+      'Terminos y condiciones',
+      name: 'option_term_conditions',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Ubícanos`
   String get title_map_screen {
     return Intl.message(
@@ -705,6 +835,26 @@ class S {
     return Intl.message(
       'Terminos y condiciones',
       name: 'title_terms_conditions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` // SETTINGS SCREENS `
+  String get COMMENT5 {
+    return Intl.message(
+      ' // SETTINGS SCREENS ',
+      name: 'COMMENT5',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ver ordenes`
+  String get title_show_details_order {
+    return Intl.message(
+      'Ver ordenes',
+      name: 'title_show_details_order',
       desc: '',
       args: [],
     );

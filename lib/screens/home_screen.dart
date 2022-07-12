@@ -4,6 +4,7 @@ import 'package:bely_boutique_princess/screens/onboarding_auth/onboarding_screen
 
 import '../blocs/blocs.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../blocs/order_detail/order_detail_bloc.dart';
 import '../generated/l10n.dart';
 
 import '../widgets/custom_bottom_navigation.dart';

@@ -33,6 +33,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(" // ADMIN BOARDING SCREEN "),
         "COMMENT4":
             MessageLookupByLibrary.simpleMessage(" // SETTINGS SCREENS "),
+        "COMMENT5":
+            MessageLookupByLibrary.simpleMessage(" // SETTINGS SCREENS "),
         "Error_displaying_interaces":
             MessageLookupByLibrary.simpleMessage("Error loading interfaces"),
         "bttn_date_birth":
@@ -41,6 +43,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "bttn_login": MessageLookupByLibrary.simpleMessage("Enter"),
         "bttn_register": MessageLookupByLibrary.simpleMessage("Record"),
         "bttn_start": MessageLookupByLibrary.simpleMessage("Begin"),
+        "button_text_changue_password":
+            MessageLookupByLibrary.simpleMessage("Cambiar contraseña"),
         "description_app": MessageLookupByLibrary.simpleMessage(
             "This is a shop that is dedicated to selling dresses for the princesses of the house."),
         "description_login": MessageLookupByLibrary.simpleMessage(
@@ -56,10 +60,19 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Image not selected."),
         "image_uploading":
             MessageLookupByLibrary.simpleMessage("Uploading image..."),
-        "menu_appbar_item1": MessageLookupByLibrary.simpleMessage("Visit Us"),
-        "menu_appbar_item2": MessageLookupByLibrary.simpleMessage("Settings"),
-        "menu_appbar_item3": MessageLookupByLibrary.simpleMessage("Help"),
-        "menu_appbar_item4": MessageLookupByLibrary.simpleMessage("Sign out"),
+        "option_edit_password":
+            MessageLookupByLibrary.simpleMessage("Change password"),
+        "option_edit_profile":
+            MessageLookupByLibrary.simpleMessage("Edit profile"),
+        "option_language": MessageLookupByLibrary.simpleMessage("Language"),
+        "option_notifications":
+            MessageLookupByLibrary.simpleMessage("Notificaciones"),
+        "option_sign_out": MessageLookupByLibrary.simpleMessage("Sign out"),
+        "option_term_conditions":
+            MessageLookupByLibrary.simpleMessage("Terminos y condiciones"),
+        "option_theme": MessageLookupByLibrary.simpleMessage("Theme"),
+        "option_visit":
+            MessageLookupByLibrary.simpleMessage("Búscanos como..."),
         "password": MessageLookupByLibrary.simpleMessage("New password"),
         "register_error_desc":
             MessageLookupByLibrary.simpleMessage("Existing user"),
@@ -68,6 +81,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "role_user": m0,
         "shopping_card_screen":
             MessageLookupByLibrary.simpleMessage("Shopping cart"),
+        "subtitle_account_settings":
+            MessageLookupByLibrary.simpleMessage("Account"),
+        "subtitle_general_settings":
+            MessageLookupByLibrary.simpleMessage("General"),
+        "text_current_password":
+            MessageLookupByLibrary.simpleMessage("Contraseña actual"),
+        "text_new_password":
+            MessageLookupByLibrary.simpleMessage("Contraseña actual"),
         "title_admin_screen":
             MessageLookupByLibrary.simpleMessage("Administration"),
         "title_administrator_screen":
@@ -86,14 +107,28 @@ class MessageLookup extends MessageLookupByLibrary {
         "title_products": MessageLookupByLibrary.simpleMessage("Products"),
         "title_register_screen":
             MessageLookupByLibrary.simpleMessage("Register"),
+        "title_registration_question":
+            MessageLookupByLibrary.simpleMessage("¿No estas registrado?"),
         "title_roles": MessageLookupByLibrary.simpleMessage("Roles"),
+        "title_select_language_option":
+            MessageLookupByLibrary.simpleMessage("Seleccionar un idioma"),
+        "title_settings_screen":
+            MessageLookupByLibrary.simpleMessage("Settings"),
         "title_show_as_user": MessageLookupByLibrary.simpleMessage("User view"),
         "title_show_categories_screen":
             MessageLookupByLibrary.simpleMessage("Show categories"),
+        "title_show_details_order":
+            MessageLookupByLibrary.simpleMessage("Ver ordenes"),
         "title_show_products_screen":
             MessageLookupByLibrary.simpleMessage("Show Product"),
         "title_sign_in": MessageLookupByLibrary.simpleMessage("SIGN IN"),
         "title_size_screen": MessageLookupByLibrary.simpleMessage("Sizes"),
+        "title_terms_conditions":
+            MessageLookupByLibrary.simpleMessage("Terminos y condiciones"),
+        "title_theme": MessageLookupByLibrary.simpleMessage("Elegir tema"),
+        "title_theme_dark": MessageLookupByLibrary.simpleMessage("Oscuro"),
+        "title_theme_default":
+            MessageLookupByLibrary.simpleMessage("Por defecto"),
         "title_type_product":
             MessageLookupByLibrary.simpleMessage("Types product"),
         "title_update_category_screen":
@@ -113,7 +148,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "title_user_name_desc":
             MessageLookupByLibrary.simpleMessage("Enter name"),
         "title_user_screen": MessageLookupByLibrary.simpleMessage("User"),
-        "tooltip_bttn_options": MessageLookupByLibrary.simpleMessage("options"),
         "tooltip_bttn_search_products":
             MessageLookupByLibrary.simpleMessage("Search"),
         "tooltip_bttn_shopping_card":

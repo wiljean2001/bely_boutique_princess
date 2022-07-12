@@ -30,6 +30,7 @@ class ProductRepository extends BaseProductRepository {
         .map((snap) => Product.fromSnapshot(snap));
   }
 
+
   @override
   Future<String> createProduct(Product product) async {
     String id = _firebaseFirestore.collection('products').doc().id;

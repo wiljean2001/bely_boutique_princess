@@ -8,3 +8,4 @@ export 'category/show_categories_screen.dart';
 export 'category/update_category_screen.dart';
 // menu
 export 'navigator_admin_screens.dart';
+export 'screen_order_details.dart';

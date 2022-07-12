@@ -41,6 +41,7 @@ dependencies:
   flutter_localized_locales: ^2.0.3
   liquid_pull_to_refresh: ^3.0.1
   flutter_map: ^1.1.1
+  anim_search_bar: ^2.0.2
   # loading_animations: "^2.1.0"
   # animated_splash_screen: ^1.2.0
   # smooth_page_indicator: ^1.0.0+2

@@ -1,11 +1,8 @@
-import 'package:bely_boutique_princess/config/responsive.dart';
 import 'package:bely_boutique_princess/utils/custom_alert_dialog.dart';
 import 'package:flutter/material.dart';
 
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '../../../blocs/blocs.dart';
 import '../../../config/constrants.dart';
 import '../../../generated/l10n.dart';
@@ -62,7 +59,7 @@ class _RoleScreenState extends State<RoleScreen> {
                       S.of(context).role_user(
                             state.role == 'user'
                                 ? 'Usuario normal'
-                                : 'Administrador',
+                                : S.of(context).title_administrator_screen,
                           ),
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.titleMedium,

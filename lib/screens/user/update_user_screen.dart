@@ -55,12 +55,14 @@ class _UpdateUserState extends State<UpdateUserScreen> {
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(),
         slivers: [
+          // Appbar
           CustomSliverAppBar(
             title: S.of(context).title_update_user_screen,
             hasActions: false,
             hasIcon: false,
             isTextCenter: false,
           ),
+          // body
           SliverToBoxAdapter(
             // TODO: PROFILEBLOC
             child: BlocBuilder<ProfileBloc, ProfileState>(

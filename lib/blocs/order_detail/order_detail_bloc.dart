@@ -40,11 +40,11 @@ class OrderDetailBloc extends Bloc<OrderDetailEvent, OrderDetailState> {
       },
     );
   }
-
   void _onLoadAllOrderDetails(
     LoadAllOrderDetails event,
     Emitter<OrderDetailState> emit,
   ) {}
+
   void _onAddOrderDetail(
     AddOrderDetail event,
     Emitter<OrderDetailState> emit,
@@ -74,10 +74,11 @@ class OrderDetailBloc extends Bloc<OrderDetailEvent, OrderDetailState> {
     Emitter<OrderDetailState> emit,
   ) {
     emit(OrderDetailsLoaded(orders: event.orders!));
-    // if (event.orders != null) {
-    //   emit(OrderDetailsLoaded(orders: event.orders!));
-    // } else {
-    //   emit(OrderError());
-    // }
+  }
+
+  @override
+  Future<void> close() async {
+    _authSubscription?.cancel();
+    super.close();
   }
 }

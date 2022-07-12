@@ -18,7 +18,8 @@ class MyPageViewItem extends StatelessWidget {
     final _styleAdress = TextStyle(fontSize: 14, color: Colors.grey[800]);
 
     return Padding(
-      padding: const EdgeInsets.all(15.0),
+      padding: const EdgeInsets.symmetric(
+          horizontal: kPaddingS, vertical: kPaddingL),
       child: Card(
         margin: EdgeInsets.zero,
         color: Colors.white,

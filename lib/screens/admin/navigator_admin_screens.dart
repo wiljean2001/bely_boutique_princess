@@ -10,7 +10,6 @@ import '../../blocs/blocs.dart';
 import '../../widgets/custom_loading_screen.dart';
 import '../screens.dart';
 import 'admin_screens.dart';
-import 'dashboard/dashboard_screen.dart';
 import 'menu/drawer/custom_drawer.dart';
 import 'menu/drawer/custom_drawer_user.dart';
 
@@ -120,7 +119,7 @@ class _HomeScreenState extends State<MenuAdminScreen> {
           break;
         case DrawerIndex.DASHBOARD:
           setState(() {
-            screenView = DashboardScreen();
+            // screenView = DashboardScreen();
           });
           break;
         case DrawerIndex.ROLE:
@@ -166,6 +165,11 @@ class _HomeScreenState extends State<MenuAdminScreen> {
         case DrawerIndex.Category_show:
           setState(() {
             screenView = const ShowCategoriesScreen();
+          });
+          break;
+        case DrawerIndex.Orders:
+          setState(() {
+            screenView = const ScreenOrderDetails();
           });
           break;
         default:

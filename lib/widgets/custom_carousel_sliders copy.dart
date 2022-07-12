@@ -2,6 +2,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:pinch_zoom_image_last/pinch_zoom_image_last.dart';
 
+import '../config/constrants.dart';
+
 class CustomCarouselSliders2 extends StatefulWidget {
   const CustomCarouselSliders2({
     Key? key,
@@ -38,30 +40,21 @@ class _CustomCarouselSlidersState extends State<CustomCarouselSliders2> {
               items: widget.itImages.isNotEmpty
                   ? widget.itImages.map(
                       (e) {
-                        // if (e.isNotEmpty) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return Column(
-                              children: [
-                                Expanded(
-                                  child: widget.onTap != null
-                                      ? Image.network(e)
-                                      : PinchZoomImage(
-                                          image: Image.network(e),
-                                          zoomedBackgroundColor: const Color.fromRGBO(
-                                              240, 240, 240, 1.0),
-                                          // hideStatusBarWhileZooming: true,
-                                          // onZoomStart: () {
-                                          //   print('Zoom started');
-                                          // },
-                                          // onZoomEnd: () {
-                                          //   print('Zoom finished');
-                                          // },
-                                        ),
+                        return Center(
+                          child: widget.onTap != null
+                              ? Image.network(e)
+                              : PinchZoomImage(
+                                  image: Image.network(e),
+                                  zoomedBackgroundColor:
+                                      const Color.fromRGBO(240, 240, 240, 1.0),
+                                  // hideStatusBarWhileZooming: true,
+                                  // onZoomStart: () {
+                                  //   print('Zoom started');
+                                  // },
+                                  // onZoomEnd: () {
+                                  //   print('Zoom finished');
+                                  // },
                                 ),
-                              ],
-                            );
-                          },
                         );
                       },
                     ).toList()
@@ -84,9 +77,10 @@ class _CustomCarouselSlidersState extends State<CustomCarouselSliders2> {
                     ],
               carouselController: controller,
               options: CarouselOptions(
-                // autoPlay: true,
                 enlargeCenterPage: true,
                 height: 170,
+                autoPlay: true,
+                autoPlayAnimationDuration: kLoginAnimationDuration,
                 disableCenter: false,
                 enableInfiniteScroll: false,
                 onPageChanged: (
@@ -95,7 +89,7 @@ class _CustomCarouselSlidersState extends State<CustomCarouselSliders2> {
                 ) {
                   // cuando cambie la pagina
                 },
-                viewportFraction: 0.5,
+                viewportFraction: 0.7,
                 aspectRatio: 2.0,
                 initialPage: 1,
               ),

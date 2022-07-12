@@ -1,12 +1,10 @@
-// final theme = Provider.of<ThemeChanger>(context);
-
 import 'package:bely_boutique_princess/generated/l10n.dart';
 import 'package:bely_boutique_princess/screens/user/update_user_screen.dart';
 import 'package:bely_boutique_princess/utils/custom_alert_dialog.dart';
+import 'package:bely_boutique_princess/utils/show_alert.dart';
 import 'package:bely_boutique_princess/utils/terms_conditions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:flutter_settings_ui/flutter_settings_ui.dart';
 
@@ -16,7 +14,7 @@ import '../config/constrants.dart';
 import '../config/theme_default.dart';
 import 'package:provider/provider.dart';
 
-import '../models/user_model.dart';
+import '../utils/validators.dart';
 import 'onboarding_auth/onboarding_screen.dart';
 
 enum themesAll { dark, light, deffault, otro }
@@ -56,7 +54,7 @@ class _SettingScreenState extends State<SettingScreen> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         iconTheme: Theme.of(context).iconTheme,
         title: Text(
-          'Configuraciones',
+          S.of(context).title_settings_screen,
           style: Theme.of(context).textTheme.headlineMedium,
         ),
         elevation: 0,
@@ -66,16 +64,16 @@ class _SettingScreenState extends State<SettingScreen> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         sections: [
           SettingsSection(
-            title: 'General',
+            title: S.of(context).subtitle_general_settings,
             titleTextStyle: Theme.of(context).textTheme.headlineSmall,
             titlePadding: const EdgeInsets.only(left: 25, top: 10),
             tiles: [
+              // option language
               SettingsTile(
-                title: 'Lenguaje',
+                title: S.of(context).option_language,
                 leading: const Icon(Icons.language_outlined),
                 onPressed: (BuildContext context) {
-                  // context.read<LanguageBloc>().add(ChangeLocale(S.delegate.supportedLocales));
-                  // YYNoticeDialog(context);
+                  // Custom Alert Dialog
                   CustomAlertDialog.contentButtonAndTitle(
                     context: context,
                     content: Column(
@@ -84,32 +82,37 @@ class _SettingScreenState extends State<SettingScreen> {
                             (e) => ListTile(
                               title: Text(_localizeLocale(context, e)),
                               onTap: () {
-                                // BlocProvider.of<LanguageBloc>(context)
-                                //     .add(ChangeLocale(e));
-                                print('CLICK');
                                 context.read<LanguageBloc>().add(
-                                      ChangeLocale(e),
+                                      ChangeLocale(locale: e),
                                     );
+                                Navigator.pop(context);
                               },
                             ),
                           )
                           .toList(),
                     ),
                     title: Text(
-                      'Seleccionar un idioma',
+                      S.of(context).title_select_language_option,
                       style: Theme.of(context).textTheme.headline6,
                     ),
                   );
                 },
               ),
+              // Option Notifications
               SettingsTile.switchTile(
-                title: 'Notificaciones',
+                title: S.of(context).option_notifications,
                 leading: const Icon(Icons.notifications_outlined),
                 switchValue: true,
-                onToggle: (bool value) {},
+                onToggle: (bool value) {
+                  ShowAlert.showAlertSnackBar(
+                    context,
+                    message: S.of(context).error_desc,
+                  );
+                },
               ),
+              // Option Theme
               SettingsTile(
-                  title: 'Tema',
+                  title: S.of(context).option_theme,
                   leading: const Icon(Icons.palette_outlined),
                   onPressed: (BuildContext context) async {
                     ThemeData themeData = theme.getTheme();
@@ -125,7 +128,7 @@ class _SettingScreenState extends State<SettingScreen> {
                             height: 50,
                             width: double.infinity,
                             child: ListTile(
-                              title: const Text('Por defecto'),
+                              title: Text(S.of(context).title_theme_default),
                               leading: Radio<themesAll>(
                                 value: themesAll.deffault,
                                 groupValue: _character,
@@ -147,7 +150,7 @@ class _SettingScreenState extends State<SettingScreen> {
                             height: 50,
                             width: double.infinity,
                             child: ListTile(
-                              title: const Text('Oscuro'),
+                              title: Text(S.of(context).title_theme_dark),
                               leading: Radio<themesAll>(
                                 value: themesAll.dark,
                                 groupValue: _character,
@@ -168,7 +171,7 @@ class _SettingScreenState extends State<SettingScreen> {
                         ],
                       ),
                       title: Text(
-                        'Elegir tema',
+                        S.of(context).title_theme,
                         style: Theme.of(context).textTheme.headline6,
                       ),
                     );
@@ -178,24 +181,24 @@ class _SettingScreenState extends State<SettingScreen> {
             ],
           ),
           SettingsSection(
-            title: 'Cuenta',
+            title: S.of(context).subtitle_account_settings,
             titleTextStyle: Theme.of(context).textTheme.headlineSmall,
             titlePadding: const EdgeInsets.only(left: 25, top: 10),
             tiles: [
               SettingsTile(
-                title: 'Editar perfil',
+                title: S.of(context).option_edit_profile,
                 leading: const Icon(Icons.edit_outlined),
                 onPressed: (BuildContext context) {
                   Navigator.pushNamed(context, UpdateUserScreen.routeName);
                 },
               ),
               SettingsTile(
-                title: 'Cambiar contraseña',
+                title: S.of(context).option_edit_password,
                 leading: const Icon(Icons.password_outlined),
                 onPressed: (BuildContext context) => _changePassword(context),
               ),
               SettingsTile(
-                title: 'Terminos y condiciones',
+                title: S.of(context).option_term_conditions,
                 leading: const Icon(Icons.text_snippet_outlined),
                 onPressed: (BuildContext context) {
                   Navigator.pushNamed(context, TermsConditions.routeName);
@@ -208,32 +211,10 @@ class _SettingScreenState extends State<SettingScreen> {
     );
   }
 
-// SettingsTile.switchTile(
-  //   title: 'Use fingerprint',
-  //   leading: const Icon(Icons.fingerprint),
-  //   switchValue: true,
-  //   onToggle: (bool value) {},
-  // ),
-
-  // Future<void> _showMyDialog(ThemeChanger theme) async {
-
-  //   return showDialog<void>(
-  //     context: context,
-  //     // barrierDismissible: false, // user must tap button!
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         title:
-  //         content:
-  //       );
-  //     },
-  //   );
-  // }
-
   String _localizeLocale(BuildContext context, Locale locale) {
     if (locale == null) {
-      return 'Lenguaje del sistema';
+      return '';
     } else {
-      // print(LocaleNames.of(context)?.nameOf(locale.toString()));
       final localeString = LocaleNames.of(context)?.nameOf(
         locale.toString(),
       );
@@ -241,21 +222,61 @@ class _SettingScreenState extends State<SettingScreen> {
     }
   }
 
+  String? newPassword, currentPassword;
   _changePassword(BuildContext context) {
     CustomAlertDialog.contentButtonAndTitle(
-        context: context,
-        content: Form(
+      context: context,
+      content: StatefulBuilder(
+        builder: (context, setState) {
+          return Form(
             key: _formKey,
             child: Column(
               children: [
-                TextField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Contraseña actual',
+                TextFormField(
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: S.of(context).text_current_password,
                   ),
-                )
+                  validator: (pass) =>
+                      !Validators.isValidPassword(pass!) ? '' : null,
+                  // Validators.ispasswordValidator(pass!, context),
+                  onSaved: (value) {
+                    currentPassword = value;
+                  },
+                ),
+                const SizedBox(height: kPaddingS),
+                TextFormField(
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: S.of(context).text_new_password,
+                  ),
+                  validator: (pass) => !Validators.isValidPassword(pass!)
+                      ? S.of(context).validator_password_error
+                      : null,
+                  // Validators.ispasswordValidator(pass!, context),
+                  onSaved: (value) {
+                    newPassword = value;
+                  },
+                ),
+                OutlinedButton(
+                  onPressed: () {
+                    if (!_formKey.currentState!.validate()) return;
+                    _formKey.currentState!.save();
+                    context.read<AuthBloc>().add(
+                          AuthUserPasswordChanged(
+                            currentPassword: currentPassword!,
+                            newPassword: newPassword!,
+                          ),
+                        );
+                  },
+                  child: Text(S.of(context).button_text_changue_password),
+                ),
               ],
-            )),
-        title: const Text("Cambiar contraseña"));
+            ),
+          );
+        },
+      ),
+      title: Text(S.of(context).button_text_changue_password),
+    );
   }
 }

@@ -2,29 +2,20 @@ import 'package:bely_boutique_princess/blocs/order_detail/order_detail_bloc.dart
 import 'package:bely_boutique_princess/utils/custom_alert_dialog.dart';
 import 'package:bely_boutique_princess/utils/show_alert.dart';
 import 'package:bely_boutique_princess/widgets/custom_carousel_sliders%20copy.dart';
-import 'package:bely_boutique_princess/widgets/custom_multi_dropdown.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:pinch_zoom_image_last/pinch_zoom_image_last.dart';
 
 import '../../blocs/blocs.dart';
 import '../../config/constrants.dart';
 import '../../config/responsive.dart';
 import '../../models/models.dart';
-import '../../widgets/Custom_loading_screen.dart';
 import '../../widgets/custom_app_bar_avatar.dart';
-import '../../widgets/custom_card_product.dart';
-import '../../widgets/custom_carousel_sliders.dart';
 import '../../widgets/list_view_products.dart';
-
-// falta cambiar los textos a dinamicos
 
 class ProductScreen extends StatefulWidget {
   static const String routeName = '/product'; //route
@@ -64,11 +55,11 @@ class ProductScreenState extends State<ProductScreen> {
   ProductScreenState(this.product, this.sizesProduct);
 
   final controller = CarouselController();
+
+  BoxFit imageBoxFit = BoxFit.fitWidth; // fit image
+
   @override
   Widget build(BuildContext context) {
-    // print(context.read<AuthBloc>().state.user!.uid);
-    // print(context.read<AuthBloc>().state.user!.email);
-    // print(context.read<AuthBloc>().state.user!.reauthenticateWithCredential(AuthCredential(providerId: providerId, signInMethod: signInMethod)));
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
@@ -80,21 +71,25 @@ class ProductScreenState extends State<ProductScreen> {
             //   fit: BoxFit.fitWidth,
             //   alignment: Alignment.center,
             // ),
-            avatar: PinchZoomImage(
-              image: Image.network(
-                product.imageUrls.isNotEmpty
-                    ? product.imageUrls[0]
-                    : 'https://api.lorem.space/image/shoes?w=150&h=150',
-                fit: BoxFit.fitWidth,
-                alignment: Alignment.center,
-                width: double.infinity,
+            avatar: GestureDetector(
+              child: PinchZoomImage(
+                image: Image.network(
+                  product.imageUrls.isNotEmpty
+                      ? product.imageUrls[0]
+                      : 'https://api.lorem.space/image/shoes?w=150&h=150',
+                  fit: imageBoxFit,
+                  alignment: Alignment.center,
+                  width: double.infinity,
+                ),
               ),
-              // onZoomStart: () {
-              //   print('Zoom started');
-              // },
-              // onZoomEnd: () {
-              //   print('Zoom finished');
-              // },
+              onTap: () {
+                if (imageBoxFit == BoxFit.fitWidth) {
+                  imageBoxFit = BoxFit.fitHeight;
+                } else {
+                  imageBoxFit = BoxFit.fitWidth;
+                }
+                setState(() {});
+              },
             ),
             withIcon: true,
             title: product.title,
@@ -222,13 +217,16 @@ class _CustomInfoProductState extends State<CustomInfoProduct> {
               ),
             ],
           ),
-
+          // IMAGES as mini images product
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal:
                     Responsive.isMobile(context) ? kPaddingS : kPaddingL),
-            child: CustomCarouselSliders2(itImages: widget.product.imageUrls),
+            child: CustomCarouselSliders2(
+              itImages: widget.product.imageUrls,
+            ),
           ),
+          // BUTTON TO REQUEST PRODUCT
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: Container(
@@ -349,23 +347,6 @@ class _CustomInfoProductState extends State<CustomInfoProduct> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class _CustomMiniProduct extends StatelessWidget {
-  final IconData icon;
-  const _CustomMiniProduct({
-    Key? key,
-    required this.icon,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Icon(icon, size: 90),
-      ],
     );
   }
 }

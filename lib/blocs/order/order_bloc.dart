@@ -78,4 +78,9 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
       emit(OrderError());
     }
   }
+  @override
+  Future<void> close() async {
+    _authSubscription?.cancel();
+    super.close();
+  }
 }

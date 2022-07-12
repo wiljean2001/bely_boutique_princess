@@ -1,4 +1,3 @@
-import 'package:bely_boutique_princess/screens/home_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../blocs/blocs.dart';
@@ -68,6 +67,30 @@ class _HomeDrawerState extends State<HomeDrawer> {
         icon: const Icon(Icons.dashboard_customize_outlined),
       ),
       DrawerList(
+        index: DrawerIndex.Categories,
+        labelName: S.of(context).title_categories, // 'Categorías',
+        icon: const Icon(Icons.category_outlined),
+        isTap: false,
+      ),
+      DrawerList(
+        index: DrawerIndex.Category_create,
+        labelName:
+            S.of(context).title_create_category_screen, // 'Agregar categoría',
+        isAssetsImage: false,
+      ),
+      DrawerList(
+        index: DrawerIndex.Category_edit,
+        labelName:
+            S.of(context).title_update_category_screen, // 'Editar categoría',
+        isAssetsImage: false,
+      ),
+      DrawerList(
+        index: DrawerIndex.Category_show,
+        labelName:
+            S.of(context).title_show_categories_screen, // 'Ver categorías',
+        isAssetsImage: false,
+      ),
+      DrawerList(
         index: DrawerIndex.Products,
         labelName: S.of(context).title_products, // 'Productos',
         icon: const Icon(Icons.addchart_outlined),
@@ -92,28 +115,9 @@ class _HomeDrawerState extends State<HomeDrawer> {
         isAssetsImage: false,
       ),
       DrawerList(
-        index: DrawerIndex.Categories,
-        labelName: S.of(context).title_categories, // 'Categorías',
-        icon: const Icon(Icons.category_outlined),
-        isTap: false,
-      ),
-      DrawerList(
-        index: DrawerIndex.Category_create,
-        labelName:
-            S.of(context).title_create_category_screen, // 'Agregar categoría',
-        isAssetsImage: false,
-      ),
-      DrawerList(
-        index: DrawerIndex.Category_edit,
-        labelName:
-            S.of(context).title_update_category_screen, // 'Editar categoría',
-        isAssetsImage: false,
-      ),
-      DrawerList(
-        index: DrawerIndex.Category_show,
-        labelName:
-            S.of(context).title_show_categories_screen, // 'Ver categorías',
-        isAssetsImage: false,
+        index: DrawerIndex.Orders,
+        labelName: S.of(context).title_show_details_order, // 'Dashboard',
+        icon: const Icon(Icons.document_scanner_outlined),
       ),
     ];
   }
@@ -254,7 +258,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
             children: <Widget>[
               ListTile(
                 title: Text(
-                  'Cerrar sesión',
+                  S.of(context).option_sign_out,
                   style: TextStyle(
                     // fontFamily: AppTheme.fontName,
                     fontFamily:
@@ -434,6 +438,7 @@ enum DrawerIndex {
   Category_create,
   Category_edit,
   Category_show,
+  Orders,
 }
 
 class DrawerList {

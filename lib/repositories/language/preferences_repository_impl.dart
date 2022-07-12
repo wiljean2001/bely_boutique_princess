@@ -13,8 +13,10 @@ class PreferencesRepositoryImpl implements PreferencesRepository {
     final prefs = await SharedPreferences.getInstance();
 
     await prefs.setString(_localeLanguageCodeKey, locale.languageCode);
-    await prefs.setString(_localeScriptCodeKey, locale.scriptCode!);
-    await prefs.setString(_localeCountryCodeKey, locale.countryCode!);
+    if (locale.scriptCode != null || locale.countryCode != null) {
+      await prefs.setString(_localeScriptCodeKey, locale.scriptCode!);
+      await prefs.setString(_localeCountryCodeKey, locale.countryCode!);
+    }
   }
 
   @override

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,14 +25,18 @@ class ListViewShowProducts extends StatelessWidget {
             return const CustomLoadingScreen();
           }
           if (state is ProductsLoaded) {
+            final rnList =
+                List<int>.generate(state.products.length, (index) => index)
+                  ..shuffle();
             return ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: state.products.length,
               reverse: isReverse,
-              
-              itemBuilder: (BuildContext context, int index) {
+              itemBuilder: (BuildContext context, int i) {
                 return BlocBuilder<SizeProductBloc, SizeProductState>(
                   builder: (context, stateSizesProduct) {
+                    int index = rnList[i];
+                    // index = i;
                     if (stateSizesProduct is SizeAllProductsLoaded) {
                       return CustomCardProduct(
                         context: context,

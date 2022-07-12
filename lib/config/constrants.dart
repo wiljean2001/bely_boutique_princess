@@ -32,9 +32,11 @@ const Duration kLoginAnimationDuration = Duration(milliseconds: 1500);
 const MAPBOX_ACCESS_TOKEN =
     'pk.eyJ1IjoiYmVseXByaW5jZXNzIiwiYSI6ImNsNTI1emhjeTBjaXkzaW56d3FneWp4aXcifQ.x7wlSVd91GPVjK--0bQPwA';
 const mapBoxStyle = 'mapbox/dark-v10';
+const mapBoxStyle2 = 'mapbox/satellite-v9';
 const mapBoxColor = Color(0xFF3DC5A7);
 
 const markerSizeExpanded = 55.0;
 const markerSizeShrinked = 38.0;
 
 const String PHONE_BELY = '+51969556293';
+const String FACEBOOK_BELY = 'https://www.facebook.com/belyboutiqueprincess';

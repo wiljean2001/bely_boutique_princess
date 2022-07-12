@@ -2,20 +2,11 @@ import 'package:bely_boutique_princess/blocs/order_detail/order_detail_bloc.dart
 import 'package:bely_boutique_princess/config/constrants.dart';
 import 'package:bely_boutique_princess/models/models.dart';
 import 'package:bely_boutique_princess/utils/open_all.dart';
-import 'package:bely_boutique_princess/widgets/Custom_loading_screen.dart';
-import 'package:bely_boutique_princess/widgets/custom_card_product.dart';
-import 'package:bely_boutique_princess/widgets/custom_card_shopping.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../blocs/blocs.dart';
-import '../../../blocs/order/order_bloc.dart';
-import '../../../config/responsive.dart';
-import '../../../models/order_model.dart';
 import '../../../widgets/list_view_products.dart';
-import '../product_screen.dart';
-
-// falta cambiar los textos a dinamicos
 
 class ShoppingCartView extends StatelessWidget {
   const ShoppingCartView({Key? key}) : super(key: key);
@@ -94,38 +85,47 @@ class ShoppingCartView extends StatelessWidget {
   }
 }
 
+// SPACE BUTTON
 class SalesLoading extends StatelessWidget {
   final List<OrderDetails> orders;
   const SalesLoading({Key? key, required this.orders}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      padding: const EdgeInsets.only(right: kPaddingM),
-      child: OutlinedButton(
-        onPressed: () {
-          // OrderDetails orderDetails =
-          String mensaje = 'Hola, quiero consultar estos productos:\n';
-          for (var order in orders) {
-            for (var productShopping in _LIST_PRODUCT_SHOPPING_CART) {
-              if (order.productId == productShopping.id) {
-                mensaje +=
-                    'ORDEN: ${order.id}\nID Producto: ${productShopping.id}\nProducto: ${productShopping.title}\nCantidad: ${order.quantify}\n';
-              }
-            }
-          }
-          OpenAll.openwhatsapp(whatsapp: PHONE_BELY, message: mensaje);
-        },
-        child: const Text('Finalizar pedido'),
-      ),
+    return BlocBuilder<ProfileBloc, ProfileState>(
+      builder: (context, stateProfile) {
+        if (stateProfile is ProfileLoaded) {
+          return Container(
+            height: 50,
+            padding: const EdgeInsets.only(right: kPaddingM),
+            child: OutlinedButton(
+              onPressed: () {
+                // OrderDetails orderDetails =
+                String mensaje =
+                    'Hola, quiero consultar estos productos:\nSoy: ${stateProfile.user.name} - ${stateProfile.user.id}\n';
+                for (var order in orders) {
+                  for (var productShopping in _LIST_PRODUCT_SHOPPING_CART) {
+                    if (order.productId == productShopping.id) {
+                      mensaje +=
+                          'ORDEN: ${order.id}\nID Producto: ${productShopping.id}\nProducto: ${productShopping.title}\nCantidad: ${order.quantify}\nTalla del producto: ${order.sizeProduct}\n';
+                    }
+                  }
+                }
+                OpenAll.openwhatsapp(whatsapp: PHONE_BELY, message: mensaje);
+              },
+              child: const Text('Finalizar pedido'),
+            ),
+          );
+        }
+        return const SizedBox();
+      },
     );
   }
 }
 
-
 List<Product> _LIST_PRODUCT_SHOPPING_CART = [];
 
+// WIDGET VIEW ORDERS ON SHOPPING CART
 class CustomShowOrders extends StatelessWidget {
   final List<OrderDetails> orders;
   const CustomShowOrders({

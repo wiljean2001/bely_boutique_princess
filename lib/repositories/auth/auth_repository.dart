@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:firebase_auth/firebase_auth.dart';
 import '/repositories/auth/base_auth_repository.dart';
 
 class AuthRepository extends BaseAuthRepository {
@@ -36,6 +37,30 @@ class AuthRepository extends BaseAuthRepository {
 
   @override
   Stream<auth.User?> get user => _firebaseAuth.userChanges();
+
+  @override
+  Future<bool> changePassword(
+      String currentPassword, String newPassword) async {
+    bool success = false;
+
+    //Create an instance of the current user.
+    var user = _firebaseAuth.currentUser!;
+    //Must re-authenticate user before updating the password. Otherwise it may fail or user get signed out.
+
+    final cred = await EmailAuthProvider.credential(
+        email: user.email!, password: currentPassword);
+    await user.reauthenticateWithCredential(cred).then((value) async {
+      await user.updatePassword(newPassword).then((_) {
+        success = true;
+      }).catchError((error) {
+        print(error);
+      });
+    }).catchError((err) {
+      print(err);
+    });
+
+    return success;
+  }
 
   @override
   Future<void> signOut() async {
