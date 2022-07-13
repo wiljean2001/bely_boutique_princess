@@ -40,9 +40,12 @@ class ShoppingCartView extends StatelessWidget {
                           return const Center(
                               child: CircularProgressIndicator());
                         }
+                        // state order datail is loaded
                         if (state is OrderDetailsLoaded) {
+                          // orders is nnot empty then
                           if (state.orders.isNotEmpty) {
                             // when orders is not empty
+                            // TODO: orders
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
@@ -54,6 +57,7 @@ class ShoppingCartView extends StatelessWidget {
                               ],
                             );
                           }
+                          // when orders is empty
                           return const _CustomProductSpace();
                         }
                         return const SizedBox();
@@ -73,6 +77,7 @@ class ShoppingCartView extends StatelessWidget {
                       style: TextStyle(fontSize: 16),
                     ),
                   ),
+                  // Recomend...
                   const ListViewShowProducts(),
                   const ListViewShowProducts(isReverse: true),
                 ],
@@ -85,7 +90,7 @@ class ShoppingCartView extends StatelessWidget {
   }
 }
 
-// SPACE BUTTON
+// TODO: ending sales
 class SalesLoading extends StatelessWidget {
   final List<OrderDetails> orders;
   const SalesLoading({Key? key, required this.orders}) : super(key: key);
@@ -123,9 +128,9 @@ class SalesLoading extends StatelessWidget {
   }
 }
 
-List<Product> _LIST_PRODUCT_SHOPPING_CART = [];
+List<Product> _LIST_PRODUCT_SHOPPING_CART = []; // list products of orders
 
-// WIDGET VIEW ORDERS ON SHOPPING CART
+// TODO: Show all orders
 class CustomShowOrders extends StatelessWidget {
   final List<OrderDetails> orders;
   const CustomShowOrders({
@@ -173,7 +178,7 @@ class CustomShowOrders extends StatelessWidget {
   }
 }
 
-//espacio de trabajo
+// TODO: when shopping cart is empty
 class _CustomProductSpace extends StatelessWidget {
   const _CustomProductSpace({
     Key? key,

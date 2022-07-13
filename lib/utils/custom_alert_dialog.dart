@@ -4,6 +4,7 @@ import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 import '../config/constrants.dart';
 
 class CustomAlertDialog {
+// TODO: Customizable alert dialogs contentButtonAndTitle
   static YYDialog contentButtonAndTitle({
     required BuildContext context,
     required Widget content,
@@ -51,6 +52,7 @@ class CustomAlertDialog {
       ..show();
   }
 
+// TODO: Customizable alert dialogs contentButtonAndTitleWithouthAnimation
   static YYDialog contentButtonAndTitleWithouthAnimation({
     required BuildContext context,
     required Widget content,

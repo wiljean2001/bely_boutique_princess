@@ -27,14 +27,14 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  bool isShowProducts = true;
-  final List<Product> history = [];
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final List<Product> history = []; // history of search products
+  final GlobalKey<ScaffoldState> _scaffoldKey =
+      GlobalKey<ScaffoldState>(); // scaffold key
   final GlobalKey<LiquidPullToRefreshState> _refreshIndicatorKey =
-      GlobalKey<LiquidPullToRefreshState>();
+      GlobalKey<LiquidPullToRefreshState>(); // Animation refresh key
 
   static int refreshNum = 10;
-
+// withoth use
   Future<void> _handleRefresh() {
     final Completer<void> completer = Completer<void>();
     Timer(const Duration(seconds: 3), () {
@@ -62,13 +62,13 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     context.read<SizeProductBloc>().add(LoadAllSizeProducts());
     return Scaffold(
-      // backgroundColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(.2),
       key: _scaffoldKey,
       body: BlocBuilder<ProductBloc, ProductState>(
         builder: (context, stateProduct) {
           if (stateProduct is ProductLoading) {
             return const CustomLoadingScreen();
           }
+          // state products loaded, them show the custom grid and appbar
           if (stateProduct is ProductsLoaded) {
             return BlocBuilder<SizeProductBloc, SizeProductState>(
               builder: (context, stateSizesProduct) {
@@ -79,6 +79,7 @@ class _HomeViewState extends State<HomeView> {
                       CustomSliverAppBar(
                         title: S.of(context).AppTitle,
                         onTapOption: () {
+                          // show screen search product
                           showSearch(
                             context: context,
                             delegate: ProductSearchDelegate(
@@ -90,6 +91,7 @@ class _HomeViewState extends State<HomeView> {
                           );
                         },
                       ),
+                      // show all products on grid's
                       showAllProduct(
                         context,
                         stateProduct,
@@ -108,6 +110,7 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 
+  // TODO: products
   SliverFillRemaining showAllProduct(BuildContext context,
       ProductsLoaded stateProduct, SizeAllProductsLoaded stateSizesProduct) {
     return SliverFillRemaining(

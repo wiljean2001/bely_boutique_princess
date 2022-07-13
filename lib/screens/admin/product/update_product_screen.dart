@@ -1,11 +1,7 @@
-import 'package:bely_boutique_princess/models/models.dart';
-import 'package:bely_boutique_princess/utils/custom_alert_dialog.dart';
-import 'package:bely_boutique_princess/utils/show_alert.dart';
-import 'package:bely_boutique_princess/widgets/custom_image_container.dart';
-import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
@@ -17,10 +13,12 @@ import '../../../config/responsive.dart';
 import '../../../generated/assets.dart';
 import '../../../generated/l10n.dart';
 import '../../../utils/validators.dart';
-import '../../../widgets/custom_appbar.dart';
 import '../../../widgets/custom_multi_dropdown.dart';
 import '../../../widgets/custom_sliver_app_bar.dart';
-import 'show_products_screen.dart';
+import 'package:bely_boutique_princess/models/models.dart';
+import 'package:bely_boutique_princess/utils/custom_alert_dialog.dart';
+import 'package:bely_boutique_princess/utils/show_alert.dart';
+import 'package:bely_boutique_princess/widgets/custom_image_container.dart';
 
 class UpdateProductScreen extends StatefulWidget {
   const UpdateProductScreen({Key? key}) : super(key: key);

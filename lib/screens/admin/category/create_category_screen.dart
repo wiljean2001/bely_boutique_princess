@@ -1,9 +1,5 @@
-import 'package:bely_boutique_princess/blocs/blocs.dart';
-import 'package:bely_boutique_princess/config/responsive.dart';
-import 'package:bely_boutique_princess/models/category_model.dart';
-import 'package:bely_boutique_princess/utils/show_alert.dart';
-import 'package:bely_boutique_princess/widgets/custom_image_container.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
 import 'package:image_picker/image_picker.dart';
@@ -13,6 +9,11 @@ import '../../../config/constrants.dart';
 import '../../../generated/l10n.dart';
 import '../../../models/type_product_model.dart';
 import '../../../widgets/custom_sliver_app_bar.dart';
+import 'package:bely_boutique_princess/blocs/blocs.dart';
+import 'package:bely_boutique_princess/config/responsive.dart';
+import 'package:bely_boutique_princess/models/category_model.dart';
+import 'package:bely_boutique_princess/utils/show_alert.dart';
+import 'package:bely_boutique_princess/widgets/custom_image_container.dart';
 
 class CreateCategoryScreen extends StatelessWidget {
   const CreateCategoryScreen({Key? key}) : super(key: key);

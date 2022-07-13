@@ -1,15 +1,11 @@
-import 'package:bely_boutique_princess/screens/admin/admin_screens.dart';
-import 'package:bely_boutique_princess/utils/custom_alert_dialog.dart';
-import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../blocs/blocs.dart';
-import '../../../blocs/category/category_bloc.dart';
-import '../../../blocs/size_product/size_product_bloc.dart';
 import '../../../blocs/type_product/type_product_bloc.dart';
 import '../../../config/constrants.dart';
 import '../../../config/responsive.dart';
@@ -17,11 +13,10 @@ import '../../../generated/assets.dart';
 import '../../../generated/l10n.dart';
 import '../../../models/category_model.dart';
 import '../../../models/type_product_model.dart';
-import '../../../models/user_model.dart';
 import '../../../utils/show_alert.dart';
-import '../../../widgets/custom_appbar.dart';
 import '../../../widgets/custom_image_container.dart';
 import '../../../widgets/custom_sliver_app_bar.dart';
+import 'package:bely_boutique_princess/utils/custom_alert_dialog.dart';
 
 class UpdateCategoryScreen extends StatefulWidget {
   const UpdateCategoryScreen({Key? key}) : super(key: key);

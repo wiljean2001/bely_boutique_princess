@@ -1,19 +1,14 @@
-import 'package:bely_boutique_princess/utils/custom_alert_dialog.dart';
-import 'package:bely_boutique_princess/utils/show_alert.dart';
-import 'package:bely_boutique_princess/utils/terms_conditions.dart';
+import 'package:flutter/material.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../blocs/blocs.dart';
-import '../../../config/constrants.dart';
 import '../../../config/responsive.dart';
 import '../../../generated/l10n.dart';
 import '../../../utils/validators.dart';
 import '/cubit/signup/signup_cubit.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../blocs/onboarding/onboarding_bloc.dart';
+import 'package:bely_boutique_princess/utils/show_alert.dart';
 import '../../../models/models.dart';
 import '../../../widgets/custom_button_gradiant.dart';
 

@@ -9,17 +9,17 @@ abstract class OpenAll {
   static openUrl({required String urlWeb}) async {
     final Uri url = Uri.parse(urlWeb);
     try {
-      if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+      if (!await launchUrl(url, mode: LaunchMode.platformDefault)) {
         throw 'Could not launch $url';
       }
     } catch (e) {
-      print(e);
+      print(e); // error
     }
   }
 
   static openwhatsapp({
-    required String whatsapp,
-    String message = PHONE_BELY,
+    String whatsapp = PHONE_BELY,
+    required String message,
   }) async {
     // var whatsapp = "+919144040888";
     try {
@@ -41,21 +41,6 @@ abstract class OpenAll {
       }
     } catch (e) {
       print(e);
-    } // if (Platform.isIOS) {
-    //   // for iOS phone only
-    //   if (await canLaunch(whatappURLIos)) {
-    //     await launch(whatappURLIos, forceSafariVC: false);
-    //   } else {
-    //     // message whatsapp no installed
-
-    //   }
-    // } else {
-    //   // android , web
-    //   if (await canLaunch(whatsappURlAndroid)) {
-    //     await launch(whatsappURlAndroid);
-    //   } else {
-    //     // message whatsapp no installed
-    //   }
-    // }
+    }
   }
 }

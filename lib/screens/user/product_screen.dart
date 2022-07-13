@@ -64,18 +64,11 @@ class ProductScreenState extends State<ProductScreen> {
       body: CustomScrollView(
         slivers: <Widget>[
           TransitionAppBar(
-            // avatar:  Image.network(
-            //   product.imageUrls.isNotEmpty
-            //       ? product.imageUrls[0]
-            //       : 'https://api.lorem.space/image/shoes?w=150&h=150',
-            //   fit: BoxFit.fitWidth,
-            //   alignment: Alignment.center,
-            // ),
             avatar: GestureDetector(
               child: PinchZoomImage(
                 image: Image.network(
                   product.imageUrls.isNotEmpty
-                      ? product.imageUrls[0]
+                      ? product.imageUrls[0] // photo user
                       : 'https://api.lorem.space/image/shoes?w=150&h=150',
                   fit: imageBoxFit,
                   alignment: Alignment.center,
@@ -92,7 +85,7 @@ class ProductScreenState extends State<ProductScreen> {
               },
             ),
             withIcon: true,
-            title: product.title,
+            title: product.title, // name product
             extent: Responsive.isMobile(context) ? 300 : 600,
             textTheme: Theme.of(context).textTheme.bodyLarge!.copyWith(
               fontSize: 22,
@@ -183,10 +176,7 @@ class _CustomInfoProductState extends State<CustomInfoProduct> {
         crossAxisAlignment: WrapCrossAlignment.center,
         alignment: WrapAlignment.center,
         runAlignment: WrapAlignment.spaceAround,
-        // mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          // const Divider(height: 10),
-          // Text(product.title, style: const TextStyle(fontSize: 22)),
           Center(
             child: Text(
               widget.product.descript,

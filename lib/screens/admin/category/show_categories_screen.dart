@@ -1,7 +1,6 @@
-import 'package:bely_boutique_princess/config/responsive.dart';
-import 'package:bely_boutique_princess/widgets/custom_loading_screen.dart';
-import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
 
@@ -11,6 +10,7 @@ import '../../../config/constrants.dart';
 import '../../../generated/l10n.dart';
 import '../../../models/type_product_model.dart';
 import '../../../widgets/custom_sliver_app_bar.dart';
+import 'package:bely_boutique_princess/config/responsive.dart';
 
 class ShowCategoriesScreen extends StatelessWidget {
   const ShowCategoriesScreen({Key? key}) : super(key: key);

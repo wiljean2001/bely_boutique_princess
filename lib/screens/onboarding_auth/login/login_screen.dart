@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../config/responsive.dart';
 import '../../../generated/assets.dart';
-import '../../../generated/l10n.dart';
 import '/widgets/curved_widget.dart';
 import 'login_form.dart';
 

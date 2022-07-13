@@ -24,16 +24,6 @@ class OnboardingScreen extends StatelessWidget {
 
   const OnboardingScreen({Key? key}) : super(key: key);
 
-  // Seteo del bottom navigation opcions del sistema operativo
-  // custom system bar
-  // static const SystemUiOverlayStyle overlayStyle = SystemUiOverlayStyle(
-  //   systemNavigationBarColor: Color(0xfff4ced9),
-  //   // systemNavigationBarColor: Colors.transparent,
-  //   systemNavigationBarIconBrightness: Brightness.light,
-  //   // systemNavigationBarDividerColor: Colors.transparent,
-  //   systemNavigationBarDividerColor: Color(0xfff4ced9),
-  // );
-
   @override
   Widget build(BuildContext context) {
     // SystemChrome.setSystemUIOverlayStyle(overlayStyle);
@@ -45,14 +35,6 @@ class OnboardingScreen extends StatelessWidget {
 
         return Scaffold(
           extendBodyBehindAppBar: true,
-          // appBar: AppBar(
-          //   automaticallyImplyLeading: false,
-          //   elevation: 0,
-          //   backgroundColor: Colors.transparent,
-          //   // actions: [
-          //   //   TextButton(onPressed: () {}, child: Text("Saltar")),
-          //   // ],
-          // ),
           body: TabBarView(
             physics: const NeverScrollableScrollPhysics(), // never scroll
             // viewportFraction: 5,

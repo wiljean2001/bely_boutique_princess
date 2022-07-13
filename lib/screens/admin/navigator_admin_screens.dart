@@ -23,7 +23,7 @@ class MenuAdminScreen extends StatefulWidget {
         builder: (context) {
           // print the status user with the authbloc
           print(BlocProvider.of<AuthBloc>(context).state.status);
-
+          // validation user status
           return BlocProvider.of<AuthBloc>(context).state.status ==
                   AuthStatus.unauthenticated
               ? const OnboardingScreen()
@@ -42,8 +42,8 @@ class _HomeScreenState extends State<MenuAdminScreen> {
 
   @override
   initState() {
-    drawerIndex = DrawerIndex.HOME_USER;
-    screenView = const HomeScreen();
+    drawerIndex = DrawerIndex.HOME_USER; // index of first screen
+    screenView = const HomeScreen(); // show as first screen
     //user: user
     super.initState();
   }
@@ -80,15 +80,23 @@ class _HomeScreenState extends State<MenuAdminScreen> {
                         onDrawerCall: (DrawerIndex drawerIndexdata) {
                           changeIndex(drawerIndexdata);
 
-                          /// devolución de llamada desde el cajón para reemplazar
-                          /// la pantalla según las necesidades del usuario al pasar
-                          /// DrawerIndex (índice Enum)
+                          // devolución de llamada desde el cajón para reemplazar
+                          // la pantalla según las necesidades del usuario al pasar
+                          // DrawerIndex (índice Enum)
+
+                          // callback from the drawer to replace the display
+                          // based on the user's needs when passing
+                          // DrawerIndex(Enum index).
                         },
                         screenView: screenView,
 
-                        /// reemplazamos la vista de pantalla según sea necesario
-                        /// en las pantallas de inicio de navegación como MyHomePage,
-                        /// HelpScreen, FeedbackScreen, etc.
+                        // reemplazamos la vista de pantalla según sea necesario
+                        // en las pantallas de inicio de navegación como MyHomePage,
+                        // HelpScreen, FeedbackScreen, etc.
+
+                        // we replace the screen view as needed
+                        // on navigation home screens like MyHomePage,
+                        // HelpScreen, FeedbackScreen, etc.
                       );
                       // });
                     } else {
@@ -107,67 +115,67 @@ class _HomeScreenState extends State<MenuAdminScreen> {
     );
   }
 
-//
+  // method to change screen and index
   void changeIndex(DrawerIndex drawerIndexdata) {
     if (drawerIndex != drawerIndexdata) {
       drawerIndex = drawerIndexdata;
       switch (drawerIndex) {
-        case DrawerIndex.HOME_USER:
+        case DrawerIndex.HOME_USER: // home screen
           setState(() {
             screenView = const HomeScreen();
           });
           break;
-        case DrawerIndex.DASHBOARD:
+        case DrawerIndex.DASHBOARD: // dashboard - no implemented
           setState(() {
             // screenView = DashboardScreen();
           });
           break;
-        case DrawerIndex.ROLE:
+        case DrawerIndex.ROLE: // role screen
           setState(() {
             screenView = const RoleScreen();
           });
           break;
-        case DrawerIndex.TYPEPRODUCT:
+        case DrawerIndex.TYPEPRODUCT: // typroduct screen
           setState(() {
             screenView = const TypeProductScreen();
           });
           break;
-        case DrawerIndex.SIZES:
+        case DrawerIndex.SIZES: // Sizes product screen
           setState(() {
             screenView = const SizeScreen();
           });
           break;
-        case DrawerIndex.Product_create:
+        case DrawerIndex.Product_create: // Create product screen
           setState(() {
             screenView = CreateProductScreen();
           });
           break;
-        case DrawerIndex.Product_edit:
+        case DrawerIndex.Product_edit: // Update product screen
           setState(() {
             screenView = const UpdateProductScreen();
           });
           break;
-        case DrawerIndex.Product_show:
+        case DrawerIndex.Product_show: // Show all product screen
           setState(() {
             screenView = const ShowProductsScreen();
           });
           break;
-        case DrawerIndex.Category_create:
+        case DrawerIndex.Category_create: // Create categories screen
           setState(() {
             screenView = const CreateCategoryScreen();
           });
           break;
-        case DrawerIndex.Category_edit:
+        case DrawerIndex.Category_edit: // Update categories screen
           setState(() {
             screenView = const UpdateCategoryScreen();
           });
           break;
-        case DrawerIndex.Category_show:
+        case DrawerIndex.Category_show: // Show all categories screen
           setState(() {
             screenView = const ShowCategoriesScreen();
           });
           break;
-        case DrawerIndex.Orders:
+        case DrawerIndex.Orders: // show orders screen, search by id user
           setState(() {
             screenView = const ScreenOrderDetails();
           });

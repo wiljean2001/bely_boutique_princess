@@ -1,14 +1,11 @@
-import 'dart:math';
+import 'package:flutter/material.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:bely_boutique_princess/models/user_model.dart';
 import 'package:bely_boutique_princess/utils/custom_alert_dialog.dart';
 import 'package:bely_boutique_princess/utils/show_alert.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_custom_dialog/flutter_custom_dialog.dart';
-
 import '../../../../blocs/role/role_bloc.dart';
-import '../../../../config/constrants.dart';
 
 class UserSearchDelegate extends SearchDelegate {
   List<User> resultUsers = <User>[];

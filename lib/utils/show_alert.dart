@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class ShowAlert {
+  // TODO: Alert with toast native
   static Future<void> showMessage({
     required String msg,
     Color backGroundColor = Colors.white,
@@ -19,6 +20,7 @@ class ShowAlert {
     );
   }
 
+  // TODO: Alert success with scaffold messenger
   static Future<void> showSuccessSnackBar(BuildContext context,
       {String message = '¡Operación exitosa!.'}) async {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -29,6 +31,7 @@ class ShowAlert {
     );
   }
 
+  // TODO: Alert error with scaffold messenger
   static Future<void> showErrorSnackBar(BuildContext context,
       {String message = 'Operación fallida: Ocurrió un error.'}) async {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -39,6 +42,7 @@ class ShowAlert {
     );
   }
 
+  // TODO: Alert with scaffold messenger
   static Future<void> showAlertSnackBar(BuildContext context,
       {String message = 'Operación en proceso...'}) async {
     ScaffoldMessenger.of(context).showSnackBar(

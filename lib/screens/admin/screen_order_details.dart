@@ -1,14 +1,13 @@
-import 'package:bely_boutique_princess/blocs/search_order_detail/search_order_detail_bloc.dart';
-import 'package:bely_boutique_princess/config/constrants.dart';
-import 'package:bely_boutique_princess/utils/show_alert.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../blocs/blocs.dart';
-import '../../blocs/order_detail/order_detail_bloc.dart';
 import '../../generated/l10n.dart';
 import '../../models/models.dart';
 import '../../widgets/custom_sliver_app_bar.dart';
+import 'package:bely_boutique_princess/blocs/search_order_detail/search_order_detail_bloc.dart';
+import 'package:bely_boutique_princess/config/constrants.dart';
+import 'package:bely_boutique_princess/utils/show_alert.dart';
 import 'package:anim_search_bar/anim_search_bar.dart';
 
 class ScreenOrderDetails extends StatefulWidget {

@@ -1,10 +1,5 @@
-import 'package:bely_boutique_princess/config/responsive.dart';
 import 'package:flutter/material.dart';
 
-import 'package:bely_boutique_princess/models/models.dart';
-import 'package:bely_boutique_princess/screens/onboarding_auth/onboarding_screen.dart';
-import 'package:bely_boutique_princess/utils/show_alert.dart';
-import 'package:bely_boutique_princess/utils/validators.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dropdown/flutter_dropdown.dart';
 import 'package:image_picker/image_picker.dart';
@@ -13,11 +8,16 @@ import 'package:multi_select_flutter/util/multi_select_item.dart';
 
 import '../../../blocs/blocs.dart';
 import '../../../blocs/type_product/type_product_bloc.dart';
+import 'package:bely_boutique_princess/config/responsive.dart';
 import '../../../config/constrants.dart';
 import '../../../widgets/custom_carousel_sliders.dart';
 import '../../../widgets/custom_multi_dropdown.dart';
 import '../../../generated/l10n.dart';
 import '../../../widgets/custom_sliver_app_bar.dart';
+import 'package:bely_boutique_princess/models/models.dart';
+import 'package:bely_boutique_princess/screens/onboarding_auth/onboarding_screen.dart';
+import 'package:bely_boutique_princess/utils/show_alert.dart';
+import 'package:bely_boutique_princess/utils/validators.dart';
 
 class CreateProductScreen extends StatefulWidget {
   static const String routeName = '/admin/nuevo/producto'; //route
@@ -46,12 +46,8 @@ class CreateProductScreen extends StatefulWidget {
 class _CreateProductScreenState extends State<CreateProductScreen> {
   @override
   void initState() {
-    context.read<SizeProductBloc>().add(
-          LoadSizeProducts(),
-        );
-    context.read<CategoryBloc>().add(
-          LoadCategories(),
-        );
+    context.read<SizeProductBloc>().add(LoadSizeProducts());
+    context.read<CategoryBloc>().add(LoadCategories());
     super.initState();
   }
 

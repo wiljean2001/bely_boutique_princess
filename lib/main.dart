@@ -1,4 +1,3 @@
-import 'package:bely_boutique_princess/blocs/order/order_bloc.dart';
 import 'package:bely_boutique_princess/blocs/order_detail/order_detail_bloc.dart';
 import 'package:bely_boutique_princess/blocs/search_order_detail/search_order_detail_bloc.dart';
 import 'package:bely_boutique_princess/blocs/type_product/type_product_bloc.dart';
@@ -25,49 +24,49 @@ import 'package:bely_boutique_princess/config/routers.dart';
 import 'package:bely_boutique_princess/sinple_bloc_observer.dart';
 import 'package:bely_boutique_princess/screens/screens.dart';
 
-/// Metodo main de la aplicacion flutter
+/// application's main method
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized(); // Initializacion
 
   await Firebase.initializeApp(); //options: firebaseConfig
-
+  // Instance repository
   final preferencesRepository = PreferencesRepositoryImpl();
 
   final preferencesBloc = LanguageBloc(
     preferencesRepository: preferencesRepository,
     initialLocale: await preferencesRepository.locale,
   );
-  // simple bloc observer
+
   BlocOverrides.runZoned(
     () async => {
       runApp(
-        // notifier provider, change the app theme
+        // notifier provider, change the theme from app
         ChangeNotifierProvider(
-          create: (_) => ThemeChanger(themeDefault()),
-          // app only DeviceOrientation portraitUp and portraitDown
+          create: (_) => ThemeChanger(themeDefault()), // theme notif.
+          // app orientation only portrait
           child: await SystemChrome.setPreferredOrientations(
             <DeviceOrientation>[
               DeviceOrientation.portraitUp,
               DeviceOrientation.portraitDown,
             ],
-          ).then((_) => BlocProvider(
-                // bloc languaje
-                create: (context) => preferencesBloc,
-                child: const MyApp(),
-              )),
+          ).then(
+            (_) => BlocProvider(
+              // bloc languaje
+              create: (context) => preferencesBloc,
+              child: const MyApp(),
+            ),
+          ),
         ),
       ),
     },
-    blocObserver: SimpleBlocObserver(),
+    blocObserver: SimpleBlocObserver(), // simple bloc observer for all blocs
   );
 }
 
 class MyApp extends StatelessWidget {
-  // Constructor
-
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
+  // This widget is the root of the application.
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -80,10 +79,10 @@ class MyApp extends StatelessWidget {
         systemNavigationBarDividerColor: Colors.transparent,
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
-    );
+    ); // change the system navigation bar style and notification bar style
 
-    final theme = Provider.of<ThemeChanger>(context);
-    final ThemeData getThema = theme.getTheme<ThemeData>();
+    final theme = Provider.of<ThemeChanger>(context); // get theme reference
+    final ThemeData getThema = theme.getTheme<ThemeData>(); // get theme
     /**
      * MultiRepositoryProvider
      */
@@ -103,7 +102,7 @@ class MyApp extends StatelessWidget {
        * MultiBLocProvider
        */
       child: MultiBlocProvider(
-        //
+        // All blocs to be inserted in the application context
         providers: [
           BlocProvider(
             create: (context) => AuthBloc(
@@ -198,12 +197,12 @@ class MyApp extends StatelessWidget {
         ],
         child: BlocBuilder<LanguageBloc, LanguageState>(
           builder: (context, state) {
+            // if language state is loaded then
             if (state is PreferencesState) {
-              //
               return MaterialApp(
                 debugShowCheckedModeBanner: false,
                 title: 'Bely boutique princess',
-                theme: getThema,
+                theme: getThema, // theme
                 localizationsDelegates: const [
                   // translate
                   LocaleNamesLocalizationsDelegate(),
@@ -211,11 +210,11 @@ class MyApp extends StatelessWidget {
                   GlobalWidgetsLocalizations.delegate,
                   GlobalCupertinoLocalizations.delegate,
                   S.delegate,
-                ],
-                supportedLocales: S.delegate.supportedLocales,
+                ], // definition delegates
+                supportedLocales: S.delegate.supportedLocales, // list locales
                 locale: state.locale,
-                onGenerateRoute: Routers.onGenerateRoute,
-                initialRoute: SplashScreen.routeName,
+                onGenerateRoute: Routers.onGenerateRoute, // list route
+                initialRoute: SplashScreen.routeName, // initial route
               );
             }
             return const SizedBox();

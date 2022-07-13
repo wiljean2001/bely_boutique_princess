@@ -19,8 +19,8 @@ class Validators {
     * Número mínimo 1.
     * Mínimo 8 caracteres.
     * 30 caracteres como máximo (No).
-    * */
-    r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*_?])[A-Za-z\d#$@!%&*_?]{8,}$',
+    */
+    r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!.%&*_?])[A-Za-z\d#$-@.!%&*_?]{8,}$',
     // r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$',
   );
 
@@ -31,16 +31,6 @@ class Validators {
   static bool isValidPassword(String password) {
     return _passwordRegExp.hasMatch(password);
   }
-
-
-  // static isNameValidator(String name) {
-  //   if (name.isEmpty) {
-  //     return 'Nombre invalido';
-  //   } else if (name.length < 3) {
-  //     return 'Nombre invalido';
-  //   }
-  //   return null;
-  // }
 
   static isValidateOnlyTextMinMax({
     required String text,

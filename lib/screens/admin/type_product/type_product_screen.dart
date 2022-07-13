@@ -1,13 +1,14 @@
-import 'package:bely_boutique_princess/models/models.dart';
-import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:data_table_2/data_table_2.dart';
 
 import '../../../blocs/type_product/type_product_bloc.dart';
 import '../../../config/constrants.dart';
 import '../../../generated/l10n.dart';
 import '../../../utils/custom_alert_dialog.dart';
 import '../../../utils/show_alert.dart';
+import 'package:bely_boutique_princess/models/models.dart';
 import '../../../utils/validators.dart';
 import '../../../widgets/custom_sliver_app_bar.dart';
 

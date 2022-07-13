@@ -38,7 +38,10 @@ class _UserProfilePageState extends State<UserProfileView> {
         if (state is ProfileLoaded) {
           final edad =
               DateTime.now().year - state.user.dateOfBirth!.toDate().year;
-          return getProfileLoaded(edad: edad, usuario: state.user);
+          return getProfileLoaded(
+            edad: edad,
+            usuario: state.user,
+          ); // widget show profile
         }
         return Center(child: Text(S.of(context).error_desc));
       },
@@ -61,16 +64,16 @@ class getProfileLoaded extends StatefulWidget {
 }
 
 class _getProfileLoadedState extends State<getProfileLoaded> {
-  BoxFit imageBoxFit = BoxFit.fitHeight;
+  BoxFit imageBoxFit = BoxFit.fitHeight; // image box fit for photo user
 
   @override
   Widget build(BuildContext context) {
     final ThemeChanger theme = Provider.of<ThemeChanger>(context);
-    ThemeData themeData = theme.getTheme();
+    ThemeData themeData = theme.getTheme(); // get theme
     return Scaffold(
-      // appBar: CustomAppBar(title: S.of(context).AppTitle, hasActions: false),
       body: CustomScrollView(
         slivers: [
+          // custom app bar
           TransitionAppBar(
             textTheme: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontSize: 20,
@@ -95,6 +98,7 @@ class _getProfileLoadedState extends State<getProfileLoaded> {
             title: '@${widget.usuario.name}',
             extent: Responsive.isMobile(context) ? 280 : 500,
           ),
+          // show info (Year old);
           SliverToBoxAdapter(
             child: Container(
               constraints:
@@ -137,6 +141,7 @@ class _getProfileLoadedState extends State<getProfileLoaded> {
                       ),
                     ),
                   ),
+                  // contents (buttons - options)
                   Body(themeData: themeData),
                 ],
               ),
@@ -162,7 +167,9 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
+    // List options
     List<ButtonProfile> listButtons = [
+      // option visit
       ButtonProfile(
         title: S.of(context).option_visit,
         onPressed: () async => await showDialog(
@@ -177,16 +184,19 @@ class _BodyState extends State<Body> {
           ),
         ),
       ),
+      // option settings
       ButtonProfile(
         title: S.of(context).title_settings_screen,
         onPressed: () => Navigator.pushNamed(context, SettingScreen.routeName),
       ),
+      // option map
       ButtonProfile(
         title: S.of(context).title_map_screen,
         onPressed: () {
           Navigator.pushNamed(context, MapScreen.routeName);
         },
       ),
+      // option sign out
       ButtonProfile(
         title: S.of(context).option_sign_out,
         onPressed: () {
@@ -199,17 +209,18 @@ class _BodyState extends State<Body> {
         },
       ),
     ];
+    // show - insert all options on screen
     return Column(
       mainAxisSize: MainAxisSize.min,
-      children: listButtons
-          .map(
-            (e) => CustomButtonProfile(
-              title: e.title,
-              onPressed: e.onPressed,
-              themeData: widget.themeData,
-            ),
-          )
-          .toList(),
+      children: listButtons.map(
+        (e) {
+          return CustomButtonProfile(
+            title: e.title,
+            onPressed: e.onPressed,
+            themeData: widget.themeData,
+          );
+        },
+      ).toList(),
     );
   }
 }
@@ -220,7 +231,7 @@ class ButtonProfile {
 
   ButtonProfile({required this.title, required this.onPressed});
 }
-
+// widget custom button
 class CustomButtonProfile extends StatelessWidget {
   final String title;
   final Function onPressed;

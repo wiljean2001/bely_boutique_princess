@@ -4,7 +4,6 @@ import 'package:bely_boutique_princess/utils/terms_conditions.dart';
 import 'package:flutter/material.dart';
 
 import '/screens/setting_screen.dart';
-import '../models/models.dart';
 import '../screens/admin/admin_screens.dart';
 import '../screens/user/menu/pruebaAnimate.dart';
 import '/screens/screens.dart';

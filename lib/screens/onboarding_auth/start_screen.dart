@@ -1,8 +1,6 @@
-// screen Start
-
-import 'package:bely_boutique_princess/config/responsive.dart';
 import 'package:flutter/material.dart';
 
+import 'package:bely_boutique_princess/config/responsive.dart';
 import '../../config/constrants.dart';
 import '../../generated/assets.dart';
 import '../../generated/l10n.dart';

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
-// import '../models/models.dart';
-//
 class CustomDropDown<T> extends StatelessWidget {
   final List<MultiSelectItem<T>> listItems;
   final List<T>? listInitialValue;

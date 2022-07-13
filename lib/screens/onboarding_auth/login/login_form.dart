@@ -1,15 +1,14 @@
-import 'package:bely_boutique_princess/utils/show_alert.dart';
-import 'package:bely_boutique_princess/utils/validators.dart';
+import 'package:flutter/material.dart';
 
-import '../../../blocs/auth/auth_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../blocs/blocs.dart';
 import '../../../config/responsive.dart';
 import '../../../generated/l10n.dart';
 import '/cubit/cubits.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../widgets/custom_button_gradiant.dart';
+import 'package:bely_boutique_princess/utils/show_alert.dart';
+import 'package:bely_boutique_princess/utils/validators.dart';
 
 class LoginForm extends StatefulWidget {
   final TabController tabController;

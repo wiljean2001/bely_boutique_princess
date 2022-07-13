@@ -1,5 +1,5 @@
-import 'package:bely_boutique_princess/generated/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:bely_boutique_princess/generated/l10n.dart';
 
 class TermsConditions extends StatefulWidget {
   static const String routeName = '/terms_conditions';
