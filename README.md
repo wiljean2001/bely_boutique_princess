@@ -36,10 +36,8 @@ Sistema móvil de venta de disfraces, prendas de vestir y textiles mediante una 
 
 ## Capturas de pantalla
 
-![Screenshot 1](assets/images/Bely_1.jpeg)  
-![Screenshot 2](assets/images/Bely_2.jpeg)  
-![Screenshot 3](assets/images/Bely_3.jpeg)  
-![Screenshot 4](assets/images/Bely_4.jpeg)  
+![Screenshot 1](assets/images/Bely_1.jpeg)  ![Screenshot 3](assets/images/Bely_3.jpeg)  
+![Screenshot 2](assets/images/Bely_2.jpeg)  ![Screenshot 4](assets/images/Bely_4.jpeg)  
 
 ## Instalación y uso
 
